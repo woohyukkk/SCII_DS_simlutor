@@ -23,8 +23,10 @@ public class MainActivity extends AppCompatActivity {// ss
     String atkSp_g_Value, atkSp_a_Value;
     String dps_g_Value, dps_a_Value;
     String bouns_Value;
+    String hppc_Value,dpspc_Value,bdps_Value;
 
     int current=0; //Terran=1x Protoss=2x Zerg=3x
+
 
     int[] T_costs={0,45,90,75,235,90,110,190,190,250,310,125,175,375,525,200};
     int[] T_armor={0,0,1,0,0,0,1,0,0,1,1,0,1,2,3,1};
@@ -57,6 +59,7 @@ public class MainActivity extends AppCompatActivity {// ss
     TextView dps_g,dps_a;
     TextView bouns;
     TextView shieldHp;
+    TextView hppc,dpspc_g,dpspc_a,bdps;
 
 
 
@@ -128,6 +131,10 @@ public class MainActivity extends AppCompatActivity {// ss
         dps_a=(TextView) findViewById(R.id.textView_dps_a);
         bouns=(TextView) findViewById(R.id.textView_bouns);
         shieldHp=(TextView) findViewById(R.id.textView_hpBouns);
+        hppc=(TextView) findViewById(R.id.textView_hppc);
+        dpspc_g=(TextView) findViewById(R.id.textView_dpspc_g);
+        dpspc_a=(TextView) findViewById(R.id.textView_dpspc_a);
+        bdps=(TextView) findViewById(R.id.textView_bdps);
 
         //upgrades
         upgrade1=(ImageButton)findViewById(R.id.imageButton_upgrade1);
@@ -136,6 +143,7 @@ public class MainActivity extends AppCompatActivity {// ss
                 if(current==1){//marine-shield
 
                     hp.setText("55");
+                    hppc.setText(Double.toString(55.0/45));
                 }
                 else if(current==5){
                     if(hellbatOFF==false)
@@ -157,7 +165,7 @@ public class MainActivity extends AppCompatActivity {// ss
                 if(current==1 || current == 2){//marine/maruder -stimpack  150% speed
                     double tempSp_g= T_atkSp_g[current];
                     double tempSp_a= T_atkSp_a[current];
-                    double tempDps_g,tempDps_a;
+                    double tempDps_g,tempDps_a,tempbdps_g=0.0,tempbdps_a=0.0;
                     tempSp_g=tempSp_g*2/3;
                     tempSp_a=tempSp_a*2/3;
                     tempDps_g=T_dmg_g[current]*T_atks_g[current]/tempSp_g;
@@ -165,8 +173,23 @@ public class MainActivity extends AppCompatActivity {// ss
 
                     atkSp_g.setText(Double.toString(  (Math.round(tempSp_g*100))*0.01));
                     atkSp_a.setText(Double.toString(  (Math.round(tempSp_a*100))*0.01));
-                     dps_g.setText(Double.toString(  (Math.round(tempDps_g*100))*0.01));
+                    dps_g.setText(Double.toString(  (Math.round(tempDps_g*100))*0.01));
                     dps_a.setText(Double.toString(  (Math.round(tempDps_a*100))*0.01));
+
+                    dpspc_g.setText(Double.toString(Math.round(tempDps_g/T_costs[current]*100)*0.01      ));
+                    dpspc_a.setText(Double.toString(Math.round(tempDps_a/T_costs[current]*100)*0.01      ));
+
+
+                    if(T_bouns_type_g[current]>0)
+                        tempbdps_g= Math.round((( (T_dmg_g[current]+ T_bouns_dmg_g[current]  )   *T_atks_g[current] )/ tempSp_g)*100) *0.01 ;
+                    else if (T_bouns_type_a[current]>0)
+                        tempbdps_a= Math.round((( (T_dmg_a[current]+ T_bouns_dmg_a[current]  )   *T_atks_a[current] )/ tempSp_a)*100) *0.01 ;
+
+                    if(tempbdps_g>tempbdps_a)
+                        bdps.setText(Double.toString(tempbdps_g));
+                    else
+                        bdps.setText(Double.toString(tempbdps_a));
+
                     move.setText("4.73");
 
                 }else if(current==9 && turret==true){
@@ -204,6 +227,11 @@ public class MainActivity extends AppCompatActivity {// ss
                     dps_g.setText("4.47");
                     dps_a.setText("0");
                     bouns.setText("Gnd-Lig+6");
+                    //hppc.setText();
+                    //dpspc_g.setText();
+                   //dpspc_a.setText();
+                    //bdps.setText();
+
                 }else if(current == 7){// viking_assault
                     hp.setText("125");
 
@@ -376,6 +404,27 @@ public class MainActivity extends AppCompatActivity {// ss
 
 
 
+                hppc.setText(Double.toString(  Math.round(T_hp[i]*1.0/T_costs[i]*100) *0.01 ));
+                hppc.setText(Double.toString(  Math.round(T_hp[i]*1.0/T_costs[i]*100) *0.01 ));
+
+                Double dps1,dps2;
+                dps1=  Math.round(((T_dmg_g[i]*T_atks_g[i] )/ T_atkSp_g[i])/T_costs[i]*100) *0.01 ;
+                dps2=  Math.round(((T_dmg_g[i]*T_atks_a[i] )/ T_atkSp_a[i])/T_costs[i]*100) *0.01 ;
+                dpspc_g.setText(Double.toString(dps1));
+                dpspc_a.setText(Double.toString(dps2));
+
+                dps1=0.0;
+                dps2=0.0;
+                if(T_bouns_type_g[i]>0)
+                    dps1=  Math.round((( (T_dmg_g[i]+T_bouns_dmg_g[i])*T_atks_g[i] )/ T_atkSp_g[i])*100) *0.01 ;
+                else if(T_bouns_type_a[i]>0)
+                    dps2=  Math.round((( (T_dmg_a[i]+T_bouns_dmg_a[i])*T_atks_a[i] )/ T_atkSp_a[i])*100) *0.01 ;
+
+                if(dps1>dps2)
+                    bdps.setText(Double.toString(dps1));
+                else
+                    bdps.setText(Double.toString(dps2));
+
                 //--------------------------------------------upgrade control--------------------------------
                 upgrade1.setImageResource(R.drawable.marrine_shield);
                 upgrade2.setImageResource(R.drawable.marine_stimpack);
@@ -440,6 +489,26 @@ public class MainActivity extends AppCompatActivity {// ss
                 bouns.setText( bouns_Value);
 
 
+                hppc.setText(Double.toString(  Math.round(T_hp[i]*1.0/T_costs[i]*100)*0.01 ));
+
+                Double dps1,dps2;
+                dps1=  Math.round(((T_dmg_g[i]*T_atks_g[i] )/ T_atkSp_g[i])/T_costs[i]*100) *0.01 ;
+                dps2=  Math.round(((T_dmg_g[i]*T_atks_a[i] )/ T_atkSp_a[i])/T_costs[i]*100) *0.01 ;
+                dpspc_g.setText(Double.toString(dps1));
+                dpspc_a.setText(Double.toString(dps2));
+
+                dps1=0.0;
+                dps2=0.0;
+                if(T_bouns_type_g[i]>0)
+                    dps1=  Math.round((( (T_dmg_g[i]+T_bouns_dmg_g[i])*T_atks_g[i] )/ T_atkSp_g[i])*100) *0.01 ;
+                else if(T_bouns_type_a[i]>0)
+                    dps2=  Math.round((( (T_dmg_a[i]+T_bouns_dmg_a[i])*T_atks_a[i] )/ T_atkSp_a[i])*100) *0.01 ;
+
+                if(dps1>dps2)
+                    bdps.setText(Double.toString(dps1));
+                else
+                    bdps.setText(Double.toString(dps2));
+
                 //--------------------------------------------upgrade control--------------------------------
 
                 upgrade2.setImageResource(R.drawable.marine_stimpack);
@@ -496,6 +565,25 @@ public class MainActivity extends AppCompatActivity {// ss
                 else
                     bouns_Value="N/A";
                 bouns.setText( bouns_Value);
+                hppc.setText(Double.toString(  Math.round(T_hp[i]*1.0/T_costs[i]*100) *0.01));
+
+                Double dps1,dps2;
+                dps1=  Math.round(((T_dmg_g[i]*T_atks_g[i] )/ T_atkSp_g[i])/T_costs[i]*100) *0.01 ;
+                dps2=  Math.round(((T_dmg_g[i]*T_atks_a[i] )/ T_atkSp_a[i])/T_costs[i]*100) *0.01 ;
+                dpspc_g.setText(Double.toString(dps1));
+                dpspc_a.setText(Double.toString(dps2));
+
+                dps1=0.0;
+                dps2=0.0;
+                if(T_bouns_type_g[i]>0)
+                    dps1=  Math.round((( (T_dmg_g[i]+T_bouns_dmg_g[i])*T_atks_g[i] )/ T_atkSp_g[i])*100) *0.01 ;
+                else if(T_bouns_type_a[i]>0)
+                    dps2=  Math.round((( (T_dmg_a[i]+T_bouns_dmg_a[i])*T_atks_a[i] )/ T_atkSp_a[i])*100) *0.01 ;
+
+                if(dps1>dps2)
+                    bdps.setText(Double.toString(dps1));
+                else
+                    bdps.setText(Double.toString(dps2));
 
 //--------------------------------------------upgrade control--------------------------------
 
@@ -560,6 +648,26 @@ public class MainActivity extends AppCompatActivity {// ss
                 else
                     bouns_Value="N/A";
                 bouns.setText( bouns_Value);
+                hppc.setText(Double.toString(  Math.round(T_hp[i]*1.0/T_costs[i]*100) *0.01));
+
+                Double dps1,dps2;
+                dps1=  Math.round(((T_dmg_g[i]*T_atks_g[i] )/ T_atkSp_g[i])/T_costs[i]*100) *0.01 ;
+                dps2=  Math.round(((T_dmg_g[i]*T_atks_a[i] )/ T_atkSp_a[i])/T_costs[i]*100) *0.01 ;
+                dpspc_g.setText(Double.toString(dps1));
+                dpspc_a.setText(Double.toString(dps2));
+
+                dps1=0.0;
+                dps2=0.0;
+                if(T_bouns_type_g[i]>0)
+                    dps1=  Math.round((( (T_dmg_g[i]+T_bouns_dmg_g[i])*T_atks_g[i] )/ T_atkSp_g[i])*100) *0.01 ;
+                else if(T_bouns_type_a[i]>0)
+                    dps2=  Math.round((( (T_dmg_a[i]+T_bouns_dmg_a[i])*T_atks_a[i] )/ T_atkSp_a[i])*100) *0.01 ;
+
+                if(dps1>dps2)
+                    bdps.setText(Double.toString(dps1));
+                else
+                    bdps.setText(Double.toString(dps2));
+
 //--------------------------------------------upgrade control--------------------------------
 
                 upgrade1.setImageResource(R.drawable.ghost_cloak);
@@ -621,6 +729,26 @@ public class MainActivity extends AppCompatActivity {// ss
                 else
                     bouns_Value="N/A";
                 bouns.setText( bouns_Value);
+                hppc.setText(Double.toString(  Math.round(T_hp[i]*1.0/T_costs[i]*100) *0.01 ));
+
+                Double dps1,dps2;
+                dps1=  Math.round(((T_dmg_g[i]*T_atks_g[i] )/ T_atkSp_g[i])/T_costs[i]*100) *0.01 ;
+                dps2=  Math.round(((T_dmg_g[i]*T_atks_a[i] )/ T_atkSp_a[i])/T_costs[i]*100) *0.01 ;
+                dpspc_g.setText(Double.toString(dps1));
+                dpspc_a.setText(Double.toString(dps2));
+
+                dps1=0.0;
+                dps2=0.0;
+                if(T_bouns_type_g[i]>0)
+                    dps1=  Math.round((( (T_dmg_g[i]+T_bouns_dmg_g[i])*T_atks_g[i] )/ T_atkSp_g[i])*100) *0.01 ;
+                else if(T_bouns_type_a[i]>0)
+                    dps2=  Math.round((( (T_dmg_a[i]+T_bouns_dmg_a[i])*T_atks_a[i] )/ T_atkSp_a[i])*100) *0.01 ;
+
+                if(dps1>dps2)
+                    bdps.setText(Double.toString(dps1));
+                else
+                    bdps.setText(Double.toString(dps2));
+
 //--------------------------------------------upgrade control--------------------------------
                 hellbatOFF=false;
                 upgrade1.setImageResource(R.drawable.hellbat_bluef);
@@ -682,6 +810,26 @@ public class MainActivity extends AppCompatActivity {// ss
                 else
                     bouns_Value="N/A";
                 bouns.setText( bouns_Value);
+                hppc.setText(Double.toString(  Math.round(T_hp[i]*1.0/T_costs[i]*100) *0.01 ));
+
+                Double dps1,dps2;
+                dps1=  Math.round(((T_dmg_g[i]*T_atks_g[i] )/ T_atkSp_g[i])/T_costs[i]*100) *0.01 ;
+                dps2=  Math.round(((T_dmg_g[i]*T_atks_a[i] )/ T_atkSp_a[i])/T_costs[i]*100) *0.01 ;
+                dpspc_g.setText(Double.toString(dps1));
+                dpspc_a.setText(Double.toString(dps2));
+
+                dps1=0.0;
+                dps2=0.0;
+                if(T_bouns_type_g[i]>0)
+                    dps1=  Math.round((( (T_dmg_g[i]+T_bouns_dmg_g[i])*T_atks_g[i] )/ T_atkSp_g[i])*100) *0.01 ;
+                else if(T_bouns_type_a[i]>0)
+                    dps2=  Math.round((( (T_dmg_a[i]+T_bouns_dmg_a[i])*T_atks_a[i] )/ T_atkSp_a[i])*100) *0.01 ;
+
+                if(dps1>dps2)
+                    bdps.setText(Double.toString(dps1));
+                else
+                    bdps.setText(Double.toString(dps2));
+
                 //--------------------------------------------upgrade control--------------------------------
                 //upgrade1.setImageResource(R.drawable.hellbat_bluef);
                 //upgrade2.setImageResource(R.drawable.marine_stimpack);
@@ -743,6 +891,26 @@ public class MainActivity extends AppCompatActivity {// ss
                 else
                     bouns_Value="N/A";
                 bouns.setText( bouns_Value);
+                hppc.setText(Double.toString(  Math.round(T_hp[i]*1.0/T_costs[i]*100) *0.01 ));
+
+                Double dps1,dps2;
+                dps1=  Math.round(((T_dmg_g[i]*T_atks_g[i] )/ T_atkSp_g[i])/T_costs[i]*100) *0.01 ;
+                dps2=  Math.round(((T_dmg_g[i]*T_atks_a[i] )/ T_atkSp_a[i])/T_costs[i]*100) *0.01 ;
+                dpspc_g.setText(Double.toString(dps1));
+                dpspc_a.setText(Double.toString(dps2));
+
+                dps1=0.0;
+                dps2=0.0;
+                if(T_bouns_type_g[i]>0)
+                    dps1=  Math.round((( (T_dmg_g[i]+T_bouns_dmg_g[i])*T_atks_g[i] )/ T_atkSp_g[i])*100) *0.01 ;
+                else if(T_bouns_type_a[i]>0)
+                    dps2=  Math.round((( (T_dmg_a[i]+T_bouns_dmg_a[i])*T_atks_a[i] )/ T_atkSp_a[i])*100) *0.01 ;
+
+                if(dps1>dps2)
+                    bdps.setText(Double.toString(dps1));
+                else
+                    bdps.setText(Double.toString(dps2));
+
 //--------------------------------------------upgrade control--------------------------------
                 //upgrade1.setImageResource(R.drawable.hellbat_bluef);
                 //upgrade2.setImageResource(R.drawable.marine_stimpack);
@@ -802,6 +970,26 @@ public class MainActivity extends AppCompatActivity {// ss
                 else
                     bouns_Value="N/A";
                 bouns.setText( bouns_Value);
+                hppc.setText(Double.toString(  Math.round(T_hp[i]*1.0/T_costs[i]*100)*0.01 ));
+
+                Double dps1,dps2;
+                dps1=  Math.round(((T_dmg_g[i]*T_atks_g[i] )/ T_atkSp_g[i])/T_costs[i]*100) *0.01 ;
+                dps2=  Math.round(((T_dmg_g[i]*T_atks_a[i] )/ T_atkSp_a[i])/T_costs[i]*100) *0.01 ;
+                dpspc_g.setText(Double.toString(dps1));
+                dpspc_a.setText(Double.toString(dps2));
+
+                dps1=0.0;
+                dps2=0.0;
+                if(T_bouns_type_g[i]>0)
+                    dps1=  Math.round((( (T_dmg_g[i]+T_bouns_dmg_g[i])*T_atks_g[i] )/ T_atkSp_g[i])*100) *0.01 ;
+                else if(T_bouns_type_a[i]>0)
+                    dps2=  Math.round((( (T_dmg_a[i]+T_bouns_dmg_a[i])*T_atks_a[i] )/ T_atkSp_a[i])*100) *0.01 ;
+
+                if(dps1>dps2)
+                    bdps.setText(Double.toString(dps1));
+                else
+                    bdps.setText(Double.toString(dps2));
+
 //--------------------------------------------upgrade control--------------------------------
                 //upgrade1.setImageResource(R.drawable.hellbat_bluef);
                 //upgrade2.setImageResource(R.drawable.marine_stimpack);
@@ -862,6 +1050,26 @@ public class MainActivity extends AppCompatActivity {// ss
                 else
                     bouns_Value="N/A";
                 bouns.setText( bouns_Value);
+                hppc.setText(Double.toString(  Math.round(T_hp[i]*1.0/T_costs[i]*100) *0.01 ));
+
+                Double dps1,dps2;
+                dps1=  Math.round(((T_dmg_g[i]*T_atks_g[i] )/ T_atkSp_g[i])/T_costs[i]*100) *0.01 ;
+                dps2=  Math.round(((T_dmg_g[i]*T_atks_a[i] )/ T_atkSp_a[i])/T_costs[i]*100) *0.01 ;
+                dpspc_g.setText(Double.toString(dps1));
+                dpspc_a.setText(Double.toString(dps2));
+
+                dps1=0.0;
+                dps2=0.0;
+                if(T_bouns_type_g[i]>0)
+                    dps1=  Math.round((( (T_dmg_g[i]+T_bouns_dmg_g[i])*T_atks_g[i] )/ T_atkSp_g[i])*100) *0.01 ;
+                else if(T_bouns_type_a[i]>0)
+                    dps2=  Math.round((( (T_dmg_a[i]+T_bouns_dmg_a[i])*T_atks_a[i] )/ T_atkSp_a[i])*100) *0.01 ;
+
+                if(dps1>dps2)
+                    bdps.setText(Double.toString(dps1));
+                else
+                    bdps.setText(Double.toString(dps2));
+
                 //--------------------------------------------upgrade control--------------------------------
                 turret=false;
                 upgrade1.setImageResource(R.drawable.raven_reactor);
@@ -923,6 +1131,26 @@ public class MainActivity extends AppCompatActivity {// ss
                 else
                     bouns_Value="N/A";
                 bouns.setText( bouns_Value);
+                hppc.setText(Double.toString(  Math.round(T_hp[i]*1.0/T_costs[i]*100)*0.01 ));
+
+                Double dps1,dps2;
+                dps1=  Math.round(((T_dmg_g[i]*T_atks_g[i] )/ T_atkSp_g[i])/T_costs[i]*100) *0.01 ;
+                dps2=  Math.round(((T_dmg_g[i]*T_atks_a[i] )/ T_atkSp_a[i])/T_costs[i]*100) *0.01 ;
+                dpspc_g.setText(Double.toString(dps1));
+                dpspc_a.setText(Double.toString(dps2));
+
+                dps1=0.0;
+                dps2=0.0;
+                if(T_bouns_type_g[i]>0)
+                    dps1=  Math.round((( (T_dmg_g[i]+T_bouns_dmg_g[i])*T_atks_g[i] )/ T_atkSp_g[i])*100) *0.01 ;
+                else if(T_bouns_type_a[i]>0)
+                    dps2=  Math.round((( (T_dmg_a[i]+T_bouns_dmg_a[i])*T_atks_a[i] )/ T_atkSp_a[i])*100) *0.01 ;
+
+                if(dps1>dps2)
+                    bdps.setText(Double.toString(dps1));
+                else
+                    bdps.setText(Double.toString(dps2));
+
 
                 //--------------------------------------------upgrade control--------------------------------
 
@@ -985,6 +1213,26 @@ public class MainActivity extends AppCompatActivity {// ss
                 else
                     bouns_Value="N/A";
                 bouns.setText( bouns_Value);
+                hppc.setText(Double.toString(  Math.round(T_hp[i]*1.0/T_costs[i]*100) *0.01 ));
+
+                Double dps1,dps2;
+                dps1=  Math.round(((T_dmg_g[i]*T_atks_g[i] )/ T_atkSp_g[i])/T_costs[i]*100) *0.01 ;
+                dps2=  Math.round(((T_dmg_g[i]*T_atks_a[i] )/ T_atkSp_a[i])/T_costs[i]*100) *0.01 ;
+                dpspc_g.setText(Double.toString(dps1));
+                dpspc_a.setText(Double.toString(dps2));
+
+                dps1=0.0;
+                dps2=0.0;
+                if(T_bouns_type_g[i]>0)
+                    dps1=  Math.round((( (T_dmg_g[i]+T_bouns_dmg_g[i])*T_atks_g[i] )/ T_atkSp_g[i])*100) *0.01 ;
+                else if(T_bouns_type_a[i]>0)
+                    dps2=  Math.round((( (T_dmg_a[i]+T_bouns_dmg_a[i])*T_atks_a[i] )/ T_atkSp_a[i])*100) *0.01 ;
+
+                if(dps1>dps2)
+                    bdps.setText(Double.toString(dps1));
+                else
+                    bdps.setText(Double.toString(dps2));
+
 //--------------------------------------------upgrade control--------------------------------
 
                 //upgrade1.setImageResource(R.drawable.raven_reactor);
@@ -1047,6 +1295,26 @@ public class MainActivity extends AppCompatActivity {// ss
                 else
                     bouns_Value="N/A";
                 bouns.setText( bouns_Value);
+                hppc.setText(Double.toString(  Math.round(T_hp[i]*1.0/T_costs[i]*100) *0.01 ));
+
+                Double dps1,dps2;
+                dps1=  Math.round(((T_dmg_g[i]*T_atks_g[i] )/ T_atkSp_g[i])/T_costs[i]*100) *0.01 ;
+                dps2=  Math.round(((T_dmg_g[i]*T_atks_a[i] )/ T_atkSp_a[i])/T_costs[i]*100) *0.01 ;
+                dpspc_g.setText(Double.toString(dps1));
+                dpspc_a.setText(Double.toString(dps2));
+
+                dps1=0.0;
+                dps2=0.0;
+                if(T_bouns_type_g[i]>0)
+                    dps1=  Math.round((( (T_dmg_g[i]+T_bouns_dmg_g[i])*T_atks_g[i] )/ T_atkSp_g[i])*100) *0.01 ;
+                else if(T_bouns_type_a[i]>0)
+                    dps2=  Math.round((( (T_dmg_a[i]+T_bouns_dmg_a[i])*T_atks_a[i] )/ T_atkSp_a[i])*100) *0.01 ;
+
+                if(dps1>dps2)
+                    bdps.setText(Double.toString(dps1));
+                else
+                    bdps.setText(Double.toString(dps2));
+
 //--------------------------------------------upgrade control--------------------------------
 
                 //upgrade1.setImageResource(R.drawable.raven_reactor);
@@ -1108,6 +1376,26 @@ public class MainActivity extends AppCompatActivity {// ss
                 else
                     bouns_Value="N/A";
                 bouns.setText( bouns_Value);
+                hppc.setText(Double.toString(  Math.round(T_hp[i]*1.0/T_costs[i]*100) *0.01 ));
+
+                Double dps1,dps2;
+                dps1=  Math.round(((T_dmg_g[i]*T_atks_g[i] )/ T_atkSp_g[i])/T_costs[i]*100) *0.01 ;
+                dps2=  Math.round(((T_dmg_g[i]*T_atks_a[i] )/ T_atkSp_a[i])/T_costs[i]*100) *0.01 ;
+                dpspc_g.setText(Double.toString(dps1));
+                dpspc_a.setText(Double.toString(dps2));
+
+                dps1=0.0;
+                dps2=0.0;
+                if(T_bouns_type_g[i]>0)
+                    dps1=  Math.round((( (T_dmg_g[i]+T_bouns_dmg_g[i])*T_atks_g[i] )/ T_atkSp_g[i])*100) *0.01 ;
+                else if(T_bouns_type_a[i]>0)
+                    dps2=  Math.round((( (T_dmg_a[i]+T_bouns_dmg_a[i])*T_atks_a[i] )/ T_atkSp_a[i])*100) *0.01 ;
+
+                if(dps1>dps2)
+                    bdps.setText(Double.toString(dps1));
+                else
+                    bdps.setText(Double.toString(dps2));
+
                 //--------------------------------------------upgrade control--------------------------------
 
                 //upgrade1.setImageResource(R.drawable.raven_reactor);
@@ -1171,6 +1459,26 @@ public class MainActivity extends AppCompatActivity {// ss
                 else
                     bouns_Value="N/A";
                 bouns.setText( bouns_Value);
+                hppc.setText(Double.toString(  Math.round(T_hp[i]*1.0/T_costs[i]*100) *0.01));
+
+                Double dps1,dps2;
+                dps1=  Math.round(((T_dmg_g[i]*T_atks_g[i] )/ T_atkSp_g[i])/T_costs[i]*100) *0.01 ;
+                dps2=  Math.round(((T_dmg_g[i]*T_atks_a[i] )/ T_atkSp_a[i])/T_costs[i]*100) *0.01 ;
+                dpspc_g.setText(Double.toString(dps1));
+                dpspc_a.setText(Double.toString(dps2));
+
+                dps1=0.0;
+                dps2=0.0;
+                if(T_bouns_type_g[i]>0)
+                    dps1=  Math.round((( (T_dmg_g[i]+T_bouns_dmg_g[i])*T_atks_g[i] )/ T_atkSp_g[i])*100) *0.01 ;
+                else if(T_bouns_type_a[i]>0)
+                    dps2=  Math.round((( (T_dmg_a[i]+T_bouns_dmg_a[i])*T_atks_a[i] )/ T_atkSp_a[i])*100) *0.01 ;
+
+                if(dps1>dps2)
+                    bdps.setText(Double.toString(dps1));
+                else
+                    bdps.setText(Double.toString(dps2));
+
                 //--------------------------------------------upgrade control--------------------------------
 
                 upgrade1.setImageResource(R.drawable.bc_yamato);
@@ -1233,6 +1541,27 @@ public class MainActivity extends AppCompatActivity {// ss
                 else
                     bouns_Value="N/A";
                 bouns.setText( bouns_Value);
+
+                hppc.setText(Double.toString(  Math.round(T_hp[i]*1.0/T_costs[i]*100) *0.01 ));
+
+                Double dps1,dps2;
+                dps1=  Math.round(((T_dmg_g[i]*T_atks_g[i] )/ T_atkSp_g[i])/T_costs[i]*100) *0.01 ;
+                dps2=  Math.round(((T_dmg_g[i]*T_atks_a[i] )/ T_atkSp_a[i])/T_costs[i]*100) *0.01 ;
+                dpspc_g.setText(Double.toString(dps1));
+                dpspc_a.setText(Double.toString(dps2));
+
+                dps1=0.0;
+                dps2=0.0;
+                if(T_bouns_type_g[i]>0)
+                    dps1=  Math.round((( (T_dmg_g[i]+T_bouns_dmg_g[i])*T_atks_g[i] )/ T_atkSp_g[i])*100) *0.01 ;
+                else if(T_bouns_type_a[i]>0)
+                    dps2=  Math.round((( (T_dmg_a[i]+T_bouns_dmg_a[i])*T_atks_a[i] )/ T_atkSp_a[i])*100) *0.01 ;
+
+                if(dps1>dps2)
+                    bdps.setText(Double.toString(dps1));
+                else
+                    bdps.setText(Double.toString(dps2));
+
                 //--------------------------------------------upgrade control--------------------------------
                 lib_defON=false;
 
