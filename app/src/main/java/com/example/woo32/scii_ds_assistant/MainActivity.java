@@ -146,10 +146,15 @@ public class MainActivity extends AppCompatActivity {// ss
                     hppc.setText(Double.toString(55.0/45));
                 }
                 else if(current==5){
-                    if(hellbatOFF==false)
+                    if(hellbatOFF==false) {
                         bouns.setText("Gnd-Lig+12");
-                    else
+                        bdps.setText(Double.toString((12+18)/1.43));
+                       // dpspc_g.setText(Double.toString(((12+18)/1.43)/90));
+                    }else {
                         bouns.setText("Gnd-Lig+11");
+                        bdps.setText(Double.toString((8+6+5)/1.79));
+                        //dpspc_g.setText(Double.toString(((8+6)/1.79)/90));
+                    }
                 }else if(current==15){
                     if(lib_defON==true)
                        range_g.setText("9");
@@ -227,10 +232,10 @@ public class MainActivity extends AppCompatActivity {// ss
                     dps_g.setText("4.47");
                     dps_a.setText("0");
                     bouns.setText("Gnd-Lig+6");
-                    //hppc.setText();
-                    //dpspc_g.setText();
-                   //dpspc_a.setText();
-                    //bdps.setText();
+                    hppc.setText(Double.toString(90.0/90));
+                    dpspc_g.setText(Double.toString(4.47/90));
+                    dpspc_a.setText("0");
+                    bdps.setText(Double.toString(14.0/1.79));
 
                 }else if(current == 7){// viking_assault
                     hp.setText("125");
@@ -246,8 +251,16 @@ public class MainActivity extends AppCompatActivity {// ss
                     dps_g.setText("16.9");
                     dps_a.setText("0");
                     bouns.setText("Mec+8");
+                    hppc.setText(Double.toString(125.0/190));
+                    dpspc_g.setText(Double.toString(16.9/190));
+                    dpspc_a.setText("0");
+                    bdps.setText(Double.toString((12+8)/0.71));
+
+
                 }else if(current == 9){// Raven turret
                     turret=true;
+                    cost.setText("0");
+                    hppc.setText("0");
                     hp.setText("150");
                     armor.setText("1+2");
                     type.setText("Armored-Mec-Strc");
@@ -263,6 +276,12 @@ public class MainActivity extends AppCompatActivity {// ss
 
                     atkSp_g.setText("0.57");
                     atkSp_a.setText("0.57");
+
+
+                    dpspc_g.setText("0");
+                    dpspc_a.setText("0");
+
+
 
                     bouns.setText("N/A");
                 }else if(current == 10){// tank siege
@@ -283,12 +302,17 @@ public class MainActivity extends AppCompatActivity {// ss
                     atkSp_g.setText("2.13");
                     atkSp_a.setText("0");
 
+                    //hppc.setText(Double.toString(125.0/190));
+                    dpspc_g.setText(Double.toString(18.78/310));
+                    dpspc_a.setText("0");
+                    bdps.setText(Double.toString((40+30)/0.71));
+
                     bouns.setText("Gnd-Arm+30");
                 }else if(current == 13){// thor HIP
 
                     hp.setText("400");
                     armor.setText("2");
-                    type.setText("Armored-Mec");
+                    type.setText("Armored-Mec-Ma");
                     range_a.setText("10");
                     range_g.setText("7");
                     move.setText("2.62");
@@ -296,11 +320,16 @@ public class MainActivity extends AppCompatActivity {// ss
 
                     dmg_g.setText("30x2");
                     dmg_a.setText("35");
-                    dps_g.setText("18.78");
+
                     dps_a.setText("16.3");
 
                     atkSp_g.setText("0.91");
                     atkSp_a.setText("2.14");
+
+                    //hppc.setText(Double.toString(125.0/190));
+                    //dpspc_g.setText(Double.toString(16.9/190));
+                    dpspc_a.setText(Double.toString(16.3/400));
+                    bdps.setText(Double.toString((35+15)/2.14));
 
                     bouns.setText("Air-Arm+15");
                 }else if(current == 15){// lib_def mode
@@ -321,6 +350,11 @@ public class MainActivity extends AppCompatActivity {// ss
 
                     atkSp_g.setText("1.14");
                     atkSp_a.setText("0");
+
+                    dpspc_g.setText(Double.toString(65.8/200));
+                    dpspc_a.setText("0");
+
+
 
                     bouns.setText("N/A");
                 }
@@ -409,7 +443,7 @@ public class MainActivity extends AppCompatActivity {// ss
 
                 Double dps1,dps2;
                 dps1=  Math.round(((T_dmg_g[i]*T_atks_g[i] )/ T_atkSp_g[i])/T_costs[i]*100) *0.01 ;
-                dps2=  Math.round(((T_dmg_g[i]*T_atks_a[i] )/ T_atkSp_a[i])/T_costs[i]*100) *0.01 ;
+                dps2=  Math.round(((T_dmg_a[i]*T_atks_a[i] )/ T_atkSp_a[i])/T_costs[i]*100) *0.01 ;
                 dpspc_g.setText(Double.toString(dps1));
                 dpspc_a.setText(Double.toString(dps2));
 
@@ -493,7 +527,7 @@ public class MainActivity extends AppCompatActivity {// ss
 
                 Double dps1,dps2;
                 dps1=  Math.round(((T_dmg_g[i]*T_atks_g[i] )/ T_atkSp_g[i])/T_costs[i]*100) *0.01 ;
-                dps2=  Math.round(((T_dmg_g[i]*T_atks_a[i] )/ T_atkSp_a[i])/T_costs[i]*100) *0.01 ;
+                dps2=  Math.round(((T_dmg_a[i]*T_atks_a[i] )/ T_atkSp_a[i])/T_costs[i]*100) *0.01 ;
                 dpspc_g.setText(Double.toString(dps1));
                 dpspc_a.setText(Double.toString(dps2));
 
@@ -569,7 +603,7 @@ public class MainActivity extends AppCompatActivity {// ss
 
                 Double dps1,dps2;
                 dps1=  Math.round(((T_dmg_g[i]*T_atks_g[i] )/ T_atkSp_g[i])/T_costs[i]*100) *0.01 ;
-                dps2=  Math.round(((T_dmg_g[i]*T_atks_a[i] )/ T_atkSp_a[i])/T_costs[i]*100) *0.01 ;
+                dps2=  Math.round(((T_dmg_a[i]*T_atks_a[i] )/ T_atkSp_a[i])/T_costs[i]*100) *0.01 ;
                 dpspc_g.setText(Double.toString(dps1));
                 dpspc_a.setText(Double.toString(dps2));
 
@@ -652,7 +686,7 @@ public class MainActivity extends AppCompatActivity {// ss
 
                 Double dps1,dps2;
                 dps1=  Math.round(((T_dmg_g[i]*T_atks_g[i] )/ T_atkSp_g[i])/T_costs[i]*100) *0.01 ;
-                dps2=  Math.round(((T_dmg_g[i]*T_atks_a[i] )/ T_atkSp_a[i])/T_costs[i]*100) *0.01 ;
+                dps2=  Math.round(((T_dmg_a[i]*T_atks_a[i] )/ T_atkSp_a[i])/T_costs[i]*100) *0.01 ;
                 dpspc_g.setText(Double.toString(dps1));
                 dpspc_a.setText(Double.toString(dps2));
 
@@ -733,7 +767,7 @@ public class MainActivity extends AppCompatActivity {// ss
 
                 Double dps1,dps2;
                 dps1=  Math.round(((T_dmg_g[i]*T_atks_g[i] )/ T_atkSp_g[i])/T_costs[i]*100) *0.01 ;
-                dps2=  Math.round(((T_dmg_g[i]*T_atks_a[i] )/ T_atkSp_a[i])/T_costs[i]*100) *0.01 ;
+                dps2=  Math.round(((T_dmg_a[i]*T_atks_a[i] )/ T_atkSp_a[i])/T_costs[i]*100) *0.01 ;
                 dpspc_g.setText(Double.toString(dps1));
                 dpspc_a.setText(Double.toString(dps2));
 
@@ -814,7 +848,7 @@ public class MainActivity extends AppCompatActivity {// ss
 
                 Double dps1,dps2;
                 dps1=  Math.round(((T_dmg_g[i]*T_atks_g[i] )/ T_atkSp_g[i])/T_costs[i]*100) *0.01 ;
-                dps2=  Math.round(((T_dmg_g[i]*T_atks_a[i] )/ T_atkSp_a[i])/T_costs[i]*100) *0.01 ;
+                dps2=  Math.round(((T_dmg_a[i]*T_atks_a[i] )/ T_atkSp_a[i])/T_costs[i]*100) *0.01 ;
                 dpspc_g.setText(Double.toString(dps1));
                 dpspc_a.setText(Double.toString(dps2));
 
@@ -895,7 +929,7 @@ public class MainActivity extends AppCompatActivity {// ss
 
                 Double dps1,dps2;
                 dps1=  Math.round(((T_dmg_g[i]*T_atks_g[i] )/ T_atkSp_g[i])/T_costs[i]*100) *0.01 ;
-                dps2=  Math.round(((T_dmg_g[i]*T_atks_a[i] )/ T_atkSp_a[i])/T_costs[i]*100) *0.01 ;
+                dps2=  Math.round(((T_dmg_a[i]*T_atks_a[i] )/ T_atkSp_a[i])/T_costs[i]*100) *0.01 ;
                 dpspc_g.setText(Double.toString(dps1));
                 dpspc_a.setText(Double.toString(dps2));
 
@@ -974,7 +1008,7 @@ public class MainActivity extends AppCompatActivity {// ss
 
                 Double dps1,dps2;
                 dps1=  Math.round(((T_dmg_g[i]*T_atks_g[i] )/ T_atkSp_g[i])/T_costs[i]*100) *0.01 ;
-                dps2=  Math.round(((T_dmg_g[i]*T_atks_a[i] )/ T_atkSp_a[i])/T_costs[i]*100) *0.01 ;
+                dps2=  Math.round(((T_dmg_a[i]*T_atks_a[i] )/ T_atkSp_a[i])/T_costs[i]*100) *0.01 ;
                 dpspc_g.setText(Double.toString(dps1));
                 dpspc_a.setText(Double.toString(dps2));
 
@@ -1054,7 +1088,7 @@ public class MainActivity extends AppCompatActivity {// ss
 
                 Double dps1,dps2;
                 dps1=  Math.round(((T_dmg_g[i]*T_atks_g[i] )/ T_atkSp_g[i])/T_costs[i]*100) *0.01 ;
-                dps2=  Math.round(((T_dmg_g[i]*T_atks_a[i] )/ T_atkSp_a[i])/T_costs[i]*100) *0.01 ;
+                dps2=  Math.round(((T_dmg_a[i]*T_atks_a[i] )/ T_atkSp_a[i])/T_costs[i]*100) *0.01 ;
                 dpspc_g.setText(Double.toString(dps1));
                 dpspc_a.setText(Double.toString(dps2));
 
@@ -1135,7 +1169,7 @@ public class MainActivity extends AppCompatActivity {// ss
 
                 Double dps1,dps2;
                 dps1=  Math.round(((T_dmg_g[i]*T_atks_g[i] )/ T_atkSp_g[i])/T_costs[i]*100) *0.01 ;
-                dps2=  Math.round(((T_dmg_g[i]*T_atks_a[i] )/ T_atkSp_a[i])/T_costs[i]*100) *0.01 ;
+                dps2=  Math.round(((T_dmg_a[i]*T_atks_a[i] )/ T_atkSp_a[i])/T_costs[i]*100) *0.01 ;
                 dpspc_g.setText(Double.toString(dps1));
                 dpspc_a.setText(Double.toString(dps2));
 
@@ -1217,7 +1251,7 @@ public class MainActivity extends AppCompatActivity {// ss
 
                 Double dps1,dps2;
                 dps1=  Math.round(((T_dmg_g[i]*T_atks_g[i] )/ T_atkSp_g[i])/T_costs[i]*100) *0.01 ;
-                dps2=  Math.round(((T_dmg_g[i]*T_atks_a[i] )/ T_atkSp_a[i])/T_costs[i]*100) *0.01 ;
+                dps2=  Math.round(((T_dmg_a[i]*T_atks_a[i] )/ T_atkSp_a[i])/T_costs[i]*100) *0.01 ;
                 dpspc_g.setText(Double.toString(dps1));
                 dpspc_a.setText(Double.toString(dps2));
 
@@ -1299,7 +1333,7 @@ public class MainActivity extends AppCompatActivity {// ss
 
                 Double dps1,dps2;
                 dps1=  Math.round(((T_dmg_g[i]*T_atks_g[i] )/ T_atkSp_g[i])/T_costs[i]*100) *0.01 ;
-                dps2=  Math.round(((T_dmg_g[i]*T_atks_a[i] )/ T_atkSp_a[i])/T_costs[i]*100) *0.01 ;
+                dps2=  Math.round(((T_dmg_a[i]*T_atks_a[i] )/ T_atkSp_a[i])/T_costs[i]*100) *0.01 ;
                 dpspc_g.setText(Double.toString(dps1));
                 dpspc_a.setText(Double.toString(dps2));
 
@@ -1380,7 +1414,7 @@ public class MainActivity extends AppCompatActivity {// ss
 
                 Double dps1,dps2;
                 dps1=  Math.round(((T_dmg_g[i]*T_atks_g[i] )/ T_atkSp_g[i])/T_costs[i]*100) *0.01 ;
-                dps2=  Math.round(((T_dmg_g[i]*T_atks_a[i] )/ T_atkSp_a[i])/T_costs[i]*100) *0.01 ;
+                dps2=  Math.round(((T_dmg_a[i]*T_atks_a[i] )/ T_atkSp_a[i])/T_costs[i]*100) *0.01 ;
                 dpspc_g.setText(Double.toString(dps1));
                 dpspc_a.setText(Double.toString(dps2));
 
@@ -1463,7 +1497,7 @@ public class MainActivity extends AppCompatActivity {// ss
 
                 Double dps1,dps2;
                 dps1=  Math.round(((T_dmg_g[i]*T_atks_g[i] )/ T_atkSp_g[i])/T_costs[i]*100) *0.01 ;
-                dps2=  Math.round(((T_dmg_g[i]*T_atks_a[i] )/ T_atkSp_a[i])/T_costs[i]*100) *0.01 ;
+                dps2=  Math.round(((T_dmg_a[i]*T_atks_a[i] )/ T_atkSp_a[i])/T_costs[i]*100) *0.01 ;
                 dpspc_g.setText(Double.toString(dps1));
                 dpspc_a.setText(Double.toString(dps2));
 
@@ -1546,7 +1580,7 @@ public class MainActivity extends AppCompatActivity {// ss
 
                 Double dps1,dps2;
                 dps1=  Math.round(((T_dmg_g[i]*T_atks_g[i] )/ T_atkSp_g[i])/T_costs[i]*100) *0.01 ;
-                dps2=  Math.round(((T_dmg_g[i]*T_atks_a[i] )/ T_atkSp_a[i])/T_costs[i]*100) *0.01 ;
+                dps2=  Math.round(((T_dmg_a[i]*T_atks_a[i] )/ T_atkSp_a[i])/T_costs[i]*100) *0.01 ;
                 dpspc_g.setText(Double.toString(dps1));
                 dpspc_a.setText(Double.toString(dps2));
 

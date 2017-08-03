@@ -529,7 +529,7 @@
             android:id="@+id/textView13"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.08"
+            android:layout_weight="0.05"
             android:text="Dps:"
             android:textAlignment="center"
             android:textColor="@android:color/background_light"
@@ -540,8 +540,7 @@
         <TextView
             android:id="@+id/textView_dps_g"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.13"
+            android:layout_height="match_parent"
             android:fontFamily="sans-serif"
             android:textAlignment="center"
             android:textAllCaps="false"
@@ -552,7 +551,6 @@
             android:id="@+id/textView20"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.03"
             android:fontFamily="sans-serif"
             android:text="/"
             android:textAlignment="center"
@@ -562,9 +560,9 @@
 
         <TextView
             android:id="@+id/textView_dps_a"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.08"
+            android:layout_width="15dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.12"
             android:fontFamily="sans-serif"
             android:text="10"
             android:textAlignment="center"
@@ -583,8 +581,8 @@
 
         <TextView
             android:id="@+id/textView_dpspc_g"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="15dp"
+            android:layout_height="match_parent"
             android:layout_weight="0.12"
             android:textAlignment="center"
             android:textColor="@android:color/holo_red_dark"
@@ -603,8 +601,8 @@
 
         <TextView
             android:id="@+id/textView_dpspc_a"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="15dp"
+            android:layout_height="match_parent"
             android:layout_weight="0.13"
             android:textAlignment="center"
             android:textColor="@android:color/holo_red_dark"
@@ -632,8 +630,8 @@
         <TextView
             android:id="@+id/textView_bdps"
             android:layout_width="15dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.26"
+            android:layout_height="match_parent"
+            android:layout_weight="0.37"
             android:textColor="@android:color/holo_orange_dark"
             android:textSize="23sp" />
 
@@ -642,7 +640,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.11"
-            android:text="Bouns:"
+            android:text="Bonus:"
             android:textAlignment="center"
             android:textColor="@android:color/background_light"
             android:textSize="24sp"
