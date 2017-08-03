@@ -2,6 +2,7 @@ package com.example.woo32.scii_ds_assistant;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -22,7 +23,8 @@ public class MainActivity extends AppCompatActivity {// ss
     String atkSp_g_Value, atkSp_a_Value;
     String dps_g_Value, dps_a_Value;
     String bouns_Value;
-    int in=0;
+
+    int current=0; //Terran=1x Protoss=2x Zerg=3x
 
     int[] T_costs={0,45,90,75,235,90,110,190,190,250,310,125,175,375,525,200};
     int[] T_armor={0,0,1,0,0,0,1,0,0,1,1,0,1,2,3,1};
@@ -56,6 +58,7 @@ public class MainActivity extends AppCompatActivity {// ss
     TextView bouns;
 
 
+
     ImageButton T_marine;
     ImageButton T_marauder;
     ImageButton T_reaper;
@@ -71,6 +74,8 @@ public class MainActivity extends AppCompatActivity {// ss
     ImageButton T_thor;
     ImageButton T_BC;
     ImageButton T_lib;
+    ImageButton upgrade1;
+    ImageButton upgrade2;
 
 
     private TextView mTextMessage;
@@ -114,6 +119,30 @@ public class MainActivity extends AppCompatActivity {// ss
         dps_g=(TextView) findViewById(R.id.textView_dps_g);
         dps_a=(TextView) findViewById(R.id.textView_dps_a);
         bouns=(TextView) findViewById(R.id.textView_bouns);
+
+        //upgrades
+        upgrade1=(ImageButton)findViewById(R.id.imageButton_upgrade1);
+        upgrade1.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+
+
+            }
+        });
+
+        upgrade2=(ImageButton)findViewById(R.id.imageButton_upgrade2);
+        upgrade2.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+
+
+            }
+        });
+
+
+
+
+
+
+
         //Terran units
         /////////////////////////////////////COST
         T_marine=(ImageButton)findViewById(R.id.imageButton1);
@@ -161,9 +190,16 @@ public class MainActivity extends AppCompatActivity {// ss
                 else
                     bouns_Value="N/A";
 
-
-
                 bouns.setText( bouns_Value);
+
+
+
+                //--------------------------------------------upgrade control--------------------------------
+                upgrade1.setImageResource(R.drawable.marrine_shield);
+                upgrade2.setImageResource(R.drawable.marine_stimpack);
+
+                upgrade1.setVisibility(View.VISIBLE);  //One of VISIBLE, INVISIBLE, or GONE.
+                upgrade2.setVisibility(View.VISIBLE);
 
             }
         });
@@ -213,6 +249,14 @@ public class MainActivity extends AppCompatActivity {// ss
                     bouns_Value="N/A";
                 bouns.setText( bouns_Value);
 
+
+                //--------------------------------------------upgrade control--------------------------------
+
+                upgrade1.setImageResource(R.drawable.marine_stimpack);
+                upgrade2.setImageResource(R.drawable.marauder_shells);
+                upgrade1.setVisibility(View.VISIBLE);  //One of VISIBLE, INVISIBLE, or GONE.
+                upgrade2.setVisibility(View.VISIBLE);
+
             }
         });
 
@@ -259,7 +303,12 @@ public class MainActivity extends AppCompatActivity {// ss
                     bouns_Value="N/A";
                 bouns.setText( bouns_Value);
 
+//--------------------------------------------upgrade control--------------------------------
 
+                //upgrade1.setImageResource(R.drawable.marine_stimpack);
+                //upgrade2.setImageResource(R.drawable.marauder_shells);
+                upgrade1.setVisibility(View.INVISIBLE);  //One of VISIBLE, INVISIBLE, or GONE.
+                upgrade2.setVisibility(View.INVISIBLE);
             }
         });
 

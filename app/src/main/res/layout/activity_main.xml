@@ -41,8 +41,7 @@
     <TableLayout
         android:id="@+id/Terran_units"
         android:layout_width="match_parent"
-        android:layout_height="283dp"
-        android:layout_weight="0.10"
+        android:layout_height="wrap_content"
         android:visibility="visible">
 
         <TableRow
@@ -574,6 +573,76 @@
             android:textColor="@android:color/background_light"
             android:textSize="24sp" />
 
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Upgrades:                 Skills:"
+        android:textAlignment="center"
+        android:textColor="@android:color/background_light"
+        android:textSize="23sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="74dp"
+        android:baselineAligned="false"
+        android:weightSum="1">
+
+        <ImageButton
+            android:id="@+id/imageButton_upgrade1"
+            android:layout_width="59dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.09"
+            android:elevation="0dp"
+            android:visibility="invisible"
+            app:srcCompat="@drawable/marrine_shield" />
+
+        <ImageButton
+            android:id="@+id/imageButton_upgrade2"
+            android:layout_width="37dp"
+            android:layout_height="80dp"
+            android:layout_weight="0.21"
+            android:elevation="0dp"
+            android:visibility="invisible"
+            app:srcCompat="@drawable/marine_stimpack" />
+
+        <ImageButton
+            android:id="@+id/imageButton_upgrade3"
+            android:layout_width="37dp"
+            android:layout_height="80dp"
+            android:layout_weight="0.19"
+            android:elevation="0dp"
+            android:visibility="invisible"
+            app:srcCompat="@drawable/marine_stimpack" />
+
+        <ImageButton
+            android:id="@+id/imageButton_skill1"
+            android:layout_width="37dp"
+            android:layout_height="80dp"
+            android:layout_weight="0.17"
+            android:elevation="0dp"
+            android:visibility="invisible"
+            app:srcCompat="@drawable/marine_stimpack" />
+
+        <ImageButton
+            android:id="@+id/imageButton_skill2"
+            android:layout_width="37dp"
+            android:layout_height="80dp"
+            android:layout_weight="0.21"
+            android:elevation="0dp"
+            android:visibility="invisible"
+            app:srcCompat="@drawable/marine_stimpack" />
+
+        <ImageButton
+            android:id="@+id/imageButton_skill3"
+            android:layout_width="37dp"
+            android:layout_height="80dp"
+            android:layout_weight="0.20"
+            android:elevation="0dp"
+            android:visibility="invisible"
+            app:srcCompat="@drawable/marine_stimpack" />
     </LinearLayout>
 
 </LinearLayout>
