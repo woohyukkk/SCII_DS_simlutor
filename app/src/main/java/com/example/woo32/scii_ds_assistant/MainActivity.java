@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity {// ss
     TextView atkSp_g,atkSp_a;
     TextView dps_g,dps_a;
     TextView bouns;
+    TextView shieldHp;
 
 
 
@@ -76,7 +77,12 @@ public class MainActivity extends AppCompatActivity {// ss
     ImageButton T_lib;
     ImageButton upgrade1;
     ImageButton upgrade2;
+    ImageButton upgrade3;
+    ImageButton skill1;
+    ImageButton skill2;
+    ImageButton skill3;
 
+    boolean hellbatOFF=false;
 
     private TextView mTextMessage;
 
@@ -119,18 +125,90 @@ public class MainActivity extends AppCompatActivity {// ss
         dps_g=(TextView) findViewById(R.id.textView_dps_g);
         dps_a=(TextView) findViewById(R.id.textView_dps_a);
         bouns=(TextView) findViewById(R.id.textView_bouns);
+        shieldHp=(TextView) findViewById(R.id.textView_hpBouns);
 
         //upgrades
         upgrade1=(ImageButton)findViewById(R.id.imageButton_upgrade1);
         upgrade1.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
+                if(current==1){//marine-shield
 
+                    hp.setText("55");
+                }
+                else if(current==5){
+                    if(hellbatOFF==false)
+                        bouns.setText("Gnd-Lig+12");
+                    else
+                        bouns.setText("Gnd-Lig+11");
+                }
 
             }
         });
 
         upgrade2=(ImageButton)findViewById(R.id.imageButton_upgrade2);
         upgrade2.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                if(current==1 || current == 2){//marine/maruder -stimpack  150% speed
+                    double tempSp_g= T_atkSp_g[current];
+                    double tempSp_a= T_atkSp_a[current];
+                    double tempDps_g,tempDps_a;
+                    tempSp_g=tempSp_g*2/3;
+                    tempSp_a=tempSp_a*2/3;
+                    tempDps_g=T_dmg_g[current]*T_atks_g[current]/tempSp_g;
+                    tempDps_a=T_dmg_a[current]*T_atks_a[current]/tempSp_a;
+
+                    atkSp_g.setText(Double.toString(  (Math.round(tempSp_g*100))*0.01));
+                    atkSp_a.setText(Double.toString(  (Math.round(tempSp_a*100))*0.01));
+                     dps_g.setText(Double.toString(  (Math.round(tempDps_g*100))*0.01));
+                    dps_a.setText(Double.toString(  (Math.round(tempDps_a*100))*0.01));
+                    move.setText("4.73");
+
+                }
+
+            }
+        });
+
+        upgrade3=(ImageButton)findViewById(R.id.imageButton_upgrade3);
+        upgrade3.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+
+
+            }
+        });
+
+        skill1=(ImageButton)findViewById(R.id.imageButton_skill1);
+        skill1.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                hellbatOFF=true;
+            if(current==5)   //hellbat-motor mode
+                hp.setText("90");
+                type.setText("Light-Mec");
+                range_a.setText("0");
+                range_g.setText("5");
+                move.setText("5.95");
+                dmg_a.setText("0");
+                dmg_g.setText("8");
+                atkSp_g.setText("1.79");
+                atkSp_a.setText("0");
+                dps_g.setText("4.47");
+                dps_a.setText("0");
+
+                bouns.setText("Gnd-Lig+6");
+            }
+        });
+
+        skill2=(ImageButton)findViewById(R.id.imageButton_skill2);
+        skill2.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                if(current==6){
+                    move.setText("5.95");
+                }
+
+            }
+        });
+
+        skill3=(ImageButton)findViewById(R.id.imageButton_skill3);
+        skill3.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
 
 
@@ -149,6 +227,7 @@ public class MainActivity extends AppCompatActivity {// ss
         T_marine.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 int i=1;
+                current=i;
                 Log.d("@1-i: ", Integer.toString(i));
                 cost_Value=Integer.toString(T_costs[i]);
                 cost.setText(cost_Value);
@@ -197,9 +276,17 @@ public class MainActivity extends AppCompatActivity {// ss
                 //--------------------------------------------upgrade control--------------------------------
                 upgrade1.setImageResource(R.drawable.marrine_shield);
                 upgrade2.setImageResource(R.drawable.marine_stimpack);
+                //upgrade3.setImageResource(R.drawable.);
+                //skill1.setImageResource(R.drawable.);
+                //skill2.setImageResource(R.drawable.);
+                //skill3.setImageResource(R.drawable.);
 
                 upgrade1.setVisibility(View.VISIBLE);  //One of VISIBLE, INVISIBLE, or GONE.
                 upgrade2.setVisibility(View.VISIBLE);
+                upgrade3.setVisibility(View.INVISIBLE);
+                skill1.setVisibility(View.INVISIBLE);
+                skill2.setVisibility(View.INVISIBLE);
+                skill3.setVisibility(View.INVISIBLE);
 
             }
         });
@@ -207,7 +294,7 @@ public class MainActivity extends AppCompatActivity {// ss
         T_marauder=(ImageButton)findViewById(R.id.imageButton2);
         T_marauder.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                int i=2;
+                int i=2;current=i;
                 cost_Value=Integer.toString(T_costs[i]);
                 cost.setText(cost_Value);
                 armor_Value=Integer.toString(T_armor[i]);
@@ -252,10 +339,14 @@ public class MainActivity extends AppCompatActivity {// ss
 
                 //--------------------------------------------upgrade control--------------------------------
 
-                upgrade1.setImageResource(R.drawable.marine_stimpack);
-                upgrade2.setImageResource(R.drawable.marauder_shells);
+                upgrade2.setImageResource(R.drawable.marine_stimpack);
+                upgrade1.setImageResource(R.drawable.marauder_shells);
                 upgrade1.setVisibility(View.VISIBLE);  //One of VISIBLE, INVISIBLE, or GONE.
                 upgrade2.setVisibility(View.VISIBLE);
+                upgrade3.setVisibility(View.INVISIBLE);
+                skill1.setVisibility(View.INVISIBLE);
+                skill2.setVisibility(View.INVISIBLE);
+                skill3.setVisibility(View.INVISIBLE);
 
             }
         });
@@ -263,7 +354,7 @@ public class MainActivity extends AppCompatActivity {// ss
         T_reaper=(ImageButton)findViewById(R.id.imageButton3);
         T_reaper.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                int i=3;
+                int i=3;current=i;
                 cost_Value=Integer.toString(T_costs[i]);
                 cost.setText(cost_Value);
                 armor_Value=Integer.toString(T_armor[i]);
@@ -305,17 +396,26 @@ public class MainActivity extends AppCompatActivity {// ss
 
 //--------------------------------------------upgrade control--------------------------------
 
-                //upgrade1.setImageResource(R.drawable.marine_stimpack);
-                //upgrade2.setImageResource(R.drawable.marauder_shells);
+                //upgrade1.setImageResource(R.drawable.marrine_shield);
+                //upgrade2.setImageResource(R.drawable.marine_stimpack);
+                //upgrade3.setImageResource(R.drawable.);
+                skill1.setImageResource(R.drawable.reaper_durg);
+                //skill2.setImageResource(R.drawable.);
+                //skill3.setImageResource(R.drawable.);
+
                 upgrade1.setVisibility(View.INVISIBLE);  //One of VISIBLE, INVISIBLE, or GONE.
                 upgrade2.setVisibility(View.INVISIBLE);
+                upgrade3.setVisibility(View.INVISIBLE);
+                skill1.setVisibility(View.VISIBLE);
+                skill2.setVisibility(View.INVISIBLE);
+                skill3.setVisibility(View.INVISIBLE);
             }
         });
 
         T_ghost=(ImageButton)findViewById(R.id.imageButton4);
         T_ghost.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                int i=4;
+                int i=4;current=i;
                 cost_Value=Integer.toString(T_costs[i]);
                 cost.setText(cost_Value);
                 armor_Value=Integer.toString(T_armor[i]);
@@ -357,7 +457,21 @@ public class MainActivity extends AppCompatActivity {// ss
                 else
                     bouns_Value="N/A";
                 bouns.setText( bouns_Value);
+//--------------------------------------------upgrade control--------------------------------
 
+                upgrade1.setImageResource(R.drawable.ghost_cloak);
+                //upgrade2.setImageResource(R.drawable.marine_stimpack);
+                //upgrade3.setImageResource(R.drawable.);
+                skill1.setImageResource(R.drawable.ghost_snipe);
+                skill2.setImageResource(R.drawable.ghost_emp);
+                skill3.setImageResource(R.drawable.ghost_cloak);
+
+                upgrade1.setVisibility(View.VISIBLE);  //One of VISIBLE, INVISIBLE, or GONE.
+                upgrade2.setVisibility(View.INVISIBLE);
+                upgrade3.setVisibility(View.INVISIBLE);
+                skill1.setVisibility(View.VISIBLE);
+                skill2.setVisibility(View.VISIBLE);
+                skill3.setVisibility(View.VISIBLE);
 
             }
         });
@@ -365,7 +479,7 @@ public class MainActivity extends AppCompatActivity {// ss
         T_hellBat=(ImageButton)findViewById(R.id.imageButton5);
         T_hellBat.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                int i=5;
+                int i=5;current=i;
                 cost_Value=Integer.toString(T_costs[i]);
                 cost.setText(cost_Value);
                 armor_Value=Integer.toString(T_armor[i]);
@@ -404,7 +518,21 @@ public class MainActivity extends AppCompatActivity {// ss
                 else
                     bouns_Value="N/A";
                 bouns.setText( bouns_Value);
+//--------------------------------------------upgrade control--------------------------------
+                hellbatOFF=false;
+                upgrade1.setImageResource(R.drawable.hellbat_bluef);
+                //upgrade2.setImageResource(R.drawable.marine_stimpack);
+                //upgrade3.setImageResource(R.drawable.);
+                skill1.setImageResource(R.drawable.hellbat_hellion);
+                //skill2.setImageResource(R.drawable.ghost_emp);
+                //skill3.setImageResource(R.drawable.ghost_cloak);
 
+                upgrade1.setVisibility(View.VISIBLE);  //One of VISIBLE, INVISIBLE, or GONE.
+                upgrade2.setVisibility(View.INVISIBLE);
+                upgrade3.setVisibility(View.INVISIBLE);
+                skill1.setVisibility(View.VISIBLE);
+                skill2.setVisibility(View.INVISIBLE);
+                skill3.setVisibility(View.INVISIBLE);
 
             }
         });
@@ -412,7 +540,7 @@ public class MainActivity extends AppCompatActivity {// ss
         T_medivac=(ImageButton)findViewById(R.id.imageButton6);
         T_medivac.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                int i=6;
+                int i=6;current=i;
                 cost_Value=Integer.toString(T_costs[i]);
                 cost.setText(cost_Value);
                 armor_Value=Integer.toString(T_armor[i]);
@@ -451,6 +579,20 @@ public class MainActivity extends AppCompatActivity {// ss
                 else
                     bouns_Value="N/A";
                 bouns.setText( bouns_Value);
+                //--------------------------------------------upgrade control--------------------------------
+                //upgrade1.setImageResource(R.drawable.hellbat_bluef);
+                //upgrade2.setImageResource(R.drawable.marine_stimpack);
+                //upgrade3.setImageResource(R.drawable.);
+                skill1.setImageResource(R.drawable.medivac_heal);
+                skill2.setImageResource(R.drawable.medivac_afterburner);
+                //skill3.setImageResource(R.drawable.ghost_cloak);
+
+                upgrade1.setVisibility(View.INVISIBLE);  //One of VISIBLE, INVISIBLE, or GONE.
+                upgrade2.setVisibility(View.INVISIBLE);
+                upgrade3.setVisibility(View.INVISIBLE);
+                skill1.setVisibility(View.VISIBLE);
+                skill2.setVisibility(View.VISIBLE);
+                skill3.setVisibility(View.INVISIBLE);
 
 
             }
@@ -459,7 +601,7 @@ public class MainActivity extends AppCompatActivity {// ss
         T_viking=(ImageButton)findViewById(R.id.imageButton7);
         T_viking.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                int i=7;
+                int i=7;current=i;
                 cost_Value=Integer.toString(T_costs[i]);
                 cost.setText(cost_Value);
                 armor_Value=Integer.toString(T_armor[i]);
@@ -505,7 +647,7 @@ public class MainActivity extends AppCompatActivity {// ss
         T_banshee=(ImageButton)findViewById(R.id.imageButton8);
         T_banshee.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                int i=8;
+                int i=8;current=i;
                 cost_Value=Integer.toString(T_costs[i]);
                 cost.setText(cost_Value);
                 armor_Value=Integer.toString(T_armor[i]);
@@ -552,7 +694,7 @@ public class MainActivity extends AppCompatActivity {// ss
         T_raven=(ImageButton)findViewById(R.id.imageButton9);
         T_raven.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                int i=9;
+                int i=9;current=i;
                 cost_Value=Integer.toString(T_costs[i]);
                 cost.setText(cost_Value);
                 armor_Value=Integer.toString(T_armor[i]);
@@ -598,7 +740,7 @@ public class MainActivity extends AppCompatActivity {// ss
         T_tank=(ImageButton)findViewById(R.id.imageButton10);
         T_tank.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                int i=10;
+                int i=10;current=i;
                 cost_Value=Integer.toString(T_costs[i]);
                 cost.setText(cost_Value);
                 armor_Value=Integer.toString(T_armor[i]);
@@ -644,7 +786,7 @@ public class MainActivity extends AppCompatActivity {// ss
         T_mine=(ImageButton)findViewById(R.id.imageButton11);
         T_mine.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                int i=11;
+                int i=11;current=i;
                 cost_Value=Integer.toString(T_costs[i]);
                 cost.setText(cost_Value);
                 armor_Value=Integer.toString(T_armor[i]);
@@ -691,7 +833,7 @@ public class MainActivity extends AppCompatActivity {// ss
         T_cyclone=(ImageButton)findViewById(R.id.imageButton12);
         T_cyclone.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                int i=12;
+                int i=12;current=i;
                 cost_Value=Integer.toString(T_costs[i]);
                 cost.setText(cost_Value);
                 armor_Value=Integer.toString(T_armor[i]);
@@ -738,7 +880,7 @@ public class MainActivity extends AppCompatActivity {// ss
         T_thor=(ImageButton)findViewById(R.id.imageButton13);
         T_thor.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                int i=13;
+                int i=13;current=i;
                 cost_Value=Integer.toString(T_costs[i]);
                 cost.setText(cost_Value);
                 armor_Value=Integer.toString(T_armor[i]);
@@ -785,7 +927,7 @@ public class MainActivity extends AppCompatActivity {// ss
         T_BC=(ImageButton)findViewById(R.id.imageButton14);
         T_BC.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                int i=14;
+                int i=14;current=i;
                 cost_Value=Integer.toString(T_costs[i]);
                 cost.setText(cost_Value);
                 armor_Value=Integer.toString(T_armor[i]);
@@ -832,7 +974,7 @@ public class MainActivity extends AppCompatActivity {// ss
         T_lib=(ImageButton)findViewById(R.id.imageButton15);
         T_lib.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                int i=15;
+                int i=15;current=i;
                 cost_Value=Integer.toString(T_costs[i]);
                 cost.setText(cost_Value);
                 armor_Value=Integer.toString(T_armor[i]);

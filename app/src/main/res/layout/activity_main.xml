@@ -227,7 +227,7 @@
 
         <TextView
             android:id="@+id/textView_hp"
-            android:layout_width="39dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:fontFamily="sans-serif"
             android:text="45"
@@ -452,9 +452,8 @@
 
         <TextView
             android:id="@+id/textView_atkSp_a"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.12"
+            android:layout_width="55dp"
+            android:layout_height="match_parent"
             android:fontFamily="sans-serif"
             android:text="0.61"
             android:textAlignment="center"
