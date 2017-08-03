@@ -180,20 +180,33 @@ public class MainActivity extends AppCompatActivity {// ss
         skill1.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 hellbatOFF=true;
-            if(current==5)   //hellbat-motor mode
-                hp.setText("90");
-                type.setText("Light-Mec");
-                range_a.setText("0");
-                range_g.setText("5");
-                move.setText("5.95");
-                dmg_a.setText("0");
-                dmg_g.setText("8");
-                atkSp_g.setText("1.79");
-                atkSp_a.setText("0");
-                dps_g.setText("4.47");
-                dps_a.setText("0");
-
-                bouns.setText("Gnd-Lig+6");
+                if(current==5) {  //hellbat-motor mode
+                    hp.setText("90");
+                    type.setText("Light-Mec");
+                    range_a.setText("0");
+                    range_g.setText("5");
+                    move.setText("5.95");
+                    dmg_a.setText("0");
+                    dmg_g.setText("8");
+                    atkSp_g.setText("1.79");
+                    atkSp_a.setText("0");
+                    dps_g.setText("4.47");
+                    dps_a.setText("0");
+                    bouns.setText("Gnd-Lig+6");
+                }else if(current == 7){// viking_assault
+                    hp.setText("125");
+                    type.setText("Armored-Mec");
+                    range_a.setText("0");
+                    range_g.setText("6");
+                    move.setText("3.15");
+                    dmg_a.setText("0");
+                    dmg_g.setText("12");
+                    atkSp_g.setText("0.71");
+                    atkSp_a.setText("0");
+                    dps_g.setText("16.9");
+                    dps_a.setText("0");
+                    bouns.setText("Mec+8");
+                }
             }
         });
 
@@ -640,7 +653,20 @@ public class MainActivity extends AppCompatActivity {// ss
                 else
                     bouns_Value="N/A";
                 bouns.setText( bouns_Value);
+//--------------------------------------------upgrade control--------------------------------
+                //upgrade1.setImageResource(R.drawable.hellbat_bluef);
+                //upgrade2.setImageResource(R.drawable.marine_stimpack);
+                //upgrade3.setImageResource(R.drawable.);
+                skill1.setImageResource(R.drawable.viking_assault);
+                //skill2.setImageResource(R.drawable.medivac_afterburner);
+                //skill3.setImageResource(R.drawable.ghost_cloak);
 
+                upgrade1.setVisibility(View.INVISIBLE);  //One of VISIBLE, INVISIBLE, or GONE.
+                upgrade2.setVisibility(View.INVISIBLE);
+                upgrade3.setVisibility(View.INVISIBLE);
+                skill1.setVisibility(View.VISIBLE);
+                skill2.setVisibility(View.INVISIBLE);
+                skill3.setVisibility(View.INVISIBLE);
             }
         });
 
