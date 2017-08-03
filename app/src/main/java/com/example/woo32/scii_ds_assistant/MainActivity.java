@@ -83,6 +83,7 @@ public class MainActivity extends AppCompatActivity {// ss
     ImageButton skill3;
 
     boolean hellbatOFF=false;
+    boolean turret=false;
 
     private TextView mTextMessage;
 
@@ -163,6 +164,11 @@ public class MainActivity extends AppCompatActivity {// ss
                     dps_a.setText(Double.toString(  (Math.round(tempDps_a*100))*0.01));
                     move.setText("4.73");
 
+                }else if(current==9 && turret==true){
+                    dmg_g.setText("23");
+                    dmg_a.setText("23");
+                    dps_g.setText("40.35");
+                    dps_a.setText("40.35");
                 }
 
             }
@@ -195,6 +201,7 @@ public class MainActivity extends AppCompatActivity {// ss
                     bouns.setText("Gnd-Lig+6");
                 }else if(current == 7){// viking_assault
                     hp.setText("125");
+
                     type.setText("Armored-Mec");
                     range_a.setText("0");
                     range_g.setText("6");
@@ -206,6 +213,44 @@ public class MainActivity extends AppCompatActivity {// ss
                     dps_g.setText("16.9");
                     dps_a.setText("0");
                     bouns.setText("Mec+8");
+                }else if(current == 9){// Raven turret
+                    turret=true;
+                    hp.setText("150");
+                    armor.setText("1+2");
+                    type.setText("Armored-Mec-Strc");
+                    range_a.setText("6");
+                    range_g.setText("6");
+                    move.setText("0");
+
+
+                        dmg_g.setText("18");
+                        dmg_a.setText("18");
+                        dps_g.setText("31.57");
+                        dps_a.setText("31.57");
+
+                    atkSp_g.setText("0.57");
+                    atkSp_a.setText("0.57");
+
+                    bouns.setText("N/A");
+                }else if(current == 10){// tank siege
+
+                    hp.setText("175");
+                    armor.setText("1");
+                    type.setText("Armored-Mec");
+                    range_a.setText("0");
+                    range_g.setText("13");
+                    move.setText("0");
+
+
+                    dmg_g.setText("40");
+                    dmg_a.setText("0");
+                    dps_g.setText("18.78");
+                    dps_a.setText("0");
+
+                    atkSp_g.setText("2.13");
+                    atkSp_a.setText("0");
+
+                    bouns.setText("Gnd-Arm+30");
                 }
             }
         });
@@ -216,6 +261,7 @@ public class MainActivity extends AppCompatActivity {// ss
                 if(current==6){
                     move.setText("5.95");
                 }
+
 
             }
         });
@@ -712,7 +758,20 @@ public class MainActivity extends AppCompatActivity {// ss
                 else
                     bouns_Value="N/A";
                 bouns.setText( bouns_Value);
+//--------------------------------------------upgrade control--------------------------------
+                //upgrade1.setImageResource(R.drawable.hellbat_bluef);
+                //upgrade2.setImageResource(R.drawable.marine_stimpack);
+                //upgrade3.setImageResource(R.drawable.);
+                skill1.setImageResource(R.drawable.ghost_cloak);
+                //skill2.setImageResource(R.drawable.medivac_afterburner);
+                //skill3.setImageResource(R.drawable.ghost_cloak);
 
+                upgrade1.setVisibility(View.INVISIBLE);  //One of VISIBLE, INVISIBLE, or GONE.
+                upgrade2.setVisibility(View.INVISIBLE);
+                upgrade3.setVisibility(View.INVISIBLE);
+                skill1.setVisibility(View.VISIBLE);
+                skill2.setVisibility(View.INVISIBLE);
+                skill3.setVisibility(View.INVISIBLE);
 
             }
         });
@@ -759,6 +818,21 @@ public class MainActivity extends AppCompatActivity {// ss
                 else
                     bouns_Value="N/A";
                 bouns.setText( bouns_Value);
+                //--------------------------------------------upgrade control--------------------------------
+                turret=false;
+                upgrade1.setImageResource(R.drawable.raven_reactor);
+                upgrade2.setImageResource(R.drawable.raven_shells);
+                //upgrade3.setImageResource(R.drawable.);
+                skill1.setImageResource(R.drawable.raven_turret);
+                skill2.setImageResource(R.drawable.raven_drone);
+                skill3.setImageResource(R.drawable.raven_missile);
+
+                upgrade1.setVisibility(View.VISIBLE);  //One of VISIBLE, INVISIBLE, or GONE.
+                upgrade2.setVisibility(View.VISIBLE);
+                upgrade3.setVisibility(View.INVISIBLE);
+                skill1.setVisibility(View.VISIBLE);
+                skill2.setVisibility(View.VISIBLE);
+                skill3.setVisibility(View.VISIBLE);
 
             }
         });
@@ -805,6 +879,22 @@ public class MainActivity extends AppCompatActivity {// ss
                 else
                     bouns_Value="N/A";
                 bouns.setText( bouns_Value);
+
+                //--------------------------------------------upgrade control--------------------------------
+
+                //upgrade1.setImageResource(R.drawable.raven_reactor);
+               // upgrade2.setImageResource(R.drawable.raven_shells);
+                //upgrade3.setImageResource(R.drawable.);
+                skill1.setImageResource(R.drawable.tank_siege);
+                //skill2.setImageResource(R.drawable.raven_drone);
+               // skill3.setImageResource(R.drawable.raven_missile);
+
+                upgrade1.setVisibility(View.INVISIBLE);  //One of VISIBLE, INVISIBLE, or GONE.
+                upgrade2.setVisibility(View.INVISIBLE);
+                upgrade3.setVisibility(View.INVISIBLE);
+                skill1.setVisibility(View.VISIBLE);
+                skill2.setVisibility(View.INVISIBLE);
+                skill3.setVisibility(View.INVISIBLE);
 
             }
         });
