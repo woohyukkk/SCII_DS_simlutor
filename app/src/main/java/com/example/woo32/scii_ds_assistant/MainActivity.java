@@ -28,8 +28,8 @@ public class MainActivity extends AppCompatActivity {// ss
 
     int[] T_costs={0,45,90,75,235,90,110,190,190,250,310,125,175,375,525,200};
     int[] T_armor={0,0,1,0,0,0,1,0,0,1,1,0,1,2,3,1};
-    int[] T_hp=   {0,45,125,60,100,135,150,125,140,140,160,90,175,400,550,180};
-    int[] T_type=   {0,00,10,00,30,00,11,01,01,01,11,01,11,16,16,11};  // 0 light 1 Armored 2 none 3 psi, 0 bio 1 mec 2 none 3 psi 4 massive 5 Bio-massive 6 Mec-massive
+    int[] T_hp=   {0,45,125,60,100,135,150,125,140,140,175,90,180,400,550,180};
+    int[] T_type=   {0,00,10,00,30,07,11,01,01,01,11,01,11,16,16,11};  // 0 light 1 Armored 2 none 3 psi, 0 bio 1 mec 2 none 3 psi 4 massive 5 Bio-massive 6 Mec-massive 7 Bio-Mec
     int[] T_range_gnd={0,5,6,5,6,2,0,6,6,0,7,0,6,7, 6,0};
     int[] T_range_air={0,5,0,0,6,0,0,9,0,0,0,0,0,10,6,5};
     double[] T_move={0,3.15,3.15,5.25,3.94,3.15,3.5,3.85,3.85,3.85,3.15,3.94,4.13,2.62,2.62,4.72};
@@ -84,6 +84,7 @@ public class MainActivity extends AppCompatActivity {// ss
 
     boolean hellbatOFF=false;
     boolean turret=false;
+    boolean lib_defON=false;
 
     private TextView mTextMessage;
 
@@ -141,6 +142,10 @@ public class MainActivity extends AppCompatActivity {// ss
                         bouns.setText("Gnd-Lig+12");
                     else
                         bouns.setText("Gnd-Lig+11");
+                }else if(current==15){
+                    if(lib_defON==true)
+                       range_g.setText("9");
+
                 }
 
             }
@@ -165,10 +170,10 @@ public class MainActivity extends AppCompatActivity {// ss
                     move.setText("4.73");
 
                 }else if(current==9 && turret==true){
-                    dmg_g.setText("23");
-                    dmg_a.setText("23");
-                    dps_g.setText("40.35");
-                    dps_a.setText("40.35");
+                   // dmg_g.setText("23");
+                    //dmg_a.setText("23");
+                    //dps_g.setText("40.35");
+                    //dps_a.setText("40.35");
                 }
 
             }
@@ -251,6 +256,45 @@ public class MainActivity extends AppCompatActivity {// ss
                     atkSp_a.setText("0");
 
                     bouns.setText("Gnd-Arm+30");
+                }else if(current == 13){// thor HIP
+
+                    hp.setText("400");
+                    armor.setText("2");
+                    type.setText("Armored-Mec");
+                    range_a.setText("10");
+                    range_g.setText("7");
+                    move.setText("2.62");
+
+
+                    dmg_g.setText("30x2");
+                    dmg_a.setText("35");
+                    dps_g.setText("18.78");
+                    dps_a.setText("16.3");
+
+                    atkSp_g.setText("0.91");
+                    atkSp_a.setText("2.14");
+
+                    bouns.setText("Air-Arm+15");
+                }else if(current == 15){// lib_def mode
+                    lib_defON=true;
+
+                    hp.setText("180");
+                    armor.setText("1");
+                    type.setText("Armored-Mec");
+                    range_a.setText("0");
+                    range_g.setText("5");
+                    move.setText("4.72");
+
+
+                    dmg_g.setText("75");
+                    dmg_a.setText("0");
+                    dps_g.setText("65.8");
+                    dps_a.setText("0");
+
+                    atkSp_g.setText("1.14");
+                    atkSp_a.setText("0");
+
+                    bouns.setText("N/A");
                 }
             }
         });
@@ -941,6 +985,21 @@ public class MainActivity extends AppCompatActivity {// ss
                 else
                     bouns_Value="N/A";
                 bouns.setText( bouns_Value);
+//--------------------------------------------upgrade control--------------------------------
+
+                //upgrade1.setImageResource(R.drawable.raven_reactor);
+                // upgrade2.setImageResource(R.drawable.raven_shells);
+                //upgrade3.setImageResource(R.drawable.);
+                skill1.setImageResource(R.drawable.mine_active);
+                skill2.setImageResource(R.drawable.mine_missile);
+                // skill3.setImageResource(R.drawable.raven_missile);
+
+                upgrade1.setVisibility(View.INVISIBLE);  //One of VISIBLE, INVISIBLE, or GONE.
+                upgrade2.setVisibility(View.INVISIBLE);
+                upgrade3.setVisibility(View.INVISIBLE);
+                skill1.setVisibility(View.VISIBLE);
+                skill2.setVisibility(View.VISIBLE);
+                skill3.setVisibility(View.INVISIBLE);
 
 
             }
@@ -988,7 +1047,21 @@ public class MainActivity extends AppCompatActivity {// ss
                 else
                     bouns_Value="N/A";
                 bouns.setText( bouns_Value);
+//--------------------------------------------upgrade control--------------------------------
 
+                //upgrade1.setImageResource(R.drawable.raven_reactor);
+                // upgrade2.setImageResource(R.drawable.raven_shells);
+                //upgrade3.setImageResource(R.drawable.);
+                skill1.setImageResource(R.drawable.cyclone_lockon);
+               // skill2.setImageResource(R.drawable.mine_missile);
+                // skill3.setImageResource(R.drawable.raven_missile);
+
+                upgrade1.setVisibility(View.INVISIBLE);  //One of VISIBLE, INVISIBLE, or GONE.
+                upgrade2.setVisibility(View.INVISIBLE);
+                upgrade3.setVisibility(View.INVISIBLE);
+                skill1.setVisibility(View.VISIBLE);
+                skill2.setVisibility(View.INVISIBLE);
+                skill3.setVisibility(View.INVISIBLE);
 
             }
         });
@@ -1035,6 +1108,22 @@ public class MainActivity extends AppCompatActivity {// ss
                 else
                     bouns_Value="N/A";
                 bouns.setText( bouns_Value);
+                //--------------------------------------------upgrade control--------------------------------
+
+                //upgrade1.setImageResource(R.drawable.raven_reactor);
+                // upgrade2.setImageResource(R.drawable.raven_shells);
+                //upgrade3.setImageResource(R.drawable.);
+                skill1.setImageResource(R.drawable.thor_hmode);
+                // skill2.setImageResource(R.drawable.mine_missile);
+                // skill3.setImageResource(R.drawable.raven_missile);
+
+                upgrade1.setVisibility(View.INVISIBLE);  //One of VISIBLE, INVISIBLE, or GONE.
+                upgrade2.setVisibility(View.INVISIBLE);
+                upgrade3.setVisibility(View.INVISIBLE);
+                skill1.setVisibility(View.VISIBLE);
+                skill2.setVisibility(View.INVISIBLE);
+                skill3.setVisibility(View.INVISIBLE);
+
 
 
             }
@@ -1082,6 +1171,21 @@ public class MainActivity extends AppCompatActivity {// ss
                 else
                     bouns_Value="N/A";
                 bouns.setText( bouns_Value);
+                //--------------------------------------------upgrade control--------------------------------
+
+                upgrade1.setImageResource(R.drawable.bc_yamato);
+                // upgrade2.setImageResource(R.drawable.raven_shells);
+                //upgrade3.setImageResource(R.drawable.);
+                skill1.setImageResource(R.drawable.bc_yamato);
+                 skill2.setImageResource(R.drawable.bc_warp);
+                // skill3.setImageResource(R.drawable.raven_missile);
+
+                upgrade1.setVisibility(View.VISIBLE);  //One of VISIBLE, INVISIBLE, or GONE.
+                upgrade2.setVisibility(View.INVISIBLE);
+                upgrade3.setVisibility(View.INVISIBLE);
+                skill1.setVisibility(View.VISIBLE);
+                skill2.setVisibility(View.VISIBLE);
+                skill3.setVisibility(View.INVISIBLE);
 
 
             }
@@ -1129,7 +1233,22 @@ public class MainActivity extends AppCompatActivity {// ss
                 else
                     bouns_Value="N/A";
                 bouns.setText( bouns_Value);
+                //--------------------------------------------upgrade control--------------------------------
+                lib_defON=false;
 
+                upgrade1.setImageResource(R.drawable.lib_adv);
+                // upgrade2.setImageResource(R.drawable.raven_shells);
+                //upgrade3.setImageResource(R.drawable.);
+                skill1.setImageResource(R.drawable.lib_defmode);
+                //skill2.setImageResource(R.drawable.BC_warp);
+                // skill3.setImageResource(R.drawable.raven_missile);
+
+                upgrade1.setVisibility(View.VISIBLE);  //One of VISIBLE, INVISIBLE, or GONE.
+                upgrade2.setVisibility(View.INVISIBLE);
+                upgrade3.setVisibility(View.INVISIBLE);
+                skill1.setVisibility(View.VISIBLE);
+                skill2.setVisibility(View.INVISIBLE);
+                skill3.setVisibility(View.INVISIBLE);
 
             }
         });
@@ -1195,6 +1314,8 @@ public class MainActivity extends AppCompatActivity {// ss
             s=s+"Bio-Ma";
         else if(input%10==6)
             s=s+"Mec-Ma";
+        else if(input%10==7)
+            s=s+"Mec-Bio";
         return s;
     }
 }
