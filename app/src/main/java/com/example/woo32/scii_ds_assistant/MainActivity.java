@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {// ss
     int current=0; //Terran=1x Protoss=2x Zerg=3x
 
 
-    int[] T_costs={0,45,90,75,235,90,110,190,190,250,310,125,175,375,525,200};
+    int[] T_costs={0,50,90,75,235,90,110,190,190,260,310,125,175,375,525,200};
     int[] T_armor={0,0,1,0,0,0,1,0,0,1,1,0,1,2,3,1};
     int[] T_hp=   {0,45,125,60,100,135,150,125,140,140,175,90,180,400,550,180};
     int[] T_type=   {0,00,10,00,30,07,11,01,01,01,11,01,11,16,16,11};  // 0 light 1 Armored 2 none 3 psi, 0 bio 1 mec 2 none 3 psi 4 massive 5 Bio-massive 6 Mec-massive 7 Bio-Mec
@@ -115,6 +115,7 @@ public class MainActivity extends AppCompatActivity {// ss
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
         cost=(TextView) findViewById(R.id.textView_cost);
         armor=(TextView) findViewById(R.id.textView6_armor);
