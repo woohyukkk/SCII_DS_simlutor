@@ -99,18 +99,18 @@
                 app:srcCompat="@drawable/medivac" />
 
             <ImageButton
-                android:id="@+id/imageButton7"
-                android:layout_width="80dp"
-                android:layout_height="100dp"
-                android:background="#020f22"
-                app:srcCompat="@drawable/viking" />
-
-            <ImageButton
                 android:id="@+id/imageButton8"
                 android:layout_width="80dp"
                 android:layout_height="100dp"
                 android:background="#020f22"
                 app:srcCompat="@drawable/banshee" />
+
+            <ImageButton
+                android:id="@+id/imageButton7"
+                android:layout_width="80dp"
+                android:layout_height="100dp"
+                android:background="#020f22"
+                app:srcCompat="@drawable/viking" />
 
             <ImageButton
                 android:id="@+id/imageButton9"
@@ -143,6 +143,14 @@
                 app:srcCompat="@drawable/cyclone" />
 
             <ImageButton
+                android:id="@+id/imageButton15"
+                android:layout_width="80dp"
+                android:layout_height="100dp"
+                android:background="#020f22"
+                android:elevation="0dp"
+                app:srcCompat="@drawable/liberator" />
+
+            <ImageButton
                 android:id="@+id/imageButton13"
                 android:layout_width="80dp"
                 android:layout_height="100dp"
@@ -156,13 +164,6 @@
                 android:background="#020f22"
                 app:srcCompat="@drawable/battlecruiser" />
 
-            <ImageButton
-                android:id="@+id/imageButton15"
-                android:layout_width="80dp"
-                android:layout_height="100dp"
-                android:background="#020f22"
-                android:elevation="0dp"
-                app:srcCompat="@drawable/liberator" />
         </TableRow>
 
         <TableRow
