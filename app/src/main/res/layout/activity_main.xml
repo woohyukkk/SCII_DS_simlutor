@@ -526,8 +526,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/textView13"
@@ -618,6 +617,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:baselineAligned="false"
+        android:orientation="horizontal"
         android:weightSum="1">
 
         <TextView
@@ -635,7 +635,7 @@
             android:id="@+id/textView_bdps"
             android:layout_width="15dp"
             android:layout_height="match_parent"
-            android:layout_weight="0.37"
+            android:layout_weight="0.47"
             android:textColor="@android:color/holo_orange_dark"
             android:textSize="23sp" />
 
@@ -643,7 +643,6 @@
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.11"
             android:text="Bonus:"
             android:textAlignment="center"
             android:textColor="@android:color/background_light"

@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {// ss
     String cost_Value;
@@ -25,27 +26,33 @@ public class MainActivity extends AppCompatActivity {// ss
     String bouns_Value;
     String hppc_Value,dpspc_Value,bdps_Value;
 
-    int race=1;  //terran=1 protoss=2 zerg=3
+    int race=0;  //terran=0 protoss=1 zerg=2
     int current=0; //Terran=1x Protoss=2x Zerg=3x
 
-//Terran order 1.marine 2.marauder 3.reaper 4.ghost 5.hellbat 6.medivic 7.viking 8.banshee 9.raven 10.tank 11.mine 12.cyclone 13.thor 14.BC 15.lib
-    int[] unit_costs={0,50,90,75,235,85,110,190,190,260,310,125,175,375,525,200};
-    int[] unit_armor={0,0,1,0,0,0,1,0,0,1,1,0,1,2,3,1};
-    int[] unit_hp=   {0,45,125,60,100,135,150,125,140,140,175,90,180,400,550,180};
-    int[] unit_type=   {0,00,10,00,30,07,11,01,01,01,11,01,11,16,16,11};  // 0 light 1 Armored 2 none 3 psi, 0 bio 1 mec 2 none 3 psi 4 massive 5 Bio-massive 6 Mec-massive 7 Bio-Mec
-    int[] unit_range_gnd={0,5,6,5,6,2,0,6,6,0,7,0,6,7, 6,0};
-    int[] unit_range_air={0,5,0,0,6,0,0,9,0,0,0,0,0,10,6,5};
-    double[] unit_move={0,3.15,3.15,5.25,3.94,3.15,3.5,3.85,3.85,3.85,3.15,3.94,4.13,2.62,2.62,4.72};
-    int[] unit_dmg_g={0,6,5,4,10,18,0,0,12,0,15,0,3,30,8,0};
-    int[] unit_dmg_a={0,6,0,0,10,0,0,10,0,0, 0, 0,0,6,6,5};
-    int[] unit_atks_g={0,1,2,2,1,1,0,0,2,0,1,0,1,2,1,0};
-    int[] unit_atks_a={0,1,0,0,1,0,0,2,0,0,0,0,0,4,1,2};
-    double[] unit_atkSp_g={0,0.61,1.07,0.79,1.07,1.43,0,0   ,0.89,0,0.74,0,0.1,0.91,0.16,0};
-    double[] unit_atkSp_a={0,0.61,0,0,      1.07,0   ,0,1.43,0,   0,   0,0,0  ,2.14,0.16,1.29};
-    int[] unit_bouns_type_g={0,0,2 , 0, 1, 0,0,0,0,0,2,   0,2, 0,0,0};    //0 none 1 light 2 Armored 3 Bio 4 Mec 5 Psi,
-    int[] unit_bouns_dmg_g ={0,0,5 , 0,10, 0,0,0,0,0,10,  0,2, 0,0,0};
-    int[] unit_bouns_type_a={-1,0,0 , 0, 1, 0,0,2,0,0,0,   0,0, 1,0,0};    //0 none 1 light 2 Armored 3 Bio 4 Mec 5 Psi,
-    int[] unit_bouns_dmg_a ={-1,0,0 , 0,10, 0,0,4,0,0,0,   0,0, 6,0,0};
+//Terran order  1.marine 2.marauder 3.reaper 4.ghost 5.hellbat   6.medivic 7.viking 8.banshee 9.raven 10.tank 11.mine 12.cyclone 13.thor     14.BC        15.lib
+//Protoss order 1.zealot 2.stalker  3.sentry 4.adept 5.ob/oracle 6.dt      7.ball   8.phoenix 9.ht    10.immo 11.void 12.coloss  13.tempest  14.carrier   15.core
+    int[][] unit_costs={{0,50, 90, 75,235, 85,110,190,190,260,310,125,175,375,525,200}
+                       ,{0,85,100,125, 95,125,175,200,150,275,255,250,325,475,525,175},
+                        {0}};
+    int[][] unit_armor={{0,0,1,0,0,0,1,0,0,1,1,0,1,2,3,1},
+                        {0,1,1,1,1,0,1,1,0,0,1,0,1,2,2,1},
+                        {}};
+    int[][] unit_hp=   {{0, 45,125,60,100,135,150,125,140,140,175, 90,180,400,550,180},
+                        {0,100, 80,40, 70, 40, 40,100,120, 40,200,150,200,300,250,130},{}};
+    int[][] unit_type=   {{0,00,10,00,30,07,11,01,01,01,11,01,11,16,16,11},{0,00,11,01,00,01,8,11,01,8,11,11,16,16,16,19},{}};  // 0 light 1 Armored 2 none 3 psi, 0 bio 1 mec 2 none 3 psi 4 massive 5 Bio-massive 6 Mec-massive 7 Bio-Mec 8 Bio-psi 9 mec-psi
+    int[][] unit_range_gnd={{0,5,6,5,6,2,0,6,6,0,7,0,6,7, 6,0},{0,1,6,5,4,0,1,0,0,0,6,6,6,10,8,5},{}};
+    int[][] unit_range_air={{0,5,0,0,6,0,0,9,0,0,0,0,0,10,6,5},{0,0,6,5,0,0,0,0,5,0,0,6,0,15,8,0},{}};
+    double[][] unit_move={{0,3.15,3.15,5.25,3.94,3.15,3.5,3.85,3.85,3.85,3.15,3.94,4.13,2.62,2.62,4.72},{0,3.15,4.13,3.15,3.5,2.62,3.94,3.15,5.95,2.62,3.15,3.5,3.15,2.62,2.62,2.62},{}};
+    int[][] unit_dmg_g={{0,6,5,4,10,18,0,0,12,0,15,0,3,30,8,0},                                 {0,8,  10, 6,10, 0,45, 0, 0, 0, 20, 6,12,40, 5, 8},{}};
+    int[][] unit_dmg_a={{0,6,0,0,10,0,0,10,0,0, 0, 0,0,6,6,5},                                  {0,0,  10, 6, 0, 0, 0, 0, 5, 0,  0, 6, 0,30, 5, 0},{}};
+    int[][] unit_atks_g={{0,1,2,2,1,1,0,0,2,0,1,0,1,2,1,0},                                     {0,2,   1, 1, 1, 0, 1, 0, 0, 0,  1,1, 2, 1, 2, 1},{}};
+    int[][] unit_atks_a={{0,1,0,0,1,0,0,2,0,0,0,0,0,4,1,2},                                     {0,0,   1, 1, 0, 0, 0, 0, 2, 0,  0,1, 0, 1, 2, 0},{}};
+    double[][] unit_atkSp_g={{0,0.61,1.07,0.79,1.07,1.43,0,0   ,0.89,0,0.74,0,0.1,0.91,0.16,0}, {0,0.86,1.03,0.71,1.61,0,1.21,   0, 0,1.04, 0,0.36,1.07,2.36,0.71,0.61},{}};
+    double[][] unit_atkSp_a={{0,0.61,0,0,      1.07,0   ,0,1.43,0,   0,0,0,0  ,2.14,0.16,1.29}, {0,0,   1.03,0.71,   0,0,   0,0.79, 0,   0,0 ,0.36,   0,2.36,0.71,   0},{}};
+    int[][] unit_bouns_type_g={{0,0,2 , 0, 1, 0,0,0,0,0,2,   0,2, 0,0,0},                       {0,0,   2,0,1,0,0,0, 0, 0,2,2, 0,0,0,0},{}};    //0 none 1 light 2 Armored 3 Bio 4 Mec 5 Psi 6 massive
+    int[][] unit_bouns_dmg_g ={{0,0,5 , 0,10, 0,0,0,0,0,10,  0,2, 0,0,0},                       {0,0,   4,0,12,0,0,0,0,0,30,4, 0,0,0,0},{}};
+    int[][] unit_bouns_type_a={{-1,0,0 , 0, 1, 0,0,2,0,0,0,   0,0, 1,0,0},                      {0,0,   2,0,0,0,0,0,1, 0,0, 2,0, 6,0,0},{}};    //0 none 1 light 2 Armored 3 Bio 4 Mec 5 Psi 6 massive
+    int[][] unit_bouns_dmg_a ={{-1,0,0 , 0,10, 0,0,4,0,0,0,   0,0, 6,0,0},                      {0,0,   4,0,0,0,0,0,5, 0,0, 4,0,22,0,0},{}};
 
 
     TextView cost;
@@ -64,27 +71,30 @@ public class MainActivity extends AppCompatActivity {// ss
 
 
 
-    ImageButton unit_marine;
-    ImageButton unit_marauder;
-    ImageButton unit_reaper;
-    ImageButton unit_ghost;
-    ImageButton unit_hellBat;
-    ImageButton unit_medivac;
-    ImageButton unit_viking;
-    ImageButton unit_banshee;
-    ImageButton unit_raven;
-    ImageButton unit_tank;
-    ImageButton unit_mine;
-    ImageButton unit_cyclone;
-    ImageButton unit_thor;
-    ImageButton unit_BC;
-    ImageButton unit_lib;
+    ImageButton unit_1;
+    ImageButton unit_2;
+    ImageButton unit_3;
+    ImageButton unit_4;
+    ImageButton unit_5;
+    ImageButton unit_6;
+    ImageButton unit_7;
+    ImageButton unit_8;
+    ImageButton unit_9;
+    ImageButton unit_10;
+    ImageButton unit_11;
+    ImageButton unit_12;
+    ImageButton unit_13;
+    ImageButton unit_14;
+    ImageButton unit_15;
+    
+    
     ImageButton upgrade1;
     ImageButton upgrade2;
     ImageButton upgrade3;
     ImageButton skill1;
     ImageButton skill2;
     ImageButton skill3;
+    Button button_T,button_P,button_Z;
 
     boolean hellbatOFF=false;
     boolean turret=false;
@@ -137,7 +147,41 @@ public class MainActivity extends AppCompatActivity {// ss
         dpspc_g=(TextView) findViewById(R.id.textView_dpspc_g);
         dpspc_a=(TextView) findViewById(R.id.textView_dpspc_a);
         bdps=(TextView) findViewById(R.id.textView_bdps);
+// race buttons ctrl
+        button_T=(Button)findViewById(R.id.Terren);
+        upgrade1.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                race=0;
 
+            }
+        });
+
+        button_P=(Button)findViewById(R.id.Protoss);
+        upgrade1.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                race=1;
+
+            }
+        });
+
+        button_Z=(Button)findViewById(R.id.Zerg);
+        upgrade1.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                race=2;
+
+            }
+        });
+        
+
+
+        
+        
+        
+        
+        
+        
+        
+        
         //upgrades
         upgrade1=(ImageButton)findViewById(R.id.imageButton_upgrade1);
         upgrade1.setOnClickListener(new View.OnClickListener(){
@@ -170,27 +214,27 @@ public class MainActivity extends AppCompatActivity {// ss
         upgrade2.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 if(current==1 || current == 2){//marine/maruder -stimpack  150% speed
-                    double tempSp_g= unit_atkSp_g[current];
-                    double tempSp_a= unit_atkSp_a[current];
+                    double tempSp_g= unit_atkSp_g[race][current];
+                    double tempSp_a= unit_atkSp_a[race][current];
                     double tempDps_g,tempDps_a,tempbdps_g=0.0,tempbdps_a=0.0;
                     tempSp_g=tempSp_g*2/3;
                     tempSp_a=tempSp_a*2/3;
-                    tempDps_g=unit_dmg_g[current]*unit_atks_g[current]/tempSp_g;
-                    tempDps_a=unit_dmg_a[current]*unit_atks_a[current]/tempSp_a;
+                    tempDps_g=unit_dmg_g[race][current]*unit_atks_g[race][current]/tempSp_g;
+                    tempDps_a=unit_dmg_a[race][current]*unit_atks_a[race][current]/tempSp_a;
 
                     atkSp_g.setText(Double.toString(  (Math.round(tempSp_g*100))*0.01));
                     atkSp_a.setText(Double.toString(  (Math.round(tempSp_a*100))*0.01));
                     dps_g.setText(Double.toString(  (Math.round(tempDps_g*100))*0.01));
                     dps_a.setText(Double.toString(  (Math.round(tempDps_a*100))*0.01));
 
-                    dpspc_g.setText(Double.toString(Math.round(tempDps_g/unit_costs[current]*100)*0.01      ));
-                    dpspc_a.setText(Double.toString(Math.round(tempDps_a/unit_costs[current]*100)*0.01      ));
+                    dpspc_g.setText(Double.toString(Math.round(tempDps_g/unit_costs[race][current]*100)*0.01      ));
+                    dpspc_a.setText(Double.toString(Math.round(tempDps_a/unit_costs[race][current]*100)*0.01      ));
 
 
-                    if(unit_bouns_type_g[current]>0)
-                        tempbdps_g= Math.round((( (unit_dmg_g[current]+ unit_bouns_dmg_g[current]  )   *unit_atks_g[current] )/ tempSp_g)*100) *0.01 ;
-                    else if (unit_bouns_type_a[current]>0)
-                        tempbdps_a= Math.round((( (unit_dmg_a[current]+ unit_bouns_dmg_a[current]  )   *unit_atks_a[current] )/ tempSp_a)*100) *0.01 ;
+                    if(unit_bouns_type_g[race][current]>0)
+                        tempbdps_g= Math.round((( (unit_dmg_g[race][current]+ unit_bouns_dmg_g[race][current]  )   *unit_atks_g[race][current] )/ tempSp_g)*100) *0.01 ;
+                    else if (unit_bouns_type_a[race][current]>0)
+                        tempbdps_a= Math.round((( (unit_dmg_a[race][current]+ unit_bouns_dmg_a[race][current]  )   *unit_atks_a[race][current] )/ tempSp_a)*100) *0.01 ;
 
                     if(tempbdps_g>tempbdps_a)
                         bdps.setText(Double.toString(tempbdps_g));
@@ -307,7 +351,7 @@ public class MainActivity extends AppCompatActivity {// ss
                     //hppc.setText(Double.toString(125.0/190));
                     dpspc_g.setText(Double.toString(18.78/310));
                     dpspc_a.setText("0");
-                    bdps.setText(Double.toString((40+30)/0.71));
+                    bdps.setText(Double.toString((40+30)/2.13));
 
                     bouns.setText("Gnd-Arm+30");
                 }else if(current == 13){// thor HIP
@@ -390,48 +434,48 @@ public class MainActivity extends AppCompatActivity {// ss
 
         //Terran units
         /////////////////////////////////////COST
-        unit_marine=(ImageButton)findViewById(R.id.imageButton1);
-        unit_marine.setOnClickListener(new View.OnClickListener(){
+        unit_1=(ImageButton)findViewById(R.id.imageButton1);
+        unit_1.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 int i=1;
                 current=i;
                 Log.d("@1-i: ", Integer.toString(i));
-                cost_Value=Integer.toString(unit_costs[i]);
+                cost_Value=Integer.toString(unit_costs[race][i]);
+                armor_Value=Integer.toString(unit_armor[race][i]);
                 cost.setText(cost_Value);
-                armor_Value=Integer.toString(unit_armor[i]);
                 armor.setText(armor_Value);
-                hp_Value=Integer.toString(unit_hp[i]);
+                hp_Value=Integer.toString(unit_hp[race][i]);
                 hp.setText(hp_Value);
-                type_Value=typeTrans(unit_type[i]); Log.d("@1",type_Value);
+                type_Value=typeTrans(unit_type[race][i]); Log.d("@1",type_Value);
                 type.setText( type_Value);
-                range_a_Value=Integer.toString(unit_range_air[i]);
+                range_a_Value=Integer.toString(unit_range_air[race][i]);
                 range_a.setText( range_a_Value);
-                range_g_Value=Integer.toString(unit_range_gnd[i]);
+                range_g_Value=Integer.toString(unit_range_gnd[race][i]);
                 range_g.setText( range_g_Value);
-                move_Value=Double.toString(unit_move[i]);
+                move_Value=Double.toString(unit_move[race][i]);
                 move.setText( move_Value);
 
-                dmg_g_Value=Integer.toString(unit_dmg_g[i]);
-                if(unit_atks_g[i]>=2)
-                    dmg_g_Value=dmg_g_Value+"x"+ Integer.toString(unit_atks_g[i]);
+                dmg_g_Value=Integer.toString(unit_dmg_g[race][i]);
+                if(unit_atks_g[race][i]>=2)
+                    dmg_g_Value=dmg_g_Value+"x"+ Integer.toString(unit_atks_g[race][i]);
                 dmg_g.setText( dmg_g_Value);
-                dmg_a_Value=Integer.toString(unit_dmg_a[i]);
-                if(unit_atks_a[i]>=2)
-                    dmg_a_Value=dmg_a_Value+"x"+ Integer.toString(unit_atks_a[i]);
+                dmg_a_Value=Integer.toString(unit_dmg_a[race][i]);
+                if(unit_atks_a[race][i]>=2)
+                    dmg_a_Value=dmg_a_Value+"x"+ Integer.toString(unit_atks_a[race][i]);
                 dmg_a.setText( dmg_a_Value);
 
-                atkSp_g_Value=Double.toString(unit_atkSp_g[i]);
+                atkSp_g_Value=Double.toString(unit_atkSp_g[race][i]);
                 atkSp_g.setText( atkSp_g_Value);
-                atkSp_a_Value=Double.toString(unit_atkSp_a[i]);
+                atkSp_a_Value=Double.toString(unit_atkSp_a[race][i]);
                 atkSp_a.setText( atkSp_a_Value);
-                dps_g_Value=Double.toString( (Math.round (     (unit_dmg_g[i]*unit_atks_g[i] )/ unit_atkSp_g[i]*100)  ) *0.01     );
+                dps_g_Value=Double.toString( (Math.round (     (unit_dmg_g[race][i]*unit_atks_g[race][i] )/ unit_atkSp_g[race][i]*100)  ) *0.01     );
                 dps_g.setText( dps_g_Value);
-                dps_a_Value=Double.toString( (Math.round (     (unit_dmg_a[i]*unit_atks_a[i] )/ unit_atkSp_a[i]*100)  ) *0.01     );
+                dps_a_Value=Double.toString( (Math.round (     (unit_dmg_a[race][i]*unit_atks_a[race][i] )/ unit_atkSp_a[race][i]*100)  ) *0.01     );
                 dps_a.setText( dps_a_Value);
-                if(unit_bouns_type_g[i]>0){
-                    bouns_Value=bounsTrans(unit_bouns_type_g[i],unit_bouns_dmg_g[i],0);
-                }else if((unit_bouns_type_a[i]>0)){
-                    bouns_Value=bounsTrans(unit_bouns_type_a[i],unit_bouns_dmg_a[i],1);
+                if(unit_bouns_type_g[race][i]>0){
+                    bouns_Value=bounsTrans(unit_bouns_type_g[race][i],unit_bouns_dmg_g[race][i],0);
+                }else if((unit_bouns_type_a[race][i]>0)){
+                    bouns_Value=bounsTrans(unit_bouns_type_a[race][i],unit_bouns_dmg_a[race][i],1);
                 }
                 else
                     bouns_Value="N/A";
@@ -440,21 +484,21 @@ public class MainActivity extends AppCompatActivity {// ss
 
 
 
-                hppc.setText(Double.toString(  Math.round(unit_hp[i]*1.0/unit_costs[i]*100) *0.01 ));
-                hppc.setText(Double.toString(  Math.round(unit_hp[i]*1.0/unit_costs[i]*100) *0.01 ));
+                hppc.setText(Double.toString(  Math.round(unit_hp[race][i]*1.0/unit_costs[race][i]*100) *0.01 ));
+                hppc.setText(Double.toString(  Math.round(unit_hp[race][i]*1.0/unit_costs[race][i]*100) *0.01 ));
 
                 Double dps1,dps2;
-                dps1=  Math.round(((unit_dmg_g[i]*unit_atks_g[i] )/ unit_atkSp_g[i])/unit_costs[i]*100) *0.01 ;
-                dps2=  Math.round(((unit_dmg_a[i]*unit_atks_a[i] )/ unit_atkSp_a[i])/unit_costs[i]*100) *0.01 ;
+                dps1=  Math.round(((unit_dmg_g[race][i]*unit_atks_g[race][i] )/ unit_atkSp_g[race][i])/unit_costs[race][i]*100) *0.01 ;
+                dps2=  Math.round(((unit_dmg_a[race][i]*unit_atks_a[race][i] )/ unit_atkSp_a[race][i])/unit_costs[race][i]*100) *0.01 ;
                 dpspc_g.setText(Double.toString(dps1));
                 dpspc_a.setText(Double.toString(dps2));
 
                 dps1=0.0;
                 dps2=0.0;
-                if(unit_bouns_type_g[i]>0)
-                    dps1=  Math.round((( (unit_dmg_g[i]+unit_bouns_dmg_g[i])*unit_atks_g[i] )/ unit_atkSp_g[i])*100) *0.01 ;
-                else if(unit_bouns_type_a[i]>0)
-                    dps2=  Math.round((( (unit_dmg_a[i]+unit_bouns_dmg_a[i])*unit_atks_a[i] )/ unit_atkSp_a[i])*100) *0.01 ;
+                if(unit_bouns_type_g[race][i]>0)
+                    dps1=  Math.round((( (unit_dmg_g[race][i]+unit_bouns_dmg_g[race][i])*unit_atks_g[race][i] )/ unit_atkSp_g[race][i])*100) *0.01 ;
+                else if(unit_bouns_type_a[race][i]>0)
+                    dps2=  Math.round((( (unit_dmg_a[race][i]+unit_bouns_dmg_a[race][i])*unit_atks_a[race][i] )/ unit_atkSp_a[race][i])*100) *0.01 ;
 
                 if(dps1>dps2)
                     bdps.setText(Double.toString(dps1));
@@ -479,66 +523,66 @@ public class MainActivity extends AppCompatActivity {// ss
             }
         });
 
-        unit_marauder=(ImageButton)findViewById(R.id.imageButton2);
-        unit_marauder.setOnClickListener(new View.OnClickListener(){
+        unit_2=(ImageButton)findViewById(R.id.imageButton2);
+        unit_2.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 int i=2;current=i;
-                cost_Value=Integer.toString(unit_costs[i]);
+                cost_Value=Integer.toString(unit_costs[race][i]);
                 cost.setText(cost_Value);
-                armor_Value=Integer.toString(unit_armor[i]);
+                armor_Value=Integer.toString(unit_armor[race][i]);
                 armor.setText(armor_Value);
-                hp_Value=Integer.toString(unit_hp[i]);
+                hp_Value=Integer.toString(unit_hp[race][i]);
                 hp.setText(hp_Value);
-                type_Value=typeTrans(unit_type[i]);Log.d("@2",type_Value);
+                type_Value=typeTrans(unit_type[race][i]);Log.d("@2",type_Value);
                 type.setText(type_Value);
-                range_a_Value=Integer.toString(unit_range_air[i]);
+                range_a_Value=Integer.toString(unit_range_air[race][i]);
                 range_a.setText( range_a_Value);
-                range_g_Value=Integer.toString(unit_range_gnd[i]);
+                range_g_Value=Integer.toString(unit_range_gnd[race][i]);
                 range_g.setText( range_g_Value);
-                move_Value=Double.toString(unit_move[i]);
+                move_Value=Double.toString(unit_move[race][i]);
                 move.setText( move_Value);
-                dmg_g_Value=Integer.toString(unit_dmg_g[i]);
-                if(unit_atks_g[i]>=2)
-                    dmg_g_Value=dmg_g_Value+"x"+ Integer.toString(unit_atks_g[i]);
+                dmg_g_Value=Integer.toString(unit_dmg_g[race][i]);
+                if(unit_atks_g[race][i]>=2)
+                    dmg_g_Value=dmg_g_Value+"x"+ Integer.toString(unit_atks_g[race][i]);
                 dmg_g.setText( dmg_g_Value);
-                dmg_a_Value=Integer.toString(unit_dmg_a[i]);
-                if(unit_atks_a[i]>=2)
-                    dmg_a_Value=dmg_a_Value+"x"+ Integer.toString(unit_atks_a[i]);
+                dmg_a_Value=Integer.toString(unit_dmg_a[race][i]);
+                if(unit_atks_a[race][i]>=2)
+                    dmg_a_Value=dmg_a_Value+"x"+ Integer.toString(unit_atks_a[race][i]);
                 dmg_a.setText( dmg_a_Value);
 
-                atkSp_g_Value=Double.toString(unit_atkSp_g[i]);
+                atkSp_g_Value=Double.toString(unit_atkSp_g[race][i]);
                 atkSp_g.setText( atkSp_g_Value);
-                atkSp_a_Value=Double.toString(unit_atkSp_a[i]);
+                atkSp_a_Value=Double.toString(unit_atkSp_a[race][i]);
                 atkSp_a.setText( atkSp_a_Value);
-                dps_g_Value=Double.toString( (Math.round (     (unit_dmg_g[i]*unit_atks_g[i] )/ unit_atkSp_g[i]*100)  ) *0.01     );
+                dps_g_Value=Double.toString( (Math.round (     (unit_dmg_g[race][i]*unit_atks_g[race][i] )/ unit_atkSp_g[race][i]*100)  ) *0.01     );
                 dps_g.setText( dps_g_Value);
-                dps_a_Value=Double.toString( (Math.round (     (unit_dmg_a[i]*unit_atks_a[i] )/ unit_atkSp_a[i]*100)  ) *0.01     );
+                dps_a_Value=Double.toString( (Math.round (     (unit_dmg_a[race][i]*unit_atks_a[race][i] )/ unit_atkSp_a[race][i]*100)  ) *0.01     );
                 dps_a.setText( dps_a_Value);
 
-                if(unit_bouns_type_g[i]>0){
-                    bouns_Value=bounsTrans(unit_bouns_type_g[i],unit_bouns_dmg_g[i],0);
-                }else if((unit_bouns_type_a[i]>0)){
-                    bouns_Value=bounsTrans(unit_bouns_type_a[i],unit_bouns_dmg_a[i],1);
+                if(unit_bouns_type_g[race][i]>0){
+                    bouns_Value=bounsTrans(unit_bouns_type_g[race][i],unit_bouns_dmg_g[race][i],0);
+                }else if((unit_bouns_type_a[race][i]>0)){
+                    bouns_Value=bounsTrans(unit_bouns_type_a[race][i],unit_bouns_dmg_a[race][i],1);
                 }
                 else
                     bouns_Value="N/A";
                 bouns.setText( bouns_Value);
 
 
-                hppc.setText(Double.toString(  Math.round(unit_hp[i]*1.0/unit_costs[i]*100)*0.01 ));
+                hppc.setText(Double.toString(  Math.round(unit_hp[race][i]*1.0/unit_costs[race][i]*100)*0.01 ));
 
                 Double dps1,dps2;
-                dps1=  Math.round(((unit_dmg_g[i]*unit_atks_g[i] )/ unit_atkSp_g[i])/unit_costs[i]*100) *0.01 ;
-                dps2=  Math.round(((unit_dmg_a[i]*unit_atks_a[i] )/ unit_atkSp_a[i])/unit_costs[i]*100) *0.01 ;
+                dps1=  Math.round(((unit_dmg_g[race][i]*unit_atks_g[race][i] )/ unit_atkSp_g[race][i])/unit_costs[race][i]*100) *0.01 ;
+                dps2=  Math.round(((unit_dmg_a[race][i]*unit_atks_a[race][i] )/ unit_atkSp_a[race][i])/unit_costs[race][i]*100) *0.01 ;
                 dpspc_g.setText(Double.toString(dps1));
                 dpspc_a.setText(Double.toString(dps2));
 
                 dps1=0.0;
                 dps2=0.0;
-                if(unit_bouns_type_g[i]>0)
-                    dps1=  Math.round((( (unit_dmg_g[i]+unit_bouns_dmg_g[i])*unit_atks_g[i] )/ unit_atkSp_g[i])*100) *0.01 ;
-                else if(unit_bouns_type_a[i]>0)
-                    dps2=  Math.round((( (unit_dmg_a[i]+unit_bouns_dmg_a[i])*unit_atks_a[i] )/ unit_atkSp_a[i])*100) *0.01 ;
+                if(unit_bouns_type_g[race][i]>0)
+                    dps1=  Math.round((( (unit_dmg_g[race][i]+unit_bouns_dmg_g[race][i])*unit_atks_g[race][i] )/ unit_atkSp_g[race][i])*100) *0.01 ;
+                else if(unit_bouns_type_a[race][i]>0)
+                    dps2=  Math.round((( (unit_dmg_a[race][i]+unit_bouns_dmg_a[race][i])*unit_atks_a[race][i] )/ unit_atkSp_a[race][i])*100) *0.01 ;
 
                 if(dps1>dps2)
                     bdps.setText(Double.toString(dps1));
@@ -559,62 +603,62 @@ public class MainActivity extends AppCompatActivity {// ss
             }
         });
 
-        unit_reaper=(ImageButton)findViewById(R.id.imageButton3);
-        unit_reaper.setOnClickListener(new View.OnClickListener(){
+        unit_3=(ImageButton)findViewById(R.id.imageButton3);
+        unit_3.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 int i=3;current=i;
-                cost_Value=Integer.toString(unit_costs[i]);
+                cost_Value=Integer.toString(unit_costs[race][i]);
                 cost.setText(cost_Value);
-                armor_Value=Integer.toString(unit_armor[i]);
+                armor_Value=Integer.toString(unit_armor[race][i]);
                 armor.setText(armor_Value);
-                hp_Value=Integer.toString(unit_hp[i]);
+                hp_Value=Integer.toString(unit_hp[race][i]);
                 hp.setText(hp_Value);
-                type_Value=typeTrans(unit_type[i]);
+                type_Value=typeTrans(unit_type[race][i]);
                 type.setText(type_Value);
-                range_a_Value=Integer.toString(unit_range_air[i]);
+                range_a_Value=Integer.toString(unit_range_air[race][i]);
                 range_a.setText( range_a_Value);
-                range_g_Value=Integer.toString(unit_range_gnd[i]);
+                range_g_Value=Integer.toString(unit_range_gnd[race][i]);
                 range_g.setText( range_g_Value);
-                move_Value=Double.toString(unit_move[i]);
+                move_Value=Double.toString(unit_move[race][i]);
                 move.setText( move_Value);
-                dmg_g_Value=Integer.toString(unit_dmg_g[i]);
-                if(unit_atks_g[i]>=2)
-                    dmg_g_Value=dmg_g_Value+"x"+ Integer.toString(unit_atks_g[i]);
+                dmg_g_Value=Integer.toString(unit_dmg_g[race][i]);
+                if(unit_atks_g[race][i]>=2)
+                    dmg_g_Value=dmg_g_Value+"x"+ Integer.toString(unit_atks_g[race][i]);
                 dmg_g.setText( dmg_g_Value);
-                dmg_a_Value=Integer.toString(unit_dmg_a[i]);
-                if(unit_atks_a[i]>=2)
-                    dmg_a_Value=dmg_a_Value+"x"+ Integer.toString(unit_atks_a[i]);
+                dmg_a_Value=Integer.toString(unit_dmg_a[race][i]);
+                if(unit_atks_a[race][i]>=2)
+                    dmg_a_Value=dmg_a_Value+"x"+ Integer.toString(unit_atks_a[race][i]);
                 dmg_a.setText( dmg_a_Value);
-                atkSp_g_Value=Double.toString(unit_atkSp_g[i]);
+                atkSp_g_Value=Double.toString(unit_atkSp_g[race][i]);
                 atkSp_g.setText( atkSp_g_Value);
-                atkSp_a_Value=Double.toString(unit_atkSp_a[i]);
+                atkSp_a_Value=Double.toString(unit_atkSp_a[race][i]);
                 atkSp_a.setText( atkSp_a_Value);
-                dps_g_Value=Double.toString( (Math.round (     (unit_dmg_g[i]*unit_atks_g[i] )/ unit_atkSp_g[i]*100)  ) *0.01     );
+                dps_g_Value=Double.toString( (Math.round (     (unit_dmg_g[race][i]*unit_atks_g[race][i] )/ unit_atkSp_g[race][i]*100)  ) *0.01     );
                 dps_g.setText( dps_g_Value);
-                dps_a_Value=Double.toString( (Math.round (     (unit_dmg_a[i]*unit_atks_a[i] )/ unit_atkSp_a[i]*100)  ) *0.01     );
+                dps_a_Value=Double.toString( (Math.round (     (unit_dmg_a[race][i]*unit_atks_a[race][i] )/ unit_atkSp_a[race][i]*100)  ) *0.01     );
                 dps_a.setText( dps_a_Value);
-                if(unit_bouns_type_g[i]>0){
-                    bouns_Value=bounsTrans(unit_bouns_type_g[i],unit_bouns_dmg_g[i],0);
-                }else if((unit_bouns_type_a[i]>0)){
-                    bouns_Value=bounsTrans(unit_bouns_type_a[i],unit_bouns_dmg_a[i],1);
+                if(unit_bouns_type_g[race][i]>0){
+                    bouns_Value=bounsTrans(unit_bouns_type_g[race][i],unit_bouns_dmg_g[race][i],0);
+                }else if((unit_bouns_type_a[race][i]>0)){
+                    bouns_Value=bounsTrans(unit_bouns_type_a[race][i],unit_bouns_dmg_a[race][i],1);
                 }
                 else
                     bouns_Value="N/A";
                 bouns.setText( bouns_Value);
-                hppc.setText(Double.toString(  Math.round(unit_hp[i]*1.0/unit_costs[i]*100) *0.01));
+                hppc.setText(Double.toString(  Math.round(unit_hp[race][i]*1.0/unit_costs[race][i]*100) *0.01));
 
                 Double dps1,dps2;
-                dps1=  Math.round(((unit_dmg_g[i]*unit_atks_g[i] )/ unit_atkSp_g[i])/unit_costs[i]*100) *0.01 ;
-                dps2=  Math.round(((unit_dmg_a[i]*unit_atks_a[i] )/ unit_atkSp_a[i])/unit_costs[i]*100) *0.01 ;
+                dps1=  Math.round(((unit_dmg_g[race][i]*unit_atks_g[race][i] )/ unit_atkSp_g[race][i])/unit_costs[race][i]*100) *0.01 ;
+                dps2=  Math.round(((unit_dmg_a[race][i]*unit_atks_a[race][i] )/ unit_atkSp_a[race][i])/unit_costs[race][i]*100) *0.01 ;
                 dpspc_g.setText(Double.toString(dps1));
                 dpspc_a.setText(Double.toString(dps2));
 
                 dps1=0.0;
                 dps2=0.0;
-                if(unit_bouns_type_g[i]>0)
-                    dps1=  Math.round((( (unit_dmg_g[i]+unit_bouns_dmg_g[i])*unit_atks_g[i] )/ unit_atkSp_g[i])*100) *0.01 ;
-                else if(unit_bouns_type_a[i]>0)
-                    dps2=  Math.round((( (unit_dmg_a[i]+unit_bouns_dmg_a[i])*unit_atks_a[i] )/ unit_atkSp_a[i])*100) *0.01 ;
+                if(unit_bouns_type_g[race][i]>0)
+                    dps1=  Math.round((( (unit_dmg_g[race][i]+unit_bouns_dmg_g[race][i])*unit_atks_g[race][i] )/ unit_atkSp_g[race][i])*100) *0.01 ;
+                else if(unit_bouns_type_a[race][i]>0)
+                    dps2=  Math.round((( (unit_dmg_a[race][i]+unit_bouns_dmg_a[race][i])*unit_atks_a[race][i] )/ unit_atkSp_a[race][i])*100) *0.01 ;
 
                 if(dps1>dps2)
                     bdps.setText(Double.toString(dps1));
@@ -639,65 +683,65 @@ public class MainActivity extends AppCompatActivity {// ss
             }
         });
 
-        unit_ghost=(ImageButton)findViewById(R.id.imageButton4);
-        unit_ghost.setOnClickListener(new View.OnClickListener(){
+        unit_4=(ImageButton)findViewById(R.id.imageButton4);
+        unit_4.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 int i=4;current=i;
-                cost_Value=Integer.toString(unit_costs[i]);
+                cost_Value=Integer.toString(unit_costs[race][i]);
                 cost.setText(cost_Value);
-                armor_Value=Integer.toString(unit_armor[i]);
+                armor_Value=Integer.toString(unit_armor[race][i]);
                 armor.setText(armor_Value);
-                hp_Value=Integer.toString(unit_hp[i]);
+                hp_Value=Integer.toString(unit_hp[race][i]);
                 hp.setText(hp_Value);
-                type_Value=typeTrans(unit_type[i]);
+                type_Value=typeTrans(unit_type[race][i]);
                 type.setText(type_Value);
-                range_a_Value=Integer.toString(unit_range_air[i]);
+                range_a_Value=Integer.toString(unit_range_air[race][i]);
                 range_a.setText( range_a_Value);
-                range_g_Value=Integer.toString(unit_range_gnd[i]);
+                range_g_Value=Integer.toString(unit_range_gnd[race][i]);
                 range_g.setText( range_g_Value);
-                move_Value=Double.toString(unit_move[i]);
+                move_Value=Double.toString(unit_move[race][i]);
                 move.setText( move_Value);
-                dmg_g_Value=Integer.toString(unit_dmg_g[i]);
-                if(unit_atks_g[i]>=2)
-                    dmg_g_Value=dmg_g_Value+"x"+ Integer.toString(unit_atks_g[i]);
+                dmg_g_Value=Integer.toString(unit_dmg_g[race][i]);
+                if(unit_atks_g[race][i]>=2)
+                    dmg_g_Value=dmg_g_Value+"x"+ Integer.toString(unit_atks_g[race][i]);
                 dmg_g.setText( dmg_g_Value);
-                dmg_a_Value=Integer.toString(unit_dmg_a[i]);
-                if(unit_atks_a[i]>=2)
-                    dmg_a_Value=dmg_a_Value+"x"+ Integer.toString(unit_atks_a[i]);
+                dmg_a_Value=Integer.toString(unit_dmg_a[race][i]);
+                if(unit_atks_a[race][i]>=2)
+                    dmg_a_Value=dmg_a_Value+"x"+ Integer.toString(unit_atks_a[race][i]);
                 dmg_a.setText( dmg_a_Value);
-                atkSp_g_Value=Double.toString(unit_atkSp_g[i]);
+                atkSp_g_Value=Double.toString(unit_atkSp_g[race][i]);
                 atkSp_g.setText( atkSp_g_Value);
-                atkSp_a_Value=Double.toString(unit_atkSp_a[i]);
+                atkSp_a_Value=Double.toString(unit_atkSp_a[race][i]);
                 atkSp_a.setText( atkSp_a_Value);
-                dps_g_Value=Double.toString( (Math.round (     (unit_dmg_g[i]*unit_atks_g[i] )/ unit_atkSp_g[i]*100)  ) *0.01     );
+                dps_g_Value=Double.toString( (Math.round (     (unit_dmg_g[race][i]*unit_atks_g[race][i] )/ unit_atkSp_g[race][i]*100)  ) *0.01     );
                 dps_g.setText( dps_g_Value);
-                dps_a_Value=Double.toString( (Math.round (     (unit_dmg_a[i]*unit_atks_a[i] )/ unit_atkSp_a[i]*100)  ) *0.01     );
+                dps_a_Value=Double.toString( (Math.round (     (unit_dmg_a[race][i]*unit_atks_a[race][i] )/ unit_atkSp_a[race][i]*100)  ) *0.01     );
                 dps_a.setText( dps_a_Value);
-                if(unit_bouns_type_g[i]>0){
-                    if(unit_bouns_type_a[i]>0)
-                        bouns_Value=bounsTrans(unit_bouns_type_g[i],unit_bouns_dmg_g[i],3);
+                if(unit_bouns_type_g[race][i]>0){
+                    if(unit_bouns_type_a[race][i]>0)
+                        bouns_Value=bounsTrans(unit_bouns_type_g[race][i],unit_bouns_dmg_g[race][i],3);
                     else
-                        bouns_Value=bounsTrans(unit_bouns_type_g[i],unit_bouns_dmg_g[i],0);
-                }else if((unit_bouns_type_a[i]>0)){
-                    bouns_Value=bounsTrans(unit_bouns_type_a[i],unit_bouns_dmg_a[i],1);
+                        bouns_Value=bounsTrans(unit_bouns_type_g[race][i],unit_bouns_dmg_g[race][i],0);
+                }else if((unit_bouns_type_a[race][i]>0)){
+                    bouns_Value=bounsTrans(unit_bouns_type_a[race][i],unit_bouns_dmg_a[race][i],1);
                 }
                 else
                     bouns_Value="N/A";
                 bouns.setText( bouns_Value);
-                hppc.setText(Double.toString(  Math.round(unit_hp[i]*1.0/unit_costs[i]*100) *0.01));
+                hppc.setText(Double.toString(  Math.round(unit_hp[race][i]*1.0/unit_costs[race][i]*100) *0.01));
 
                 Double dps1,dps2;
-                dps1=  Math.round(((unit_dmg_g[i]*unit_atks_g[i] )/ unit_atkSp_g[i])/unit_costs[i]*100) *0.01 ;
-                dps2=  Math.round(((unit_dmg_a[i]*unit_atks_a[i] )/ unit_atkSp_a[i])/unit_costs[i]*100) *0.01 ;
+                dps1=  Math.round(((unit_dmg_g[race][i]*unit_atks_g[race][i] )/ unit_atkSp_g[race][i])/unit_costs[race][i]*100) *0.01 ;
+                dps2=  Math.round(((unit_dmg_a[race][i]*unit_atks_a[race][i] )/ unit_atkSp_a[race][i])/unit_costs[race][i]*100) *0.01 ;
                 dpspc_g.setText(Double.toString(dps1));
                 dpspc_a.setText(Double.toString(dps2));
 
                 dps1=0.0;
                 dps2=0.0;
-                if(unit_bouns_type_g[i]>0)
-                    dps1=  Math.round((( (unit_dmg_g[i]+unit_bouns_dmg_g[i])*unit_atks_g[i] )/ unit_atkSp_g[i])*100) *0.01 ;
-                else if(unit_bouns_type_a[i]>0)
-                    dps2=  Math.round((( (unit_dmg_a[i]+unit_bouns_dmg_a[i])*unit_atks_a[i] )/ unit_atkSp_a[i])*100) *0.01 ;
+                if(unit_bouns_type_g[race][i]>0)
+                    dps1=  Math.round((( (unit_dmg_g[race][i]+unit_bouns_dmg_g[race][i])*unit_atks_g[race][i] )/ unit_atkSp_g[race][i])*100) *0.01 ;
+                else if(unit_bouns_type_a[race][i]>0)
+                    dps2=  Math.round((( (unit_dmg_a[race][i]+unit_bouns_dmg_a[race][i])*unit_atks_a[race][i] )/ unit_atkSp_a[race][i])*100) *0.01 ;
 
                 if(dps1>dps2)
                     bdps.setText(Double.toString(dps1));
@@ -723,62 +767,62 @@ public class MainActivity extends AppCompatActivity {// ss
             }
         });
 
-        unit_hellBat=(ImageButton)findViewById(R.id.imageButton5);
-        unit_hellBat.setOnClickListener(new View.OnClickListener(){
+        unit_5=(ImageButton)findViewById(R.id.imageButton5);
+        unit_5.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 int i=5;current=i;
-                cost_Value=Integer.toString(unit_costs[i]);
+                cost_Value=Integer.toString(unit_costs[race][i]);
                 cost.setText(cost_Value);
-                armor_Value=Integer.toString(unit_armor[i]);
+                armor_Value=Integer.toString(unit_armor[race][i]);
                 armor.setText(armor_Value);
-                hp_Value=Integer.toString(unit_hp[i]);
+                hp_Value=Integer.toString(unit_hp[race][i]);
                 hp.setText(hp_Value);
-                type_Value=typeTrans(unit_type[i]);
+                type_Value=typeTrans(unit_type[race][i]);
                 type.setText(type_Value);
-                range_a_Value=Integer.toString(unit_range_air[i]);
+                range_a_Value=Integer.toString(unit_range_air[race][i]);
                 range_a.setText( range_a_Value);
-                range_g_Value=Integer.toString(unit_range_gnd[i]);
+                range_g_Value=Integer.toString(unit_range_gnd[race][i]);
                 range_g.setText( range_g_Value);
-                move_Value=Double.toString(unit_move[i]);
+                move_Value=Double.toString(unit_move[race][i]);
                 move.setText( move_Value);
-                dmg_g_Value=Integer.toString(unit_dmg_g[i]);
-                if(unit_atks_g[i]>=2)
-                    dmg_g_Value=dmg_g_Value+"x"+ Integer.toString(unit_atks_g[i]);
+                dmg_g_Value=Integer.toString(unit_dmg_g[race][i]);
+                if(unit_atks_g[race][i]>=2)
+                    dmg_g_Value=dmg_g_Value+"x"+ Integer.toString(unit_atks_g[race][i]);
                 dmg_g.setText( dmg_g_Value);
-                dmg_a_Value=Integer.toString(unit_dmg_a[i]);
-                if(unit_atks_a[i]>=2)
-                    dmg_a_Value=dmg_a_Value+"x"+ Integer.toString(unit_atks_a[i]);
+                dmg_a_Value=Integer.toString(unit_dmg_a[race][i]);
+                if(unit_atks_a[race][i]>=2)
+                    dmg_a_Value=dmg_a_Value+"x"+ Integer.toString(unit_atks_a[race][i]);
                 dmg_a.setText( dmg_a_Value);
-                atkSp_g_Value=Double.toString(unit_atkSp_g[i]);
+                atkSp_g_Value=Double.toString(unit_atkSp_g[race][i]);
                 atkSp_g.setText( atkSp_g_Value);
-                atkSp_a_Value=Double.toString(unit_atkSp_a[i]);
+                atkSp_a_Value=Double.toString(unit_atkSp_a[race][i]);
                 atkSp_a.setText( atkSp_a_Value);
-                dps_g_Value=Double.toString( (Math.round (     (unit_dmg_g[i]*unit_atks_g[i] )/ unit_atkSp_g[i]*100)  ) *0.01     );
+                dps_g_Value=Double.toString( (Math.round (     (unit_dmg_g[race][i]*unit_atks_g[race][i] )/ unit_atkSp_g[race][i]*100)  ) *0.01     );
                 dps_g.setText( dps_g_Value);
-                dps_a_Value=Double.toString( (Math.round (     (unit_dmg_a[i]*unit_atks_a[i] )/ unit_atkSp_a[i]*100)  ) *0.01     );
+                dps_a_Value=Double.toString( (Math.round (     (unit_dmg_a[race][i]*unit_atks_a[race][i] )/ unit_atkSp_a[race][i]*100)  ) *0.01     );
                 dps_a.setText( dps_a_Value);
-                if(unit_bouns_type_g[i]>0){
-                    bouns_Value=bounsTrans(unit_bouns_type_g[i],unit_bouns_dmg_g[i],0);
-                }else if((unit_bouns_type_a[i]>0)){
-                    bouns_Value=bounsTrans(unit_bouns_type_a[i],unit_bouns_dmg_a[i],1);
+                if(unit_bouns_type_g[race][i]>0){
+                    bouns_Value=bounsTrans(unit_bouns_type_g[race][i],unit_bouns_dmg_g[race][i],0);
+                }else if((unit_bouns_type_a[race][i]>0)){
+                    bouns_Value=bounsTrans(unit_bouns_type_a[race][i],unit_bouns_dmg_a[race][i],1);
                 }
                 else
                     bouns_Value="N/A";
                 bouns.setText( bouns_Value);
-                hppc.setText(Double.toString(  Math.round(unit_hp[i]*1.0/unit_costs[i]*100) *0.01 ));
+                hppc.setText(Double.toString(  Math.round(unit_hp[race][i]*1.0/unit_costs[race][i]*100) *0.01 ));
 
                 Double dps1,dps2;
-                dps1=  Math.round(((unit_dmg_g[i]*unit_atks_g[i] )/ unit_atkSp_g[i])/unit_costs[i]*100) *0.01 ;
-                dps2=  Math.round(((unit_dmg_a[i]*unit_atks_a[i] )/ unit_atkSp_a[i])/unit_costs[i]*100) *0.01 ;
+                dps1=  Math.round(((unit_dmg_g[race][i]*unit_atks_g[race][i] )/ unit_atkSp_g[race][i])/unit_costs[race][i]*100) *0.01 ;
+                dps2=  Math.round(((unit_dmg_a[race][i]*unit_atks_a[race][i] )/ unit_atkSp_a[race][i])/unit_costs[race][i]*100) *0.01 ;
                 dpspc_g.setText(Double.toString(dps1));
                 dpspc_a.setText(Double.toString(dps2));
 
                 dps1=0.0;
                 dps2=0.0;
-                if(unit_bouns_type_g[i]>0)
-                    dps1=  Math.round((( (unit_dmg_g[i]+unit_bouns_dmg_g[i])*unit_atks_g[i] )/ unit_atkSp_g[i])*100) *0.01 ;
-                else if(unit_bouns_type_a[i]>0)
-                    dps2=  Math.round((( (unit_dmg_a[i]+unit_bouns_dmg_a[i])*unit_atks_a[i] )/ unit_atkSp_a[i])*100) *0.01 ;
+                if(unit_bouns_type_g[race][i]>0)
+                    dps1=  Math.round((( (unit_dmg_g[race][i]+unit_bouns_dmg_g[race][i])*unit_atks_g[race][i] )/ unit_atkSp_g[race][i])*100) *0.01 ;
+                else if(unit_bouns_type_a[race][i]>0)
+                    dps2=  Math.round((( (unit_dmg_a[race][i]+unit_bouns_dmg_a[race][i])*unit_atks_a[race][i] )/ unit_atkSp_a[race][i])*100) *0.01 ;
 
                 if(dps1>dps2)
                     bdps.setText(Double.toString(dps1));
@@ -804,62 +848,62 @@ public class MainActivity extends AppCompatActivity {// ss
             }
         });
 
-        unit_medivac=(ImageButton)findViewById(R.id.imageButton6);
-        unit_medivac.setOnClickListener(new View.OnClickListener(){
+        unit_6=(ImageButton)findViewById(R.id.imageButton6);
+        unit_6.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 int i=6;current=i;
-                cost_Value=Integer.toString(unit_costs[i]);
+                cost_Value=Integer.toString(unit_costs[race][i]);
                 cost.setText(cost_Value);
-                armor_Value=Integer.toString(unit_armor[i]);
+                armor_Value=Integer.toString(unit_armor[race][i]);
                 armor.setText(armor_Value);
-                hp_Value=Integer.toString(unit_hp[i]);
+                hp_Value=Integer.toString(unit_hp[race][i]);
                 hp.setText(hp_Value);
-                type_Value=typeTrans(unit_type[i]);
+                type_Value=typeTrans(unit_type[race][i]);
                 type.setText(type_Value);
-                range_a_Value=Integer.toString(unit_range_air[i]);
+                range_a_Value=Integer.toString(unit_range_air[race][i]);
                 range_a.setText( range_a_Value);
-                range_g_Value=Integer.toString(unit_range_gnd[i]);
+                range_g_Value=Integer.toString(unit_range_gnd[race][i]);
                 range_g.setText( range_g_Value);
-                move_Value=Double.toString(unit_move[i]);
+                move_Value=Double.toString(unit_move[race][i]);
                 move.setText( move_Value);
-                dmg_g_Value=Integer.toString(unit_dmg_g[i]);
-                if(unit_atks_g[i]>=2)
-                    dmg_g_Value=dmg_g_Value+"x"+ Integer.toString(unit_atks_g[i]);
+                dmg_g_Value=Integer.toString(unit_dmg_g[race][i]);
+                if(unit_atks_g[race][i]>=2)
+                    dmg_g_Value=dmg_g_Value+"x"+ Integer.toString(unit_atks_g[race][i]);
                 dmg_g.setText( dmg_g_Value);
-                dmg_a_Value=Integer.toString(unit_dmg_a[i]);
-                if(unit_atks_a[i]>=2)
-                    dmg_a_Value=dmg_a_Value+"x"+ Integer.toString(unit_atks_a[i]);
+                dmg_a_Value=Integer.toString(unit_dmg_a[race][i]);
+                if(unit_atks_a[race][i]>=2)
+                    dmg_a_Value=dmg_a_Value+"x"+ Integer.toString(unit_atks_a[race][i]);
                 dmg_a.setText( dmg_a_Value);
-                atkSp_g_Value=Double.toString(unit_atkSp_g[i]);
+                atkSp_g_Value=Double.toString(unit_atkSp_g[race][i]);
                 atkSp_g.setText( atkSp_g_Value);
-                atkSp_a_Value=Double.toString(unit_atkSp_a[i]);
+                atkSp_a_Value=Double.toString(unit_atkSp_a[race][i]);
                 atkSp_a.setText( atkSp_a_Value);
-                dps_g_Value=Double.toString( (Math.round (     (unit_dmg_g[i]*unit_atks_g[i] )/ unit_atkSp_g[i]*100)  ) *0.01     );
+                dps_g_Value=Double.toString( (Math.round (     (unit_dmg_g[race][i]*unit_atks_g[race][i] )/ unit_atkSp_g[race][i]*100)  ) *0.01     );
                 dps_g.setText( dps_g_Value);
-                dps_a_Value=Double.toString( (Math.round (     (unit_dmg_a[i]*unit_atks_a[i] )/ unit_atkSp_a[i]*100)  ) *0.01     );
+                dps_a_Value=Double.toString( (Math.round (     (unit_dmg_a[race][i]*unit_atks_a[race][i] )/ unit_atkSp_a[race][i]*100)  ) *0.01     );
                 dps_a.setText( dps_a_Value);
-                if(unit_bouns_type_g[i]>0){
-                    bouns_Value=bounsTrans(unit_bouns_type_g[i],unit_bouns_dmg_g[i],0);
-                }else if((unit_bouns_type_a[i]>0)){
-                    bouns_Value=bounsTrans(unit_bouns_type_a[i],unit_bouns_dmg_a[i],1);
+                if(unit_bouns_type_g[race][i]>0){
+                    bouns_Value=bounsTrans(unit_bouns_type_g[race][i],unit_bouns_dmg_g[race][i],0);
+                }else if((unit_bouns_type_a[race][i]>0)){
+                    bouns_Value=bounsTrans(unit_bouns_type_a[race][i],unit_bouns_dmg_a[race][i],1);
                 }
                 else
                     bouns_Value="N/A";
                 bouns.setText( bouns_Value);
-                hppc.setText(Double.toString(  Math.round(unit_hp[i]*1.0/unit_costs[i]*100) *0.01 ));
+                hppc.setText(Double.toString(  Math.round(unit_hp[race][i]*1.0/unit_costs[race][i]*100) *0.01 ));
 
                 Double dps1,dps2;
-                dps1=  Math.round(((unit_dmg_g[i]*unit_atks_g[i] )/ unit_atkSp_g[i])/unit_costs[i]*100) *0.01 ;
-                dps2=  Math.round(((unit_dmg_a[i]*unit_atks_a[i] )/ unit_atkSp_a[i])/unit_costs[i]*100) *0.01 ;
+                dps1=  Math.round(((unit_dmg_g[race][i]*unit_atks_g[race][i] )/ unit_atkSp_g[race][i])/unit_costs[race][i]*100) *0.01 ;
+                dps2=  Math.round(((unit_dmg_a[race][i]*unit_atks_a[race][i] )/ unit_atkSp_a[race][i])/unit_costs[race][i]*100) *0.01 ;
                 dpspc_g.setText(Double.toString(dps1));
                 dpspc_a.setText(Double.toString(dps2));
 
                 dps1=0.0;
                 dps2=0.0;
-                if(unit_bouns_type_g[i]>0)
-                    dps1=  Math.round((( (unit_dmg_g[i]+unit_bouns_dmg_g[i])*unit_atks_g[i] )/ unit_atkSp_g[i])*100) *0.01 ;
-                else if(unit_bouns_type_a[i]>0)
-                    dps2=  Math.round((( (unit_dmg_a[i]+unit_bouns_dmg_a[i])*unit_atks_a[i] )/ unit_atkSp_a[i])*100) *0.01 ;
+                if(unit_bouns_type_g[race][i]>0)
+                    dps1=  Math.round((( (unit_dmg_g[race][i]+unit_bouns_dmg_g[race][i])*unit_atks_g[race][i] )/ unit_atkSp_g[race][i])*100) *0.01 ;
+                else if(unit_bouns_type_a[race][i]>0)
+                    dps2=  Math.round((( (unit_dmg_a[race][i]+unit_bouns_dmg_a[race][i])*unit_atks_a[race][i] )/ unit_atkSp_a[race][i])*100) *0.01 ;
 
                 if(dps1>dps2)
                     bdps.setText(Double.toString(dps1));
@@ -885,62 +929,62 @@ public class MainActivity extends AppCompatActivity {// ss
             }
         });
 
-        unit_viking=(ImageButton)findViewById(R.id.imageButton7);
-        unit_viking.setOnClickListener(new View.OnClickListener(){
+        unit_7=(ImageButton)findViewById(R.id.imageButton7);
+        unit_7.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 int i=7;current=i;
-                cost_Value=Integer.toString(unit_costs[i]);
+                cost_Value=Integer.toString(unit_costs[race][i]);
                 cost.setText(cost_Value);
-                armor_Value=Integer.toString(unit_armor[i]);
+                armor_Value=Integer.toString(unit_armor[race][i]);
                 armor.setText(armor_Value);
-                hp_Value=Integer.toString(unit_hp[i]);
+                hp_Value=Integer.toString(unit_hp[race][i]);
                 hp.setText(hp_Value);
-                type_Value=typeTrans(unit_type[i]);
+                type_Value=typeTrans(unit_type[race][i]);
                 type.setText(type_Value);
-                range_a_Value=Integer.toString(unit_range_air[i]);
+                range_a_Value=Integer.toString(unit_range_air[race][i]);
                 range_a.setText( range_a_Value);
-                range_g_Value=Integer.toString(unit_range_gnd[i]);
+                range_g_Value=Integer.toString(unit_range_gnd[race][i]);
                 range_g.setText( range_g_Value);
-                move_Value=Double.toString(unit_move[i]);
+                move_Value=Double.toString(unit_move[race][i]);
                 move.setText( move_Value);
-                dmg_g_Value=Integer.toString(unit_dmg_g[i]);
-                if(unit_atks_g[i]>=2)
-                    dmg_g_Value=dmg_g_Value+"x"+ Integer.toString(unit_atks_g[i]);
+                dmg_g_Value=Integer.toString(unit_dmg_g[race][i]);
+                if(unit_atks_g[race][i]>=2)
+                    dmg_g_Value=dmg_g_Value+"x"+ Integer.toString(unit_atks_g[race][i]);
                 dmg_g.setText( dmg_g_Value);
-                dmg_a_Value=Integer.toString(unit_dmg_a[i]);
-                if(unit_atks_a[i]>=2)
-                    dmg_a_Value=dmg_a_Value+"x"+ Integer.toString(unit_atks_a[i]);
+                dmg_a_Value=Integer.toString(unit_dmg_a[race][i]);
+                if(unit_atks_a[race][i]>=2)
+                    dmg_a_Value=dmg_a_Value+"x"+ Integer.toString(unit_atks_a[race][i]);
                 dmg_a.setText( dmg_a_Value);
-                atkSp_g_Value=Double.toString(unit_atkSp_g[i]);
+                atkSp_g_Value=Double.toString(unit_atkSp_g[race][i]);
                 atkSp_g.setText( atkSp_g_Value);
-                atkSp_a_Value=Double.toString(unit_atkSp_a[i]);
+                atkSp_a_Value=Double.toString(unit_atkSp_a[race][i]);
                 atkSp_a.setText( atkSp_a_Value);
-                dps_g_Value=Double.toString( (Math.round (     (unit_dmg_g[i]*unit_atks_g[i] )/ unit_atkSp_g[i]*100)  ) *0.01     );
+                dps_g_Value=Double.toString( (Math.round (     (unit_dmg_g[race][i]*unit_atks_g[race][i] )/ unit_atkSp_g[race][i]*100)  ) *0.01     );
                 dps_g.setText( dps_g_Value);
-                dps_a_Value=Double.toString( (Math.round (     (unit_dmg_a[i]*unit_atks_a[i] )/ unit_atkSp_a[i]*100)  ) *0.01     );
+                dps_a_Value=Double.toString( (Math.round (     (unit_dmg_a[race][i]*unit_atks_a[race][i] )/ unit_atkSp_a[race][i]*100)  ) *0.01     );
                 dps_a.setText( dps_a_Value);
-                if(unit_bouns_type_g[i]>0){
-                    bouns_Value=bounsTrans(unit_bouns_type_g[i],unit_bouns_dmg_g[i],0);
-                }else if((unit_bouns_type_a[i]>0)){
-                    bouns_Value=bounsTrans(unit_bouns_type_a[i],unit_bouns_dmg_a[i],1);
+                if(unit_bouns_type_g[race][i]>0){
+                    bouns_Value=bounsTrans(unit_bouns_type_g[race][i],unit_bouns_dmg_g[race][i],0);
+                }else if((unit_bouns_type_a[race][i]>0)){
+                    bouns_Value=bounsTrans(unit_bouns_type_a[race][i],unit_bouns_dmg_a[race][i],1);
                 }
                 else
                     bouns_Value="N/A";
                 bouns.setText( bouns_Value);
-                hppc.setText(Double.toString(  Math.round(unit_hp[i]*1.0/unit_costs[i]*100) *0.01 ));
+                hppc.setText(Double.toString(  Math.round(unit_hp[race][i]*1.0/unit_costs[race][i]*100) *0.01 ));
 
                 Double dps1,dps2;
-                dps1=  Math.round(((unit_dmg_g[i]*unit_atks_g[i] )/ unit_atkSp_g[i])/unit_costs[i]*100) *0.01 ;
-                dps2=  Math.round(((unit_dmg_a[i]*unit_atks_a[i] )/ unit_atkSp_a[i])/unit_costs[i]*100) *0.01 ;
+                dps1=  Math.round(((unit_dmg_g[race][i]*unit_atks_g[race][i] )/ unit_atkSp_g[race][i])/unit_costs[race][i]*100) *0.01 ;
+                dps2=  Math.round(((unit_dmg_a[race][i]*unit_atks_a[race][i] )/ unit_atkSp_a[race][i])/unit_costs[race][i]*100) *0.01 ;
                 dpspc_g.setText(Double.toString(dps1));
                 dpspc_a.setText(Double.toString(dps2));
 
                 dps1=0.0;
                 dps2=0.0;
-                if(unit_bouns_type_g[i]>0)
-                    dps1=  Math.round((( (unit_dmg_g[i]+unit_bouns_dmg_g[i])*unit_atks_g[i] )/ unit_atkSp_g[i])*100) *0.01 ;
-                else if(unit_bouns_type_a[i]>0)
-                    dps2=  Math.round((( (unit_dmg_a[i]+unit_bouns_dmg_a[i])*unit_atks_a[i] )/ unit_atkSp_a[i])*100) *0.01 ;
+                if(unit_bouns_type_g[race][i]>0)
+                    dps1=  Math.round((( (unit_dmg_g[race][i]+unit_bouns_dmg_g[race][i])*unit_atks_g[race][i] )/ unit_atkSp_g[race][i])*100) *0.01 ;
+                else if(unit_bouns_type_a[race][i]>0)
+                    dps2=  Math.round((( (unit_dmg_a[race][i]+unit_bouns_dmg_a[race][i])*unit_atks_a[race][i] )/ unit_atkSp_a[race][i])*100) *0.01 ;
 
                 if(dps1>dps2)
                     bdps.setText(Double.toString(dps1));
@@ -964,62 +1008,62 @@ public class MainActivity extends AppCompatActivity {// ss
             }
         });
 
-        unit_banshee=(ImageButton)findViewById(R.id.imageButton8);
-        unit_banshee.setOnClickListener(new View.OnClickListener(){
+        unit_8=(ImageButton)findViewById(R.id.imageButton8);
+        unit_8.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 int i=8;current=i;
-                cost_Value=Integer.toString(unit_costs[i]);
+                cost_Value=Integer.toString(unit_costs[race][i]);
                 cost.setText(cost_Value);
-                armor_Value=Integer.toString(unit_armor[i]);
+                armor_Value=Integer.toString(unit_armor[race][i]);
                 armor.setText(armor_Value);
-                hp_Value=Integer.toString(unit_hp[i]);
+                hp_Value=Integer.toString(unit_hp[race][i]);
                 hp.setText(hp_Value);
-                type_Value=typeTrans(unit_type[i]);
+                type_Value=typeTrans(unit_type[race][i]);
                 type.setText(type_Value);
-                range_a_Value=Integer.toString(unit_range_air[i]);
+                range_a_Value=Integer.toString(unit_range_air[race][i]);
                 range_a.setText( range_a_Value);
-                range_g_Value=Integer.toString(unit_range_gnd[i]);
+                range_g_Value=Integer.toString(unit_range_gnd[race][i]);
                 range_g.setText( range_g_Value);
-                move_Value=Double.toString(unit_move[i]);
+                move_Value=Double.toString(unit_move[race][i]);
                 move.setText( move_Value);
-                dmg_g_Value=Integer.toString(unit_dmg_g[i]);
-                if(unit_atks_g[i]>=2)
-                    dmg_g_Value=dmg_g_Value+"x"+ Integer.toString(unit_atks_g[i]);
+                dmg_g_Value=Integer.toString(unit_dmg_g[race][i]);
+                if(unit_atks_g[race][i]>=2)
+                    dmg_g_Value=dmg_g_Value+"x"+ Integer.toString(unit_atks_g[race][i]);
                 dmg_g.setText( dmg_g_Value);
-                dmg_a_Value=Integer.toString(unit_dmg_a[i]);
-                if(unit_atks_a[i]>=2)
-                    dmg_a_Value=dmg_a_Value+"x"+ Integer.toString(unit_atks_a[i]);
+                dmg_a_Value=Integer.toString(unit_dmg_a[race][i]);
+                if(unit_atks_a[race][i]>=2)
+                    dmg_a_Value=dmg_a_Value+"x"+ Integer.toString(unit_atks_a[race][i]);
                 dmg_a.setText( dmg_a_Value);
-                atkSp_g_Value=Double.toString(unit_atkSp_g[i]);
+                atkSp_g_Value=Double.toString(unit_atkSp_g[race][i]);
                 atkSp_g.setText( atkSp_g_Value);
-                atkSp_a_Value=Double.toString(unit_atkSp_a[i]);
+                atkSp_a_Value=Double.toString(unit_atkSp_a[race][i]);
                 atkSp_a.setText( atkSp_a_Value);
-                dps_g_Value=Double.toString( (Math.round (     (unit_dmg_g[i]*unit_atks_g[i] )/ unit_atkSp_g[i]*100)  ) *0.01     );
+                dps_g_Value=Double.toString( (Math.round (     (unit_dmg_g[race][i]*unit_atks_g[race][i] )/ unit_atkSp_g[race][i]*100)  ) *0.01     );
                 dps_g.setText( dps_g_Value);
-                dps_a_Value=Double.toString( (Math.round (     (unit_dmg_a[i]*unit_atks_a[i] )/ unit_atkSp_a[i]*100)  ) *0.01     );
+                dps_a_Value=Double.toString( (Math.round (     (unit_dmg_a[race][i]*unit_atks_a[race][i] )/ unit_atkSp_a[race][i]*100)  ) *0.01     );
                 dps_a.setText( dps_a_Value);
-                if(unit_bouns_type_g[i]>0){
-                    bouns_Value=bounsTrans(unit_bouns_type_g[i],unit_bouns_dmg_g[i],0);
-                }else if((unit_bouns_type_a[i]>0)){
-                    bouns_Value=bounsTrans(unit_bouns_type_a[i],unit_bouns_dmg_a[i],1);
+                if(unit_bouns_type_g[race][i]>0){
+                    bouns_Value=bounsTrans(unit_bouns_type_g[race][i],unit_bouns_dmg_g[race][i],0);
+                }else if((unit_bouns_type_a[race][i]>0)){
+                    bouns_Value=bounsTrans(unit_bouns_type_a[race][i],unit_bouns_dmg_a[race][i],1);
                 }
                 else
                     bouns_Value="N/A";
                 bouns.setText( bouns_Value);
-                hppc.setText(Double.toString(  Math.round(unit_hp[i]*1.0/unit_costs[i]*100)*0.01 ));
+                hppc.setText(Double.toString(  Math.round(unit_hp[race][i]*1.0/unit_costs[race][i]*100)*0.01 ));
 
                 Double dps1,dps2;
-                dps1=  Math.round(((unit_dmg_g[i]*unit_atks_g[i] )/ unit_atkSp_g[i])/unit_costs[i]*100) *0.01 ;
-                dps2=  Math.round(((unit_dmg_a[i]*unit_atks_a[i] )/ unit_atkSp_a[i])/unit_costs[i]*100) *0.01 ;
+                dps1=  Math.round(((unit_dmg_g[race][i]*unit_atks_g[race][i] )/ unit_atkSp_g[race][i])/unit_costs[race][i]*100) *0.01 ;
+                dps2=  Math.round(((unit_dmg_a[race][i]*unit_atks_a[race][i] )/ unit_atkSp_a[race][i])/unit_costs[race][i]*100) *0.01 ;
                 dpspc_g.setText(Double.toString(dps1));
                 dpspc_a.setText(Double.toString(dps2));
 
                 dps1=0.0;
                 dps2=0.0;
-                if(unit_bouns_type_g[i]>0)
-                    dps1=  Math.round((( (unit_dmg_g[i]+unit_bouns_dmg_g[i])*unit_atks_g[i] )/ unit_atkSp_g[i])*100) *0.01 ;
-                else if(unit_bouns_type_a[i]>0)
-                    dps2=  Math.round((( (unit_dmg_a[i]+unit_bouns_dmg_a[i])*unit_atks_a[i] )/ unit_atkSp_a[i])*100) *0.01 ;
+                if(unit_bouns_type_g[race][i]>0)
+                    dps1=  Math.round((( (unit_dmg_g[race][i]+unit_bouns_dmg_g[race][i])*unit_atks_g[race][i] )/ unit_atkSp_g[race][i])*100) *0.01 ;
+                else if(unit_bouns_type_a[race][i]>0)
+                    dps2=  Math.round((( (unit_dmg_a[race][i]+unit_bouns_dmg_a[race][i])*unit_atks_a[race][i] )/ unit_atkSp_a[race][i])*100) *0.01 ;
 
                 if(dps1>dps2)
                     bdps.setText(Double.toString(dps1));
@@ -1044,62 +1088,62 @@ public class MainActivity extends AppCompatActivity {// ss
             }
         });
 
-        unit_raven=(ImageButton)findViewById(R.id.imageButton9);
-        unit_raven.setOnClickListener(new View.OnClickListener(){
+        unit_9=(ImageButton)findViewById(R.id.imageButton9);
+        unit_9.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 int i=9;current=i;
-                cost_Value=Integer.toString(unit_costs[i]);
+                cost_Value=Integer.toString(unit_costs[race][i]);
                 cost.setText(cost_Value);
-                armor_Value=Integer.toString(unit_armor[i]);
+                armor_Value=Integer.toString(unit_armor[race][i]);
                 armor.setText(armor_Value);
-                hp_Value=Integer.toString(unit_hp[i]);
+                hp_Value=Integer.toString(unit_hp[race][i]);
                 hp.setText(hp_Value);
-                type_Value=typeTrans(unit_type[i]);
+                type_Value=typeTrans(unit_type[race][i]);
                 type.setText(type_Value);
-                range_a_Value=Integer.toString(unit_range_air[i]);
+                range_a_Value=Integer.toString(unit_range_air[race][i]);
                 range_a.setText( range_a_Value);
-                range_g_Value=Integer.toString(unit_range_gnd[i]);
+                range_g_Value=Integer.toString(unit_range_gnd[race][i]);
                 range_g.setText( range_g_Value);
-                move_Value=Double.toString(unit_move[i]);
+                move_Value=Double.toString(unit_move[race][i]);
                 move.setText( move_Value);
-                dmg_g_Value=Integer.toString(unit_dmg_g[i]);
-                if(unit_atks_g[i]>=2)
-                    dmg_g_Value=dmg_g_Value+"x"+ Integer.toString(unit_atks_g[i]);
+                dmg_g_Value=Integer.toString(unit_dmg_g[race][i]);
+                if(unit_atks_g[race][i]>=2)
+                    dmg_g_Value=dmg_g_Value+"x"+ Integer.toString(unit_atks_g[race][i]);
                 dmg_g.setText( dmg_g_Value);
-                dmg_a_Value=Integer.toString(unit_dmg_a[i]);
-                if(unit_atks_a[i]>=2)
-                    dmg_a_Value=dmg_a_Value+"x"+ Integer.toString(unit_atks_a[i]);
+                dmg_a_Value=Integer.toString(unit_dmg_a[race][i]);
+                if(unit_atks_a[race][i]>=2)
+                    dmg_a_Value=dmg_a_Value+"x"+ Integer.toString(unit_atks_a[race][i]);
                 dmg_a.setText( dmg_a_Value);
-                atkSp_g_Value=Double.toString(unit_atkSp_g[i]);
+                atkSp_g_Value=Double.toString(unit_atkSp_g[race][i]);
                 atkSp_g.setText( atkSp_g_Value);
-                atkSp_a_Value=Double.toString(unit_atkSp_a[i]);
+                atkSp_a_Value=Double.toString(unit_atkSp_a[race][i]);
                 atkSp_a.setText( atkSp_a_Value);
-                dps_g_Value=Double.toString( (Math.round (     (unit_dmg_g[i]*unit_atks_g[i] )/ unit_atkSp_g[i]*100)  ) *0.01     );
+                dps_g_Value=Double.toString( (Math.round (     (unit_dmg_g[race][i]*unit_atks_g[race][i] )/ unit_atkSp_g[race][i]*100)  ) *0.01     );
                 dps_g.setText( dps_g_Value);
-                dps_a_Value=Double.toString( (Math.round (     (unit_dmg_a[i]*unit_atks_a[i] )/ unit_atkSp_a[i]*100)  ) *0.01     );
+                dps_a_Value=Double.toString( (Math.round (     (unit_dmg_a[race][i]*unit_atks_a[race][i] )/ unit_atkSp_a[race][i]*100)  ) *0.01     );
                 dps_a.setText( dps_a_Value);
-                if(unit_bouns_type_g[i]>0){
-                    bouns_Value=bounsTrans(unit_bouns_type_g[i],unit_bouns_dmg_g[i],0);
-                }else if((unit_bouns_type_a[i]>0)){
-                    bouns_Value=bounsTrans(unit_bouns_type_a[i],unit_bouns_dmg_a[i],1);
+                if(unit_bouns_type_g[race][i]>0){
+                    bouns_Value=bounsTrans(unit_bouns_type_g[race][i],unit_bouns_dmg_g[race][i],0);
+                }else if((unit_bouns_type_a[race][i]>0)){
+                    bouns_Value=bounsTrans(unit_bouns_type_a[race][i],unit_bouns_dmg_a[race][i],1);
                 }
                 else
                     bouns_Value="N/A";
                 bouns.setText( bouns_Value);
-                hppc.setText(Double.toString(  Math.round(unit_hp[i]*1.0/unit_costs[i]*100) *0.01 ));
+                hppc.setText(Double.toString(  Math.round(unit_hp[race][i]*1.0/unit_costs[race][i]*100) *0.01 ));
 
                 Double dps1,dps2;
-                dps1=  Math.round(((unit_dmg_g[i]*unit_atks_g[i] )/ unit_atkSp_g[i])/unit_costs[i]*100) *0.01 ;
-                dps2=  Math.round(((unit_dmg_a[i]*unit_atks_a[i] )/ unit_atkSp_a[i])/unit_costs[i]*100) *0.01 ;
+                dps1=  Math.round(((unit_dmg_g[race][i]*unit_atks_g[race][i] )/ unit_atkSp_g[race][i])/unit_costs[race][i]*100) *0.01 ;
+                dps2=  Math.round(((unit_dmg_a[race][i]*unit_atks_a[race][i] )/ unit_atkSp_a[race][i])/unit_costs[race][i]*100) *0.01 ;
                 dpspc_g.setText(Double.toString(dps1));
                 dpspc_a.setText(Double.toString(dps2));
 
                 dps1=0.0;
                 dps2=0.0;
-                if(unit_bouns_type_g[i]>0)
-                    dps1=  Math.round((( (unit_dmg_g[i]+unit_bouns_dmg_g[i])*unit_atks_g[i] )/ unit_atkSp_g[i])*100) *0.01 ;
-                else if(unit_bouns_type_a[i]>0)
-                    dps2=  Math.round((( (unit_dmg_a[i]+unit_bouns_dmg_a[i])*unit_atks_a[i] )/ unit_atkSp_a[i])*100) *0.01 ;
+                if(unit_bouns_type_g[race][i]>0)
+                    dps1=  Math.round((( (unit_dmg_g[race][i]+unit_bouns_dmg_g[race][i])*unit_atks_g[race][i] )/ unit_atkSp_g[race][i])*100) *0.01 ;
+                else if(unit_bouns_type_a[race][i]>0)
+                    dps2=  Math.round((( (unit_dmg_a[race][i]+unit_bouns_dmg_a[race][i])*unit_atks_a[race][i] )/ unit_atkSp_a[race][i])*100) *0.01 ;
 
                 if(dps1>dps2)
                     bdps.setText(Double.toString(dps1));
@@ -1125,62 +1169,62 @@ public class MainActivity extends AppCompatActivity {// ss
             }
         });
 
-        unit_tank=(ImageButton)findViewById(R.id.imageButton10);
-        unit_tank.setOnClickListener(new View.OnClickListener(){
+        unit_10=(ImageButton)findViewById(R.id.imageButton10);
+        unit_10.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 int i=10;current=i;
-                cost_Value=Integer.toString(unit_costs[i]);
+                cost_Value=Integer.toString(unit_costs[race][i]);
                 cost.setText(cost_Value);
-                armor_Value=Integer.toString(unit_armor[i]);
+                armor_Value=Integer.toString(unit_armor[race][i]);
                 armor.setText(armor_Value);
-                hp_Value=Integer.toString(unit_hp[i]);
+                hp_Value=Integer.toString(unit_hp[race][i]);
                 hp.setText(hp_Value);
-                type_Value=typeTrans(unit_type[i]);
+                type_Value=typeTrans(unit_type[race][i]);
                 type.setText(type_Value);
-                range_a_Value=Integer.toString(unit_range_air[i]);
+                range_a_Value=Integer.toString(unit_range_air[race][i]);
                 range_a.setText( range_a_Value);
-                range_g_Value=Integer.toString(unit_range_gnd[i]);
+                range_g_Value=Integer.toString(unit_range_gnd[race][i]);
                 range_g.setText( range_g_Value);
-                move_Value=Double.toString(unit_move[i]);
+                move_Value=Double.toString(unit_move[race][i]);
                 move.setText( move_Value);
-                dmg_g_Value=Integer.toString(unit_dmg_g[i]);
-                if(unit_atks_g[i]>=2)
-                    dmg_g_Value=dmg_g_Value+"x"+ Integer.toString(unit_atks_g[i]);
+                dmg_g_Value=Integer.toString(unit_dmg_g[race][i]);
+                if(unit_atks_g[race][i]>=2)
+                    dmg_g_Value=dmg_g_Value+"x"+ Integer.toString(unit_atks_g[race][i]);
                 dmg_g.setText( dmg_g_Value);
-                dmg_a_Value=Integer.toString(unit_dmg_a[i]);
-                if(unit_atks_a[i]>=2)
-                    dmg_a_Value=dmg_a_Value+"x"+ Integer.toString(unit_atks_a[i]);
+                dmg_a_Value=Integer.toString(unit_dmg_a[race][i]);
+                if(unit_atks_a[race][i]>=2)
+                    dmg_a_Value=dmg_a_Value+"x"+ Integer.toString(unit_atks_a[race][i]);
                 dmg_a.setText( dmg_a_Value);
-                atkSp_g_Value=Double.toString(unit_atkSp_g[i]);
+                atkSp_g_Value=Double.toString(unit_atkSp_g[race][i]);
                 atkSp_g.setText( atkSp_g_Value);
-                atkSp_a_Value=Double.toString(unit_atkSp_a[i]);
+                atkSp_a_Value=Double.toString(unit_atkSp_a[race][i]);
                 atkSp_a.setText( atkSp_a_Value);
-                dps_g_Value=Double.toString( (Math.round (     (unit_dmg_g[i]*unit_atks_g[i] )/ unit_atkSp_g[i]*100)  ) *0.01     );
+                dps_g_Value=Double.toString( (Math.round (     (unit_dmg_g[race][i]*unit_atks_g[race][i] )/ unit_atkSp_g[race][i]*100)  ) *0.01     );
                 dps_g.setText( dps_g_Value);
-                dps_a_Value=Double.toString( (Math.round (     (unit_dmg_a[i]*unit_atks_a[i] )/ unit_atkSp_a[i]*100)  ) *0.01     );
+                dps_a_Value=Double.toString( (Math.round (     (unit_dmg_a[race][i]*unit_atks_a[race][i] )/ unit_atkSp_a[race][i]*100)  ) *0.01     );
                 dps_a.setText( dps_a_Value);
-                if(unit_bouns_type_g[i]>0){
-                    bouns_Value=bounsTrans(unit_bouns_type_g[i],unit_bouns_dmg_g[i],0);
-                }else if((unit_bouns_type_a[i]>0)){
-                    bouns_Value=bounsTrans(unit_bouns_type_a[i],unit_bouns_dmg_a[i],1);
+                if(unit_bouns_type_g[race][i]>0){
+                    bouns_Value=bounsTrans(unit_bouns_type_g[race][i],unit_bouns_dmg_g[race][i],0);
+                }else if((unit_bouns_type_a[race][i]>0)){
+                    bouns_Value=bounsTrans(unit_bouns_type_a[race][i],unit_bouns_dmg_a[race][i],1);
                 }
                 else
                     bouns_Value="N/A";
                 bouns.setText( bouns_Value);
-                hppc.setText(Double.toString(  Math.round(unit_hp[i]*1.0/unit_costs[i]*100)*0.01 ));
+                hppc.setText(Double.toString(  Math.round(unit_hp[race][i]*1.0/unit_costs[race][i]*100)*0.01 ));
 
                 Double dps1,dps2;
-                dps1=  Math.round(((unit_dmg_g[i]*unit_atks_g[i] )/ unit_atkSp_g[i])/unit_costs[i]*100) *0.01 ;
-                dps2=  Math.round(((unit_dmg_a[i]*unit_atks_a[i] )/ unit_atkSp_a[i])/unit_costs[i]*100) *0.01 ;
+                dps1=  Math.round(((unit_dmg_g[race][i]*unit_atks_g[race][i] )/ unit_atkSp_g[race][i])/unit_costs[race][i]*100) *0.01 ;
+                dps2=  Math.round(((unit_dmg_a[race][i]*unit_atks_a[race][i] )/ unit_atkSp_a[race][i])/unit_costs[race][i]*100) *0.01 ;
                 dpspc_g.setText(Double.toString(dps1));
                 dpspc_a.setText(Double.toString(dps2));
 
                 dps1=0.0;
                 dps2=0.0;
-                if(unit_bouns_type_g[i]>0)
-                    dps1=  Math.round((( (unit_dmg_g[i]+unit_bouns_dmg_g[i])*unit_atks_g[i] )/ unit_atkSp_g[i])*100) *0.01 ;
-                else if(unit_bouns_type_a[i]>0)
-                    dps2=  Math.round((( (unit_dmg_a[i]+unit_bouns_dmg_a[i])*unit_atks_a[i] )/ unit_atkSp_a[i])*100) *0.01 ;
+                if(unit_bouns_type_g[race][i]>0)
+                    dps1=  Math.round((( (unit_dmg_g[race][i]+unit_bouns_dmg_g[race][i])*unit_atks_g[race][i] )/ unit_atkSp_g[race][i])*100) *0.01 ;
+                else if(unit_bouns_type_a[race][i]>0)
+                    dps2=  Math.round((( (unit_dmg_a[race][i]+unit_bouns_dmg_a[race][i])*unit_atks_a[race][i] )/ unit_atkSp_a[race][i])*100) *0.01 ;
 
                 if(dps1>dps2)
                     bdps.setText(Double.toString(dps1));
@@ -1207,62 +1251,62 @@ public class MainActivity extends AppCompatActivity {// ss
             }
         });
 
-        unit_mine=(ImageButton)findViewById(R.id.imageButton11);
-        unit_mine.setOnClickListener(new View.OnClickListener(){
+        unit_11=(ImageButton)findViewById(R.id.imageButton11);
+        unit_11.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 int i=11;current=i;
-                cost_Value=Integer.toString(unit_costs[i]);
+                cost_Value=Integer.toString(unit_costs[race][i]);
                 cost.setText(cost_Value);
-                armor_Value=Integer.toString(unit_armor[i]);
+                armor_Value=Integer.toString(unit_armor[race][i]);
                 armor.setText(armor_Value);
-                hp_Value=Integer.toString(unit_hp[i]);
+                hp_Value=Integer.toString(unit_hp[race][i]);
                 hp.setText(hp_Value);
-                type_Value=typeTrans(unit_type[i]);
+                type_Value=typeTrans(unit_type[race][i]);
                 type.setText(type_Value);
-                range_a_Value=Integer.toString(unit_range_air[i]);
+                range_a_Value=Integer.toString(unit_range_air[race][i]);
                 range_a.setText( range_a_Value);
-                range_g_Value=Integer.toString(unit_range_gnd[i]);
+                range_g_Value=Integer.toString(unit_range_gnd[race][i]);
                 range_g.setText( range_g_Value);
-                move_Value=Double.toString(unit_move[i]);
+                move_Value=Double.toString(unit_move[race][i]);
                 move.setText( move_Value);
-                dmg_g_Value=Integer.toString(unit_dmg_g[i]);
-                if(unit_atks_g[i]>=2)
-                    dmg_g_Value=dmg_g_Value+"x"+ Integer.toString(unit_atks_g[i]);
+                dmg_g_Value=Integer.toString(unit_dmg_g[race][i]);
+                if(unit_atks_g[race][i]>=2)
+                    dmg_g_Value=dmg_g_Value+"x"+ Integer.toString(unit_atks_g[race][i]);
                 dmg_g.setText( dmg_g_Value);
-                dmg_a_Value=Integer.toString(unit_dmg_a[i]);
-                if(unit_atks_a[i]>=2)
-                    dmg_a_Value=dmg_a_Value+"x"+ Integer.toString(unit_atks_a[i]);
+                dmg_a_Value=Integer.toString(unit_dmg_a[race][i]);
+                if(unit_atks_a[race][i]>=2)
+                    dmg_a_Value=dmg_a_Value+"x"+ Integer.toString(unit_atks_a[race][i]);
                 dmg_a.setText( dmg_a_Value);
-                atkSp_g_Value=Double.toString(unit_atkSp_g[i]);
+                atkSp_g_Value=Double.toString(unit_atkSp_g[race][i]);
                 atkSp_g.setText( atkSp_g_Value);
-                atkSp_a_Value=Double.toString(unit_atkSp_a[i]);
+                atkSp_a_Value=Double.toString(unit_atkSp_a[race][i]);
                 atkSp_a.setText( atkSp_a_Value);
-                dps_g_Value=Double.toString( (Math.round (     (unit_dmg_g[i]*unit_atks_g[i] )/ unit_atkSp_g[i]*100)  ) *0.01     );
+                dps_g_Value=Double.toString( (Math.round (     (unit_dmg_g[race][i]*unit_atks_g[race][i] )/ unit_atkSp_g[race][i]*100)  ) *0.01     );
                 dps_g.setText( dps_g_Value);
-                dps_a_Value=Double.toString( (Math.round (     (unit_dmg_a[i]*unit_atks_a[i] )/ unit_atkSp_a[i]*100)  ) *0.01     );
+                dps_a_Value=Double.toString( (Math.round (     (unit_dmg_a[race][i]*unit_atks_a[race][i] )/ unit_atkSp_a[race][i]*100)  ) *0.01     );
                 dps_a.setText( dps_a_Value);
-                if(unit_bouns_type_g[i]>0){
-                    bouns_Value=bounsTrans(unit_bouns_type_g[i],unit_bouns_dmg_g[i],0);
-                }else if((unit_bouns_type_a[i]>0)){
-                    bouns_Value=bounsTrans(unit_bouns_type_a[i],unit_bouns_dmg_a[i],1);
+                if(unit_bouns_type_g[race][i]>0){
+                    bouns_Value=bounsTrans(unit_bouns_type_g[race][i],unit_bouns_dmg_g[race][i],0);
+                }else if((unit_bouns_type_a[race][i]>0)){
+                    bouns_Value=bounsTrans(unit_bouns_type_a[race][i],unit_bouns_dmg_a[race][i],1);
                 }
                 else
                     bouns_Value="N/A";
                 bouns.setText( bouns_Value);
-                hppc.setText(Double.toString(  Math.round(unit_hp[i]*1.0/unit_costs[i]*100) *0.01 ));
+                hppc.setText(Double.toString(  Math.round(unit_hp[race][i]*1.0/unit_costs[race][i]*100) *0.01 ));
 
                 Double dps1,dps2;
-                dps1=  Math.round(((unit_dmg_g[i]*unit_atks_g[i] )/ unit_atkSp_g[i])/unit_costs[i]*100) *0.01 ;
-                dps2=  Math.round(((unit_dmg_a[i]*unit_atks_a[i] )/ unit_atkSp_a[i])/unit_costs[i]*100) *0.01 ;
+                dps1=  Math.round(((unit_dmg_g[race][i]*unit_atks_g[race][i] )/ unit_atkSp_g[race][i])/unit_costs[race][i]*100) *0.01 ;
+                dps2=  Math.round(((unit_dmg_a[race][i]*unit_atks_a[race][i] )/ unit_atkSp_a[race][i])/unit_costs[race][i]*100) *0.01 ;
                 dpspc_g.setText(Double.toString(dps1));
                 dpspc_a.setText(Double.toString(dps2));
 
                 dps1=0.0;
                 dps2=0.0;
-                if(unit_bouns_type_g[i]>0)
-                    dps1=  Math.round((( (unit_dmg_g[i]+unit_bouns_dmg_g[i])*unit_atks_g[i] )/ unit_atkSp_g[i])*100) *0.01 ;
-                else if(unit_bouns_type_a[i]>0)
-                    dps2=  Math.round((( (unit_dmg_a[i]+unit_bouns_dmg_a[i])*unit_atks_a[i] )/ unit_atkSp_a[i])*100) *0.01 ;
+                if(unit_bouns_type_g[race][i]>0)
+                    dps1=  Math.round((( (unit_dmg_g[race][i]+unit_bouns_dmg_g[race][i])*unit_atks_g[race][i] )/ unit_atkSp_g[race][i])*100) *0.01 ;
+                else if(unit_bouns_type_a[race][i]>0)
+                    dps2=  Math.round((( (unit_dmg_a[race][i]+unit_bouns_dmg_a[race][i])*unit_atks_a[race][i] )/ unit_atkSp_a[race][i])*100) *0.01 ;
 
                 if(dps1>dps2)
                     bdps.setText(Double.toString(dps1));
@@ -1289,62 +1333,62 @@ public class MainActivity extends AppCompatActivity {// ss
             }
         });
 
-        unit_cyclone=(ImageButton)findViewById(R.id.imageButton12);
-        unit_cyclone.setOnClickListener(new View.OnClickListener(){
+        unit_12=(ImageButton)findViewById(R.id.imageButton12);
+        unit_12.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 int i=12;current=i;
-                cost_Value=Integer.toString(unit_costs[i]);
+                cost_Value=Integer.toString(unit_costs[race][i]);
                 cost.setText(cost_Value);
-                armor_Value=Integer.toString(unit_armor[i]);
+                armor_Value=Integer.toString(unit_armor[race][i]);
                 armor.setText(armor_Value);
-                hp_Value=Integer.toString(unit_hp[i]);
+                hp_Value=Integer.toString(unit_hp[race][i]);
                 hp.setText(hp_Value);
-                type_Value=typeTrans(unit_type[i]);
+                type_Value=typeTrans(unit_type[race][i]);
                 type.setText(type_Value);
-                range_a_Value=Integer.toString(unit_range_air[i]);
+                range_a_Value=Integer.toString(unit_range_air[race][i]);
                 range_a.setText( range_a_Value);
-                range_g_Value=Integer.toString(unit_range_gnd[i]);
+                range_g_Value=Integer.toString(unit_range_gnd[race][i]);
                 range_g.setText( range_g_Value);
-                move_Value=Double.toString(unit_move[i]);
+                move_Value=Double.toString(unit_move[race][i]);
                 move.setText( move_Value);
-                dmg_g_Value=Integer.toString(unit_dmg_g[i]);
-                if(unit_atks_g[i]>=2)
-                    dmg_g_Value=dmg_g_Value+"x"+ Integer.toString(unit_atks_g[i]);
+                dmg_g_Value=Integer.toString(unit_dmg_g[race][i]);
+                if(unit_atks_g[race][i]>=2)
+                    dmg_g_Value=dmg_g_Value+"x"+ Integer.toString(unit_atks_g[race][i]);
                 dmg_g.setText( dmg_g_Value);
-                dmg_a_Value=Integer.toString(unit_dmg_a[i]);
-                if(unit_atks_a[i]>=2)
-                    dmg_a_Value=dmg_a_Value+"x"+ Integer.toString(unit_atks_a[i]);
+                dmg_a_Value=Integer.toString(unit_dmg_a[race][i]);
+                if(unit_atks_a[race][i]>=2)
+                    dmg_a_Value=dmg_a_Value+"x"+ Integer.toString(unit_atks_a[race][i]);
                 dmg_a.setText( dmg_a_Value);
-                atkSp_g_Value=Double.toString(unit_atkSp_g[i]);
+                atkSp_g_Value=Double.toString(unit_atkSp_g[race][i]);
                 atkSp_g.setText( atkSp_g_Value);
-                atkSp_a_Value=Double.toString(unit_atkSp_a[i]);
+                atkSp_a_Value=Double.toString(unit_atkSp_a[race][i]);
                 atkSp_a.setText( atkSp_a_Value);
-                dps_g_Value=Double.toString( (Math.round (     (unit_dmg_g[i]*unit_atks_g[i] )/ unit_atkSp_g[i]*100)  ) *0.01     );
+                dps_g_Value=Double.toString( (Math.round (     (unit_dmg_g[race][i]*unit_atks_g[race][i] )/ unit_atkSp_g[race][i]*100)  ) *0.01     );
                 dps_g.setText( dps_g_Value);
-                dps_a_Value=Double.toString( (Math.round (     (unit_dmg_a[i]*unit_atks_a[i] )/ unit_atkSp_a[i]*100)  ) *0.01     );
+                dps_a_Value=Double.toString( (Math.round (     (unit_dmg_a[race][i]*unit_atks_a[race][i] )/ unit_atkSp_a[race][i]*100)  ) *0.01     );
                 dps_a.setText( dps_a_Value);
-                if(unit_bouns_type_g[i]>0){
-                    bouns_Value=bounsTrans(unit_bouns_type_g[i],unit_bouns_dmg_g[i],0);
-                }else if((unit_bouns_type_a[i]>0)){
-                    bouns_Value=bounsTrans(unit_bouns_type_a[i],unit_bouns_dmg_a[i],1);
+                if(unit_bouns_type_g[race][i]>0){
+                    bouns_Value=bounsTrans(unit_bouns_type_g[race][i],unit_bouns_dmg_g[race][i],0);
+                }else if((unit_bouns_type_a[race][i]>0)){
+                    bouns_Value=bounsTrans(unit_bouns_type_a[race][i],unit_bouns_dmg_a[race][i],1);
                 }
                 else
                     bouns_Value="N/A";
                 bouns.setText( bouns_Value);
-                hppc.setText(Double.toString(  Math.round(unit_hp[i]*1.0/unit_costs[i]*100) *0.01 ));
+                hppc.setText(Double.toString(  Math.round(unit_hp[race][i]*1.0/unit_costs[race][i]*100) *0.01 ));
 
                 Double dps1,dps2;
-                dps1=  Math.round(((unit_dmg_g[i]*unit_atks_g[i] )/ unit_atkSp_g[i])/unit_costs[i]*100) *0.01 ;
-                dps2=  Math.round(((unit_dmg_a[i]*unit_atks_a[i] )/ unit_atkSp_a[i])/unit_costs[i]*100) *0.01 ;
+                dps1=  Math.round(((unit_dmg_g[race][i]*unit_atks_g[race][i] )/ unit_atkSp_g[race][i])/unit_costs[race][i]*100) *0.01 ;
+                dps2=  Math.round(((unit_dmg_a[race][i]*unit_atks_a[race][i] )/ unit_atkSp_a[race][i])/unit_costs[race][i]*100) *0.01 ;
                 dpspc_g.setText(Double.toString(dps1));
                 dpspc_a.setText(Double.toString(dps2));
 
                 dps1=0.0;
                 dps2=0.0;
-                if(unit_bouns_type_g[i]>0)
-                    dps1=  Math.round((( (unit_dmg_g[i]+unit_bouns_dmg_g[i])*unit_atks_g[i] )/ unit_atkSp_g[i])*100) *0.01 ;
-                else if(unit_bouns_type_a[i]>0)
-                    dps2=  Math.round((( (unit_dmg_a[i]+unit_bouns_dmg_a[i])*unit_atks_a[i] )/ unit_atkSp_a[i])*100) *0.01 ;
+                if(unit_bouns_type_g[race][i]>0)
+                    dps1=  Math.round((( (unit_dmg_g[race][i]+unit_bouns_dmg_g[race][i])*unit_atks_g[race][i] )/ unit_atkSp_g[race][i])*100) *0.01 ;
+                else if(unit_bouns_type_a[race][i]>0)
+                    dps2=  Math.round((( (unit_dmg_a[race][i]+unit_bouns_dmg_a[race][i])*unit_atks_a[race][i] )/ unit_atkSp_a[race][i])*100) *0.01 ;
 
                 if(dps1>dps2)
                     bdps.setText(Double.toString(dps1));
@@ -1370,62 +1414,62 @@ public class MainActivity extends AppCompatActivity {// ss
             }
         });
 
-        unit_thor=(ImageButton)findViewById(R.id.imageButton13);
-        unit_thor.setOnClickListener(new View.OnClickListener(){
+        unit_13=(ImageButton)findViewById(R.id.imageButton13);
+        unit_13.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 int i=13;current=i;
-                cost_Value=Integer.toString(unit_costs[i]);
+                cost_Value=Integer.toString(unit_costs[race][i]);
                 cost.setText(cost_Value);
-                armor_Value=Integer.toString(unit_armor[i]);
+                armor_Value=Integer.toString(unit_armor[race][i]);
                 armor.setText(armor_Value);
-                hp_Value=Integer.toString(unit_hp[i]);
+                hp_Value=Integer.toString(unit_hp[race][i]);
                 hp.setText(hp_Value);
-                type_Value=typeTrans(unit_type[i]);
+                type_Value=typeTrans(unit_type[race][i]);
                 type.setText(type_Value);
-                range_a_Value=Integer.toString(unit_range_air[i]);
+                range_a_Value=Integer.toString(unit_range_air[race][i]);
                 range_a.setText( range_a_Value);
-                range_g_Value=Integer.toString(unit_range_gnd[i]);
+                range_g_Value=Integer.toString(unit_range_gnd[race][i]);
                 range_g.setText( range_g_Value);
-                move_Value=Double.toString(unit_move[i]);
+                move_Value=Double.toString(unit_move[race][i]);
                 move.setText( move_Value);
-                dmg_g_Value=Integer.toString(unit_dmg_g[i]);
-                if(unit_atks_g[i]>=2)
-                    dmg_g_Value=dmg_g_Value+"x"+ Integer.toString(unit_atks_g[i]);
+                dmg_g_Value=Integer.toString(unit_dmg_g[race][i]);
+                if(unit_atks_g[race][i]>=2)
+                    dmg_g_Value=dmg_g_Value+"x"+ Integer.toString(unit_atks_g[race][i]);
                 dmg_g.setText( dmg_g_Value);
-                dmg_a_Value=Integer.toString(unit_dmg_a[i]);
-                if(unit_atks_a[i]>=2)
-                    dmg_a_Value=dmg_a_Value+"x"+ Integer.toString(unit_atks_a[i]);
+                dmg_a_Value=Integer.toString(unit_dmg_a[race][i]);
+                if(unit_atks_a[race][i]>=2)
+                    dmg_a_Value=dmg_a_Value+"x"+ Integer.toString(unit_atks_a[race][i]);
                 dmg_a.setText( dmg_a_Value);
-                atkSp_g_Value=Double.toString(unit_atkSp_g[i]);
+                atkSp_g_Value=Double.toString(unit_atkSp_g[race][i]);
                 atkSp_g.setText( atkSp_g_Value);
-                atkSp_a_Value=Double.toString(unit_atkSp_a[i]);
+                atkSp_a_Value=Double.toString(unit_atkSp_a[race][i]);
                 atkSp_a.setText( atkSp_a_Value);
-                dps_g_Value=Double.toString( (Math.round (     (unit_dmg_g[i]*unit_atks_g[i] )/ unit_atkSp_g[i]*100)  ) *0.01     );
+                dps_g_Value=Double.toString( (Math.round (     (unit_dmg_g[race][i]*unit_atks_g[race][i] )/ unit_atkSp_g[race][i]*100)  ) *0.01     );
                 dps_g.setText( dps_g_Value);
-                dps_a_Value=Double.toString( (Math.round (     (unit_dmg_a[i]*unit_atks_a[i] )/ unit_atkSp_a[i]*100)  ) *0.01     );
+                dps_a_Value=Double.toString( (Math.round (     (unit_dmg_a[race][i]*unit_atks_a[race][i] )/ unit_atkSp_a[race][i]*100)  ) *0.01     );
                 dps_a.setText( dps_a_Value);
-                if(unit_bouns_type_g[i]>0){
-                    bouns_Value=bounsTrans(unit_bouns_type_g[i],unit_bouns_dmg_g[i],0);
-                }else if((unit_bouns_type_a[i]>0)){
-                    bouns_Value=bounsTrans(unit_bouns_type_a[i],unit_bouns_dmg_a[i],1);
+                if(unit_bouns_type_g[race][i]>0){
+                    bouns_Value=bounsTrans(unit_bouns_type_g[race][i],unit_bouns_dmg_g[race][i],0);
+                }else if((unit_bouns_type_a[race][i]>0)){
+                    bouns_Value=bounsTrans(unit_bouns_type_a[race][i],unit_bouns_dmg_a[race][i],1);
                 }
                 else
                     bouns_Value="N/A";
                 bouns.setText( bouns_Value);
-                hppc.setText(Double.toString(  Math.round(unit_hp[i]*1.0/unit_costs[i]*100) *0.01 ));
+                hppc.setText(Double.toString(  Math.round(unit_hp[race][i]*1.0/unit_costs[race][i]*100) *0.01 ));
 
                 Double dps1,dps2;
-                dps1=  Math.round(((unit_dmg_g[i]*unit_atks_g[i] )/ unit_atkSp_g[i])/unit_costs[i]*100) *0.01 ;
-                dps2=  Math.round(((unit_dmg_a[i]*unit_atks_a[i] )/ unit_atkSp_a[i])/unit_costs[i]*100) *0.01 ;
+                dps1=  Math.round(((unit_dmg_g[race][i]*unit_atks_g[race][i] )/ unit_atkSp_g[race][i])/unit_costs[race][i]*100) *0.01 ;
+                dps2=  Math.round(((unit_dmg_a[race][i]*unit_atks_a[race][i] )/ unit_atkSp_a[race][i])/unit_costs[race][i]*100) *0.01 ;
                 dpspc_g.setText(Double.toString(dps1));
                 dpspc_a.setText(Double.toString(dps2));
 
                 dps1=0.0;
                 dps2=0.0;
-                if(unit_bouns_type_g[i]>0)
-                    dps1=  Math.round((( (unit_dmg_g[i]+unit_bouns_dmg_g[i])*unit_atks_g[i] )/ unit_atkSp_g[i])*100) *0.01 ;
-                else if(unit_bouns_type_a[i]>0)
-                    dps2=  Math.round((( (unit_dmg_a[i]+unit_bouns_dmg_a[i])*unit_atks_a[i] )/ unit_atkSp_a[i])*100) *0.01 ;
+                if(unit_bouns_type_g[race][i]>0)
+                    dps1=  Math.round((( (unit_dmg_g[race][i]+unit_bouns_dmg_g[race][i])*unit_atks_g[race][i] )/ unit_atkSp_g[race][i])*100) *0.01 ;
+                else if(unit_bouns_type_a[race][i]>0)
+                    dps2=  Math.round((( (unit_dmg_a[race][i]+unit_bouns_dmg_a[race][i])*unit_atks_a[race][i] )/ unit_atkSp_a[race][i])*100) *0.01 ;
 
                 if(dps1>dps2)
                     bdps.setText(Double.toString(dps1));
@@ -1453,62 +1497,62 @@ public class MainActivity extends AppCompatActivity {// ss
             }
         });
 
-        unit_BC=(ImageButton)findViewById(R.id.imageButton14);
-        unit_BC.setOnClickListener(new View.OnClickListener(){
+        unit_14=(ImageButton)findViewById(R.id.imageButton14);
+        unit_14.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 int i=14;current=i;
-                cost_Value=Integer.toString(unit_costs[i]);
+                cost_Value=Integer.toString(unit_costs[race][i]);
                 cost.setText(cost_Value);
-                armor_Value=Integer.toString(unit_armor[i]);
+                armor_Value=Integer.toString(unit_armor[race][i]);
                 armor.setText(armor_Value);
-                hp_Value=Integer.toString(unit_hp[i]);
+                hp_Value=Integer.toString(unit_hp[race][i]);
                 hp.setText(hp_Value);
-                type_Value=typeTrans(unit_type[i]);
+                type_Value=typeTrans(unit_type[race][i]);
                 type.setText(type_Value);
-                range_a_Value=Integer.toString(unit_range_air[i]);
+                range_a_Value=Integer.toString(unit_range_air[race][i]);
                 range_a.setText( range_a_Value);
-                range_g_Value=Integer.toString(unit_range_gnd[i]);
+                range_g_Value=Integer.toString(unit_range_gnd[race][i]);
                 range_g.setText( range_g_Value);
-                move_Value=Double.toString(unit_move[i]);
+                move_Value=Double.toString(unit_move[race][i]);
                 move.setText( move_Value);
-                dmg_g_Value=Integer.toString(unit_dmg_g[i]);
-                if(unit_atks_g[i]>=2)
-                    dmg_g_Value=dmg_g_Value+"x"+ Integer.toString(unit_atks_g[i]);
+                dmg_g_Value=Integer.toString(unit_dmg_g[race][i]);
+                if(unit_atks_g[race][i]>=2)
+                    dmg_g_Value=dmg_g_Value+"x"+ Integer.toString(unit_atks_g[race][i]);
                 dmg_g.setText( dmg_g_Value);
-                dmg_a_Value=Integer.toString(unit_dmg_a[i]);
-                if(unit_atks_a[i]>=2)
-                    dmg_a_Value=dmg_a_Value+"x"+ Integer.toString(unit_atks_a[i]);
+                dmg_a_Value=Integer.toString(unit_dmg_a[race][i]);
+                if(unit_atks_a[race][i]>=2)
+                    dmg_a_Value=dmg_a_Value+"x"+ Integer.toString(unit_atks_a[race][i]);
                 dmg_a.setText( dmg_a_Value);
-                atkSp_g_Value=Double.toString(unit_atkSp_g[i]);
+                atkSp_g_Value=Double.toString(unit_atkSp_g[race][i]);
                 atkSp_g.setText( atkSp_g_Value);
-                atkSp_a_Value=Double.toString(unit_atkSp_a[i]);
+                atkSp_a_Value=Double.toString(unit_atkSp_a[race][i]);
                 atkSp_a.setText( atkSp_a_Value);
-                dps_g_Value=Double.toString( (Math.round (     (unit_dmg_g[i]*unit_atks_g[i] )/ unit_atkSp_g[i]*100)  ) *0.01     );
+                dps_g_Value=Double.toString( (Math.round (     (unit_dmg_g[race][i]*unit_atks_g[race][i] )/ unit_atkSp_g[race][i]*100)  ) *0.01     );
                 dps_g.setText( dps_g_Value);
-                dps_a_Value=Double.toString( (Math.round (     (unit_dmg_a[i]*unit_atks_a[i] )/ unit_atkSp_a[i]*100)  ) *0.01     );
+                dps_a_Value=Double.toString( (Math.round (     (unit_dmg_a[race][i]*unit_atks_a[race][i] )/ unit_atkSp_a[race][i]*100)  ) *0.01     );
                 dps_a.setText( dps_a_Value);
-                if(unit_bouns_type_g[i]>0){
-                    bouns_Value=bounsTrans(unit_bouns_type_g[i],unit_bouns_dmg_g[i],0);
-                }else if((unit_bouns_type_a[i]>0)){
-                    bouns_Value=bounsTrans(unit_bouns_type_a[i],unit_bouns_dmg_a[i],1);
+                if(unit_bouns_type_g[race][i]>0){
+                    bouns_Value=bounsTrans(unit_bouns_type_g[race][i],unit_bouns_dmg_g[race][i],0);
+                }else if((unit_bouns_type_a[race][i]>0)){
+                    bouns_Value=bounsTrans(unit_bouns_type_a[race][i],unit_bouns_dmg_a[race][i],1);
                 }
                 else
                     bouns_Value="N/A";
                 bouns.setText( bouns_Value);
-                hppc.setText(Double.toString(  Math.round(unit_hp[i]*1.0/unit_costs[i]*100) *0.01));
+                hppc.setText(Double.toString(  Math.round(unit_hp[race][i]*1.0/unit_costs[race][i]*100) *0.01));
 
                 Double dps1,dps2;
-                dps1=  Math.round(((unit_dmg_g[i]*unit_atks_g[i] )/ unit_atkSp_g[i])/unit_costs[i]*100) *0.01 ;
-                dps2=  Math.round(((unit_dmg_a[i]*unit_atks_a[i] )/ unit_atkSp_a[i])/unit_costs[i]*100) *0.01 ;
+                dps1=  Math.round(((unit_dmg_g[race][i]*unit_atks_g[race][i] )/ unit_atkSp_g[race][i])/unit_costs[race][i]*100) *0.01 ;
+                dps2=  Math.round(((unit_dmg_a[race][i]*unit_atks_a[race][i] )/ unit_atkSp_a[race][i])/unit_costs[race][i]*100) *0.01 ;
                 dpspc_g.setText(Double.toString(dps1));
                 dpspc_a.setText(Double.toString(dps2));
 
                 dps1=0.0;
                 dps2=0.0;
-                if(unit_bouns_type_g[i]>0)
-                    dps1=  Math.round((( (unit_dmg_g[i]+unit_bouns_dmg_g[i])*unit_atks_g[i] )/ unit_atkSp_g[i])*100) *0.01 ;
-                else if(unit_bouns_type_a[i]>0)
-                    dps2=  Math.round((( (unit_dmg_a[i]+unit_bouns_dmg_a[i])*unit_atks_a[i] )/ unit_atkSp_a[i])*100) *0.01 ;
+                if(unit_bouns_type_g[race][i]>0)
+                    dps1=  Math.round((( (unit_dmg_g[race][i]+unit_bouns_dmg_g[race][i])*unit_atks_g[race][i] )/ unit_atkSp_g[race][i])*100) *0.01 ;
+                else if(unit_bouns_type_a[race][i]>0)
+                    dps2=  Math.round((( (unit_dmg_a[race][i]+unit_bouns_dmg_a[race][i])*unit_atks_a[race][i] )/ unit_atkSp_a[race][i])*100) *0.01 ;
 
                 if(dps1>dps2)
                     bdps.setText(Double.toString(dps1));
@@ -1535,63 +1579,63 @@ public class MainActivity extends AppCompatActivity {// ss
             }
         });
 
-        unit_lib=(ImageButton)findViewById(R.id.imageButton15);
-        unit_lib.setOnClickListener(new View.OnClickListener(){
+        unit_15=(ImageButton)findViewById(R.id.imageButton15);
+        unit_15.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 int i=15;current=i;
-                cost_Value=Integer.toString(unit_costs[i]);
+                cost_Value=Integer.toString(unit_costs[race][i]);
                 cost.setText(cost_Value);
-                armor_Value=Integer.toString(unit_armor[i]);
+                armor_Value=Integer.toString(unit_armor[race][i]);
                 armor.setText(armor_Value);
-                hp_Value=Integer.toString(unit_hp[i]);
+                hp_Value=Integer.toString(unit_hp[race][i]);
                 hp.setText(hp_Value);
-                type_Value=typeTrans(unit_type[i]);
+                type_Value=typeTrans(unit_type[race][i]);
                 type.setText(type_Value);
-                range_a_Value=Integer.toString(unit_range_air[i]);
+                range_a_Value=Integer.toString(unit_range_air[race][i]);
                 range_a.setText( range_a_Value);
-                range_g_Value=Integer.toString(unit_range_gnd[i]);
+                range_g_Value=Integer.toString(unit_range_gnd[race][i]);
                 range_g.setText( range_g_Value);
-                move_Value=Double.toString(unit_move[i]);
+                move_Value=Double.toString(unit_move[race][i]);
                 move.setText( move_Value);
-                dmg_g_Value=Integer.toString(unit_dmg_g[i]);
-                if(unit_atks_g[i]>=2)
-                    dmg_g_Value=dmg_g_Value+"x"+ Integer.toString(unit_atks_g[i]);
+                dmg_g_Value=Integer.toString(unit_dmg_g[race][i]);
+                if(unit_atks_g[race][i]>=2)
+                    dmg_g_Value=dmg_g_Value+"x"+ Integer.toString(unit_atks_g[race][i]);
                 dmg_g.setText( dmg_g_Value);
-                dmg_a_Value=Integer.toString(unit_dmg_a[i]);
-                if(unit_atks_a[i]>=2)
-                    dmg_a_Value=dmg_a_Value+"x"+ Integer.toString(unit_atks_a[i]);
+                dmg_a_Value=Integer.toString(unit_dmg_a[race][i]);
+                if(unit_atks_a[race][i]>=2)
+                    dmg_a_Value=dmg_a_Value+"x"+ Integer.toString(unit_atks_a[race][i]);
                 dmg_a.setText( dmg_a_Value);
-                atkSp_g_Value=Double.toString(unit_atkSp_g[i]);
+                atkSp_g_Value=Double.toString(unit_atkSp_g[race][i]);
                 atkSp_g.setText( atkSp_g_Value);
-                atkSp_a_Value=Double.toString(unit_atkSp_a[i]);
+                atkSp_a_Value=Double.toString(unit_atkSp_a[race][i]);
                 atkSp_a.setText( atkSp_a_Value);
-                dps_g_Value=Double.toString( (Math.round (     (unit_dmg_g[i]*unit_atks_g[i] )/ unit_atkSp_g[i]*100)  ) *0.01     );
+                dps_g_Value=Double.toString( (Math.round (     (unit_dmg_g[race][i]*unit_atks_g[race][i] )/ unit_atkSp_g[race][i]*100)  ) *0.01     );
                 dps_g.setText( dps_g_Value);
-                dps_a_Value=Double.toString( (Math.round (     (unit_dmg_a[i]*unit_atks_a[i] )/ unit_atkSp_a[i]*100)  ) *0.01     );
+                dps_a_Value=Double.toString( (Math.round (     (unit_dmg_a[race][i]*unit_atks_a[race][i] )/ unit_atkSp_a[race][i]*100)  ) *0.01     );
                 dps_a.setText( dps_a_Value);
-                if(unit_bouns_type_g[i]>0){
-                    bouns_Value=bounsTrans(unit_bouns_type_g[i],unit_bouns_dmg_g[i],0);
-                }else if((unit_bouns_type_a[i]>0)){
-                    bouns_Value=bounsTrans(unit_bouns_type_a[i],unit_bouns_dmg_a[i],1);
+                if(unit_bouns_type_g[race][i]>0){
+                    bouns_Value=bounsTrans(unit_bouns_type_g[race][i],unit_bouns_dmg_g[race][i],0);
+                }else if((unit_bouns_type_a[race][i]>0)){
+                    bouns_Value=bounsTrans(unit_bouns_type_a[race][i],unit_bouns_dmg_a[race][i],1);
                 }
                 else
                     bouns_Value="N/A";
                 bouns.setText( bouns_Value);
 
-                hppc.setText(Double.toString(  Math.round(unit_hp[i]*1.0/unit_costs[i]*100) *0.01 ));
+                hppc.setText(Double.toString(  Math.round(unit_hp[race][i]*1.0/unit_costs[race][i]*100) *0.01 ));
 
                 Double dps1,dps2;
-                dps1=  Math.round(((unit_dmg_g[i]*unit_atks_g[i] )/ unit_atkSp_g[i])/unit_costs[i]*100) *0.01 ;
-                dps2=  Math.round(((unit_dmg_a[i]*unit_atks_a[i] )/ unit_atkSp_a[i])/unit_costs[i]*100) *0.01 ;
+                dps1=  Math.round(((unit_dmg_g[race][i]*unit_atks_g[race][i] )/ unit_atkSp_g[race][i])/unit_costs[race][i]*100) *0.01 ;
+                dps2=  Math.round(((unit_dmg_a[race][i]*unit_atks_a[race][i] )/ unit_atkSp_a[race][i])/unit_costs[race][i]*100) *0.01 ;
                 dpspc_g.setText(Double.toString(dps1));
                 dpspc_a.setText(Double.toString(dps2));
 
                 dps1=0.0;
                 dps2=0.0;
-                if(unit_bouns_type_g[i]>0)
-                    dps1=  Math.round((( (unit_dmg_g[i]+unit_bouns_dmg_g[i])*unit_atks_g[i] )/ unit_atkSp_g[i])*100) *0.01 ;
-                else if(unit_bouns_type_a[i]>0)
-                    dps2=  Math.round((( (unit_dmg_a[i]+unit_bouns_dmg_a[i])*unit_atks_a[i] )/ unit_atkSp_a[i])*100) *0.01 ;
+                if(unit_bouns_type_g[race][i]>0)
+                    dps1=  Math.round((( (unit_dmg_g[race][i]+unit_bouns_dmg_g[race][i])*unit_atks_g[race][i] )/ unit_atkSp_g[race][i])*100) *0.01 ;
+                else if(unit_bouns_type_a[race][i]>0)
+                    dps2=  Math.round((( (unit_dmg_a[race][i]+unit_bouns_dmg_a[race][i])*unit_atks_a[race][i] )/ unit_atkSp_a[race][i])*100) *0.01 ;
 
                 if(dps1>dps2)
                     bdps.setText(Double.toString(dps1));
