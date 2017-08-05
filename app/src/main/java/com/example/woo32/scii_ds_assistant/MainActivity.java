@@ -233,7 +233,7 @@ public class MainActivity extends AppCompatActivity {// ss
                         range_g.setText("9");
                     }else if(current==5){//colocuss
                         move.setText("3.94");
-                    }else if(current==15){
+                    }else if(current==15){ //mothership
                         int hp_=350,shield_=350,dmg_g_=6,dmg_a_=6,armor_=2,bonus=0,range=7,cost_=1000;
                         double atk_sp_g=1.58,atk_sp_a=1.58,movement=2.62;
                         cost.setText(Integer.toString(cost_));
@@ -252,7 +252,7 @@ public class MainActivity extends AppCompatActivity {// ss
                         dps_g.setText(Double.toString(3.8));
                         dps_a.setText(Double.toString(3.8));
                         bouns.setText("N/A");
-                        hppc.setText(Double.toString((hp_+shield_)/cost_));
+                        hppc.setText(Double.toString((hp_+shield_)*1.0/cost_));
                         dpspc_g.setText(Double.toString(   tempdps/cost_ ));
                         dpspc_a.setText(Double.toString(   tempdps/cost_ ));
                         tempdps=  Math.round((( (dmg_g_+bonus)*1 )/ atk_sp_g)*100) *0.01 ;
@@ -308,7 +308,7 @@ public class MainActivity extends AppCompatActivity {// ss
                         //dps_a.setText("40.35");
                     }
                 }else if(race==1){
-                    if(current==6 || current==9){
+                    if(current==6 || current==9){//archon
                         int hp_=10,shield_=350,dmg_g_=25,dmg_a_=25,armor=0,bonus=10,range=3,cost_=275;
                         double atk_sp_g=1.25,atk_sp_a=1.25,movement=3.94;
                         cost.setText(Integer.toString(cost_));
@@ -964,7 +964,8 @@ public class MainActivity extends AppCompatActivity {// ss
         unit_5.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 if(toggleFlag==false || race!=1){
-                    unit_5.setImageResource(R.drawable.ob);
+                    if(race==1)
+                        unit_5.setImageResource(R.drawable.ob);
                     toggleFlag=true;
                     int i=5; current=i;                 if(race==1)                     shield.setText("("+ Integer.toString(unit_shield[race][i])  +")");                 else                     shield.setText("");
                     cost_Value=Integer.toString(unit_costs[race][i]);
