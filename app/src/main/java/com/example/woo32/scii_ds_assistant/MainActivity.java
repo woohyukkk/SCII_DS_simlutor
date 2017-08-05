@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {// ss
 
 //Terran order  1.marine 2.marauder 3.reaper 4.ghost 5.hellbat   6.medivic 7.banshee 8.viking  9.raven 10.tank 11.mine 12.cyclone 13.lib 14.thor     15.BC
 //Protoss order 1.zealot 2.stalker  3.sentry 4.adept 5.ob/oracle 6.dt      7.ball   8.phoenix 9.ht    10.immo 11.void 12.coloss  13.tempest  14.carrier   15.core
-    int[]   unit_shield={};
+    int[][]   unit_shield={{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},{0,50,80,40,70,20,80,100,60,40,100,100,150,150,150,60},{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}};
     int[][] unit_costs={{0,50, 90, 75,235, 85,110,190,190,260,310,125,175,200,375,525}
                        ,{0,85,100,125, 95,125,175,200,150,275,255,250,325,475,525,175},
                         {0}};
@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {// ss
     TextView dps_g,dps_a;
     TextView bouns;
     TextView shieldHp;
-    TextView hppc,dpspc_g,dpspc_a,bdps;
+    TextView hppc,dpspc_g,dpspc_a,bdps,shield;
 
 
 
@@ -143,11 +143,12 @@ public class MainActivity extends AppCompatActivity {// ss
         dps_g=(TextView) findViewById(R.id.textView_dps_g);
         dps_a=(TextView) findViewById(R.id.textView_dps_a);
         bouns=(TextView) findViewById(R.id.textView_bouns);
-        shieldHp=(TextView) findViewById(R.id.textView_hpBouns);
+       // shieldHp=(TextView) findViewById(R.id.textView_hpBouns);
         hppc=(TextView) findViewById(R.id.textView_hppc);
         dpspc_g=(TextView) findViewById(R.id.textView_dpspc_g);
         dpspc_a=(TextView) findViewById(R.id.textView_dpspc_a);
         bdps=(TextView) findViewById(R.id.textView_bdps);
+        shield=(TextView) findViewById(R.id.textView_shield);
 
 
 // race buttons ctrl
@@ -192,26 +193,33 @@ public class MainActivity extends AppCompatActivity {// ss
         upgrade1=(ImageButton)findViewById(R.id.imageButton_upgrade1);
         upgrade1.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                if(current==1){//marine-shield
+                if(race==0){
+                    if(current==1){//marine-shield
 
-                    hp.setText("55");
-                    hppc.setText(Double.toString(55.0/45));
-                }
-                else if(current==5){
-                    if(hellbatOFF==false) {
-                        bouns.setText("Gnd-Lig+12");
-                        bdps.setText(Double.toString((12+18)/1.43));
-                       // dpspc_g.setText(Double.toString(((12+18)/1.43)/90));
-                    }else {
-                        bouns.setText("Gnd-Lig+11");
-                        bdps.setText(Double.toString((8+6+5)/1.79));
-                        //dpspc_g.setText(Double.toString(((8+6)/1.79)/90));
+                        hp.setText("55");
+                        hppc.setText(Double.toString(55.0/45));
                     }
-                }else if(current==13){
-                    if(lib_defON==true)
-                       range_g.setText("9");
+                    else if(current==5){
+                        if(hellbatOFF==false) {
+                            bouns.setText("Gnd-Lig+12");
+                            bdps.setText(Double.toString((12+18)/1.43));
+                            // dpspc_g.setText(Double.toString(((12+18)/1.43)/90));
+                        }else {
+                            bouns.setText("Gnd-Lig+11");
+                            bdps.setText(Double.toString((8+6+5)/1.79));
+                            //dpspc_g.setText(Double.toString(((8+6)/1.79)/90));
+                        }
+                    }else if(current==13){
+                        if(lib_defON==true)
+                            range_g.setText("9");
+
+                    }
+                }else if(race==1){
+
+                }else if(race==2){
 
                 }
+
 
             }
         });
@@ -219,42 +227,50 @@ public class MainActivity extends AppCompatActivity {// ss
         upgrade2=(ImageButton)findViewById(R.id.imageButton_upgrade2);
         upgrade2.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                if(current==1 || current == 2){//marine/maruder -stimpack  150% speed
-                    double tempSp_g= unit_atkSp_g[race][current];
-                    double tempSp_a= unit_atkSp_a[race][current];
-                    double tempDps_g,tempDps_a,tempbdps_g=0.0,tempbdps_a=0.0;
-                    tempSp_g=tempSp_g*2/3;
-                    tempSp_a=tempSp_a*2/3;
-                    tempDps_g=unit_dmg_g[race][current]*unit_atks_g[race][current]/tempSp_g;
-                    tempDps_a=unit_dmg_a[race][current]*unit_atks_a[race][current]/tempSp_a;
 
-                    atkSp_g.setText(Double.toString(  (Math.round(tempSp_g*100))*0.01));
-                    atkSp_a.setText(Double.toString(  (Math.round(tempSp_a*100))*0.01));
-                    dps_g.setText(Double.toString(  (Math.round(tempDps_g*100))*0.01));
-                    dps_a.setText(Double.toString(  (Math.round(tempDps_a*100))*0.01));
+                if(race==0){
+                    if(current==1 || current == 2){//marine/maruder -stimpack  150% speed
+                        double tempSp_g= unit_atkSp_g[race][current];
+                        double tempSp_a= unit_atkSp_a[race][current];
+                        double tempDps_g,tempDps_a,tempbdps_g=0.0,tempbdps_a=0.0;
+                        tempSp_g=tempSp_g*2/3;
+                        tempSp_a=tempSp_a*2/3;
+                        tempDps_g=unit_dmg_g[race][current]*unit_atks_g[race][current]/tempSp_g;
+                        tempDps_a=unit_dmg_a[race][current]*unit_atks_a[race][current]/tempSp_a;
 
-                    dpspc_g.setText(Double.toString(Math.round(tempDps_g/unit_costs[race][current]*100)*0.01      ));
-                    dpspc_a.setText(Double.toString(Math.round(tempDps_a/unit_costs[race][current]*100)*0.01      ));
+                        atkSp_g.setText(Double.toString(  (Math.round(tempSp_g*100))*0.01));
+                        atkSp_a.setText(Double.toString(  (Math.round(tempSp_a*100))*0.01));
+                        dps_g.setText(Double.toString(  (Math.round(tempDps_g*100))*0.01));
+                        dps_a.setText(Double.toString(  (Math.round(tempDps_a*100))*0.01));
+
+                        dpspc_g.setText(Double.toString(Math.round(tempDps_g/unit_costs[race][current]*100)*0.01      ));
+                        dpspc_a.setText(Double.toString(Math.round(tempDps_a/unit_costs[race][current]*100)*0.01      ));
 
 
-                    if(unit_bouns_type_g[race][current]>0)
-                        tempbdps_g= Math.round((( (unit_dmg_g[race][current]+ unit_bouns_dmg_g[race][current]  )   *unit_atks_g[race][current] )/ tempSp_g)*100) *0.01 ;
-                    else if (unit_bouns_type_a[race][current]>0)
-                        tempbdps_a= Math.round((( (unit_dmg_a[race][current]+ unit_bouns_dmg_a[race][current]  )   *unit_atks_a[race][current] )/ tempSp_a)*100) *0.01 ;
+                        if(unit_bouns_type_g[race][current]>0)
+                            tempbdps_g= Math.round((( (unit_dmg_g[race][current]+ unit_bouns_dmg_g[race][current]  )   *unit_atks_g[race][current] )/ tempSp_g)*100) *0.01 ;
+                        else if (unit_bouns_type_a[race][current]>0)
+                            tempbdps_a= Math.round((( (unit_dmg_a[race][current]+ unit_bouns_dmg_a[race][current]  )   *unit_atks_a[race][current] )/ tempSp_a)*100) *0.01 ;
 
-                    if(tempbdps_g>tempbdps_a)
-                        bdps.setText(Double.toString(tempbdps_g));
-                    else
-                        bdps.setText(Double.toString(tempbdps_a));
+                        if(tempbdps_g>tempbdps_a)
+                            bdps.setText(Double.toString(tempbdps_g));
+                        else
+                            bdps.setText(Double.toString(tempbdps_a));
 
-                    move.setText("4.73");
+                        move.setText("4.73");
 
-                }else if(current==9 && turret==true){
-                   // dmg_g.setText("23");
-                    //dmg_a.setText("23");
-                    //dps_g.setText("40.35");
-                    //dps_a.setText("40.35");
+                    }else if(current==9 && turret==true){
+                        // dmg_g.setText("23");
+                        //dmg_a.setText("23");
+                        //dps_g.setText("40.35");
+                        //dps_a.setText("40.35");
+                    }
+                }else if(race==1){
+
+                }else if(race==2){
+
                 }
+
 
             }
         });
@@ -270,55 +286,56 @@ public class MainActivity extends AppCompatActivity {// ss
         skill1=(ImageButton)findViewById(R.id.imageButton_skill1);
         skill1.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                hellbatOFF=true;
-                if(current==5) {  //hellbat-motor mode
-                    hp.setText("90");
-                    type.setText("Light-Mec");
-                    range_a.setText("0");
-                    range_g.setText("5");
-                    move.setText("5.95");
-                    dmg_a.setText("0");
-                    dmg_g.setText("8");
-                    atkSp_g.setText("1.79");
-                    atkSp_a.setText("0");
-                    dps_g.setText("4.47");
-                    dps_a.setText("0");
-                    bouns.setText("Gnd-Lig+6");
-                    hppc.setText(Double.toString(90.0/90));
-                    dpspc_g.setText(Double.toString(4.47/90));
-                    dpspc_a.setText("0");
-                    bdps.setText(Double.toString(14.0/1.79));
+                if(race==0){
+                    hellbatOFF=true;
+                    if(current==5) {  //hellbat-motor mode
+                        hp.setText("90");
+                        type.setText("Light-Mec");
+                        range_a.setText("0");
+                        range_g.setText("5");
+                        move.setText("5.95");
+                        dmg_a.setText("0");
+                        dmg_g.setText("8");
+                        atkSp_g.setText("1.79");
+                        atkSp_a.setText("0");
+                        dps_g.setText("4.47");
+                        dps_a.setText("0");
+                        bouns.setText("Gnd-Lig+6");
+                        hppc.setText(Double.toString(90.0/90));
+                        dpspc_g.setText(Double.toString(4.47/90));
+                        dpspc_a.setText("0");
+                        bdps.setText(Double.toString(14.0/1.79));
 
-                }else if(current == 8){// viking_assault
-                    hp.setText("125");
+                    }else if(current == 8){// viking_assault
+                        hp.setText("125");
 
-                    type.setText("Armored-Mec");
-                    range_a.setText("0");
-                    range_g.setText("6");
-                    move.setText("3.15");
-                    dmg_a.setText("0");
-                    dmg_g.setText("12");
-                    atkSp_g.setText("0.71");
-                    atkSp_a.setText("0");
-                    dps_g.setText("16.9");
-                    dps_a.setText("0");
-                    bouns.setText("Mec+8");
-                    hppc.setText(Double.toString(125.0/190));
-                    dpspc_g.setText(Double.toString(16.9/190));
-                    dpspc_a.setText("0");
-                    bdps.setText(Double.toString((12+8)/0.71));
+                        type.setText("Armored-Mec");
+                        range_a.setText("0");
+                        range_g.setText("6");
+                        move.setText("3.15");
+                        dmg_a.setText("0");
+                        dmg_g.setText("12");
+                        atkSp_g.setText("0.71");
+                        atkSp_a.setText("0");
+                        dps_g.setText("16.9");
+                        dps_a.setText("0");
+                        bouns.setText("Mec+8");
+                        hppc.setText(Double.toString(125.0/190));
+                        dpspc_g.setText(Double.toString(16.9/190));
+                        dpspc_a.setText("0");
+                        bdps.setText(Double.toString((12+8)/0.71));
 
 
-                }else if(current == 9){// Raven turret
-                    turret=true;
-                    cost.setText("0");
-                    hppc.setText("0");
-                    hp.setText("150");
-                    armor.setText("1+2");
-                    type.setText("Armored-Mec-Strc");
-                    range_a.setText("6");
-                    range_g.setText("6");
-                    move.setText("0");
+                    }else if(current == 9){// Raven turret
+                        turret=true;
+                        cost.setText("0");
+                        hppc.setText("0");
+                        hp.setText("150");
+                        armor.setText("1+2");
+                        type.setText("Armored-Mec-Strc");
+                        range_a.setText("6");
+                        range_g.setText("6");
+                        move.setText("0");
 
 
                         dmg_g.setText("18");
@@ -326,98 +343,112 @@ public class MainActivity extends AppCompatActivity {// ss
                         dps_g.setText("31.57");
                         dps_a.setText("31.57");
 
-                    atkSp_g.setText("0.57");
-                    atkSp_a.setText("0.57");
+                        atkSp_g.setText("0.57");
+                        atkSp_a.setText("0.57");
 
 
-                    dpspc_g.setText("0");
-                    dpspc_a.setText("0");
-
-
-
-                    bouns.setText("N/A");
-                }else if(current == 10){// tank siege
-
-                    hp.setText("175");
-                    armor.setText("1");
-                    type.setText("Armored-Mec");
-                    range_a.setText("0");
-                    range_g.setText("13");
-                    move.setText("0");
-
-
-                    dmg_g.setText("40");
-                    dmg_a.setText("0");
-                    dps_g.setText("18.78");
-                    dps_a.setText("0");
-
-                    atkSp_g.setText("2.13");
-                    atkSp_a.setText("0");
-
-                    //hppc.setText(Double.toString(125.0/190));
-                    dpspc_g.setText(Double.toString(18.78/310));
-                    dpspc_a.setText("0");
-                    bdps.setText(Double.toString((40+30)/2.13));
-
-                    bouns.setText("Gnd-Arm+30");
-                }else if(current == 14){// thor HIP
-
-                    hp.setText("400");
-                    armor.setText("2");
-                    type.setText("Armored-Mec-Ma");
-                    range_a.setText("10");
-                    range_g.setText("7");
-                    move.setText("2.62");
-
-
-                    dmg_g.setText("30x2");
-                    dmg_a.setText("35");
-
-                    dps_a.setText("16.3");
-
-                    atkSp_g.setText("0.91");
-                    atkSp_a.setText("2.14");
-
-                    //hppc.setText(Double.toString(125.0/190));
-                    //dpspc_g.setText(Double.toString(16.9/190));
-                    dpspc_a.setText(Double.toString(16.3/400));
-                    bdps.setText(Double.toString((35+15)/2.14));
-
-                    bouns.setText("Air-Arm+15");
-                }else if(current == 13){// lib_def mode
-                    lib_defON=true;
-
-                    hp.setText("180");
-                    armor.setText("1");
-                    type.setText("Armored-Mec");
-                    range_a.setText("0");
-                    range_g.setText("5");
-                    move.setText("4.72");
-
-
-                    dmg_g.setText("75");
-                    dmg_a.setText("0");
-                    dps_g.setText("65.8");
-                    dps_a.setText("0");
-
-                    atkSp_g.setText("1.14");
-                    atkSp_a.setText("0");
-
-                    dpspc_g.setText(Double.toString(65.8/200));
-                    dpspc_a.setText("0");
+                        dpspc_g.setText("0");
+                        dpspc_a.setText("0");
 
 
 
-                    bouns.setText("N/A");
+                        bouns.setText("N/A");
+                    }else if(current == 10){// tank siege
+
+                        hp.setText("175");
+                        armor.setText("1");
+                        type.setText("Armored-Mec");
+                        range_a.setText("0");
+                        range_g.setText("13");
+                        move.setText("0");
+
+
+                        dmg_g.setText("40");
+                        dmg_a.setText("0");
+                        dps_g.setText("18.78");
+                        dps_a.setText("0");
+
+                        atkSp_g.setText("2.13");
+                        atkSp_a.setText("0");
+
+                        //hppc.setText(Double.toString(125.0/190));
+                        dpspc_g.setText(Double.toString(18.78/310));
+                        dpspc_a.setText("0");
+                        bdps.setText(Double.toString((40+30)/2.13));
+
+                        bouns.setText("Gnd-Arm+30");
+                    }else if(current == 14){// thor HIP
+
+                        hp.setText("400");
+                        armor.setText("2");
+                        type.setText("Armored-Mec-Ma");
+                        range_a.setText("10");
+                        range_g.setText("7");
+                        move.setText("2.62");
+
+
+                        dmg_g.setText("30x2");
+                        dmg_a.setText("35");
+
+                        dps_a.setText("16.3");
+
+                        atkSp_g.setText("0.91");
+                        atkSp_a.setText("2.14");
+
+                        //hppc.setText(Double.toString(125.0/190));
+                        //dpspc_g.setText(Double.toString(16.9/190));
+                        dpspc_a.setText(Double.toString(16.3/400));
+                        bdps.setText(Double.toString((35+15)/2.14));
+
+                        bouns.setText("Air-Arm+15");
+                    }else if(current == 13){// lib_def mode
+                        lib_defON=true;
+
+                        hp.setText("180");
+                        armor.setText("1");
+                        type.setText("Armored-Mec");
+                        range_a.setText("0");
+                        range_g.setText("5");
+                        move.setText("4.72");
+
+
+                        dmg_g.setText("75");
+                        dmg_a.setText("0");
+                        dps_g.setText("65.8");
+                        dps_a.setText("0");
+
+                        atkSp_g.setText("1.14");
+                        atkSp_a.setText("0");
+
+                        dpspc_g.setText(Double.toString(65.8/200));
+                        dpspc_a.setText("0");
+
+
+
+                        bouns.setText("N/A");
+                    }
+                }else if(race==1){
+
+                }else if(race==2){
+
                 }
+
             }
         });
 
         skill2=(ImageButton)findViewById(R.id.imageButton_skill2);
         skill2.setOnClickListener(new View.OnClickListener(){
+
             public void onClick(View v){
-                if(current==6){
-                    move.setText("5.95");
+                if(race==0){
+                    if(current==6){
+                        move.setText("5.95");
+                    }
+
+                }else if(race==1){
+
+                }else if(race==2){
+
                 }
 
 
@@ -443,8 +474,14 @@ public class MainActivity extends AppCompatActivity {// ss
         unit_1=(ImageButton)findViewById(R.id.imageButton1);
         unit_1.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
+
                 int i=1;
-                current=i;
+                 current=i;                 
+                
+                if(race==1)
+                    shield.setText("("+ Integer.toString(unit_shield[race][i])  +")");
+                else
+                    shield.setText("");
                 Log.d("@1-i: ", Integer.toString(i));
                 cost_Value=Integer.toString(unit_costs[race][i]);
                 armor_Value=Integer.toString(unit_armor[race][i]);
@@ -490,8 +527,8 @@ public class MainActivity extends AppCompatActivity {// ss
 
 
 
-                hppc.setText(Double.toString(  Math.round(unit_hp[race][i]*1.0/unit_costs[race][i]*100) *0.01 ));
-                hppc.setText(Double.toString(  Math.round(unit_hp[race][i]*1.0/unit_costs[race][i]*100) *0.01 ));
+                hppc.setText(Double.toString(  Math.round( (unit_hp[race][i]+unit_shield[race][i])*1.0/unit_costs[race][i]*100) *0.01 ));
+               
 
                 Double dps1,dps2;
                 dps1=  Math.round(((unit_dmg_g[race][i]*unit_atks_g[race][i] )/ unit_atkSp_g[race][i])/unit_costs[race][i]*100) *0.01 ;
@@ -512,19 +549,26 @@ public class MainActivity extends AppCompatActivity {// ss
                     bdps.setText(Double.toString(dps2));
 
                 //--------------------------------------------upgrade control--------------------------------
-                upgrade1.setImageResource(R.drawable.marrine_shield);
-                upgrade2.setImageResource(R.drawable.marine_stimpack);
-                //upgrade3.setImageResource(R.drawable.);
-                //skill1.setImageResource(R.drawable.);
-                //skill2.setImageResource(R.drawable.);
-                //skill3.setImageResource(R.drawable.);
+                if(race==0){
+                    upgrade1.setImageResource(R.drawable.marrine_shield);
+                    upgrade2.setImageResource(R.drawable.marine_stimpack);
+                    //upgrade3.setImageResource(R.drawable.);
+                    //skill1.setImageResource(R.drawable.);
+                    //skill2.setImageResource(R.drawable.);
+                    //skill3.setImageResource(R.drawable.);
 
-                upgrade1.setVisibility(View.VISIBLE);  //One of VISIBLE, INVISIBLE, or GONE.
-                upgrade2.setVisibility(View.VISIBLE);
-                upgrade3.setVisibility(View.INVISIBLE);
-                skill1.setVisibility(View.INVISIBLE);
-                skill2.setVisibility(View.INVISIBLE);
-                skill3.setVisibility(View.INVISIBLE);
+                    upgrade1.setVisibility(View.VISIBLE);  //One of VISIBLE, INVISIBLE, or GONE.
+                    upgrade2.setVisibility(View.VISIBLE);
+                    upgrade3.setVisibility(View.INVISIBLE);
+                    skill1.setVisibility(View.INVISIBLE);
+                    skill2.setVisibility(View.INVISIBLE);
+                    skill3.setVisibility(View.INVISIBLE);
+
+                }else if(race==1){
+
+                }else if(race==2){
+
+                }
 
             }
         });
@@ -532,7 +576,7 @@ public class MainActivity extends AppCompatActivity {// ss
         unit_2=(ImageButton)findViewById(R.id.imageButton2);
         unit_2.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                int i=2;current=i;
+                int i=2; current=i;                 if(race==1)                     shield.setText("("+ Integer.toString(unit_shield[race][i])  +")");                 else                     shield.setText("");
                 cost_Value=Integer.toString(unit_costs[race][i]);
                 cost.setText(cost_Value);
                 armor_Value=Integer.toString(unit_armor[race][i]);
@@ -575,7 +619,7 @@ public class MainActivity extends AppCompatActivity {// ss
                 bouns.setText( bouns_Value);
 
 
-                hppc.setText(Double.toString(  Math.round(unit_hp[race][i]*1.0/unit_costs[race][i]*100)*0.01 ));
+                 hppc.setText(Double.toString(  Math.round( (unit_hp[race][i]+unit_shield[race][i])*1.0/unit_costs[race][i]*100) *0.01 ));
 
                 Double dps1,dps2;
                 dps1=  Math.round(((unit_dmg_g[race][i]*unit_atks_g[race][i] )/ unit_atkSp_g[race][i])/unit_costs[race][i]*100) *0.01 ;
@@ -596,15 +640,21 @@ public class MainActivity extends AppCompatActivity {// ss
                     bdps.setText(Double.toString(dps2));
 
                 //--------------------------------------------upgrade control--------------------------------
+                if(race==0){
+                    upgrade2.setImageResource(R.drawable.marine_stimpack);
+                    upgrade1.setImageResource(R.drawable.marauder_shells);
+                    upgrade1.setVisibility(View.VISIBLE);  //One of VISIBLE, INVISIBLE, or GONE.
+                    upgrade2.setVisibility(View.VISIBLE);
+                    upgrade3.setVisibility(View.INVISIBLE);
+                    skill1.setVisibility(View.INVISIBLE);
+                    skill2.setVisibility(View.INVISIBLE);
+                    skill3.setVisibility(View.INVISIBLE);
+                }else if(race==1){
 
-                upgrade2.setImageResource(R.drawable.marine_stimpack);
-                upgrade1.setImageResource(R.drawable.marauder_shells);
-                upgrade1.setVisibility(View.VISIBLE);  //One of VISIBLE, INVISIBLE, or GONE.
-                upgrade2.setVisibility(View.VISIBLE);
-                upgrade3.setVisibility(View.INVISIBLE);
-                skill1.setVisibility(View.INVISIBLE);
-                skill2.setVisibility(View.INVISIBLE);
-                skill3.setVisibility(View.INVISIBLE);
+                }else if(race==2){
+
+                }
+
 
             }
         });
@@ -612,7 +662,7 @@ public class MainActivity extends AppCompatActivity {// ss
         unit_3=(ImageButton)findViewById(R.id.imageButton3);
         unit_3.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                int i=3;current=i;
+                int i=3; current=i;                 if(race==1)                     shield.setText("("+ Integer.toString(unit_shield[race][i])  +")");                 else                     shield.setText("");
                 cost_Value=Integer.toString(unit_costs[race][i]);
                 cost.setText(cost_Value);
                 armor_Value=Integer.toString(unit_armor[race][i]);
@@ -651,7 +701,7 @@ public class MainActivity extends AppCompatActivity {// ss
                 else
                     bouns_Value="N/A";
                 bouns.setText( bouns_Value);
-                hppc.setText(Double.toString(  Math.round(unit_hp[race][i]*1.0/unit_costs[race][i]*100) *0.01));
+                hppc.setText(Double.toString(  Math.round( (unit_hp[race][i]+unit_shield[race][i])*1.0/unit_costs[race][i]*100) *0.01 ));
 
                 Double dps1,dps2;
                 dps1=  Math.round(((unit_dmg_g[race][i]*unit_atks_g[race][i] )/ unit_atkSp_g[race][i])/unit_costs[race][i]*100) *0.01 ;
@@ -672,27 +722,33 @@ public class MainActivity extends AppCompatActivity {// ss
                     bdps.setText(Double.toString(dps2));
 
 //--------------------------------------------upgrade control--------------------------------
+                if(race==0){
+                    //upgrade1.setImageResource(R.drawable.marrine_shield);
+                    //upgrade2.setImageResource(R.drawable.marine_stimpack);
+                    //upgrade3.setImageResource(R.drawable.);
+                    skill1.setImageResource(R.drawable.reaper_durg);
+                    //skill2.setImageResource(R.drawable.);
+                    //skill3.setImageResource(R.drawable.);
 
-                //upgrade1.setImageResource(R.drawable.marrine_shield);
-                //upgrade2.setImageResource(R.drawable.marine_stimpack);
-                //upgrade3.setImageResource(R.drawable.);
-                skill1.setImageResource(R.drawable.reaper_durg);
-                //skill2.setImageResource(R.drawable.);
-                //skill3.setImageResource(R.drawable.);
+                    upgrade1.setVisibility(View.INVISIBLE);  //One of VISIBLE, INVISIBLE, or GONE.
+                    upgrade2.setVisibility(View.INVISIBLE);
+                    upgrade3.setVisibility(View.INVISIBLE);
+                    skill1.setVisibility(View.VISIBLE);
+                    skill2.setVisibility(View.INVISIBLE);
+                    skill3.setVisibility(View.INVISIBLE);
+                }else if(race==1){
 
-                upgrade1.setVisibility(View.INVISIBLE);  //One of VISIBLE, INVISIBLE, or GONE.
-                upgrade2.setVisibility(View.INVISIBLE);
-                upgrade3.setVisibility(View.INVISIBLE);
-                skill1.setVisibility(View.VISIBLE);
-                skill2.setVisibility(View.INVISIBLE);
-                skill3.setVisibility(View.INVISIBLE);
+                }else if(race==2){
+
+                }
+
             }
         });
 
         unit_4=(ImageButton)findViewById(R.id.imageButton4);
         unit_4.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                int i=4;current=i;
+                int i=4; current=i;                 if(race==1)                     shield.setText("("+ Integer.toString(unit_shield[race][i])  +")");                 else                     shield.setText("");
                 cost_Value=Integer.toString(unit_costs[race][i]);
                 cost.setText(cost_Value);
                 armor_Value=Integer.toString(unit_armor[race][i]);
@@ -734,7 +790,7 @@ public class MainActivity extends AppCompatActivity {// ss
                 else
                     bouns_Value="N/A";
                 bouns.setText( bouns_Value);
-                hppc.setText(Double.toString(  Math.round(unit_hp[race][i]*1.0/unit_costs[race][i]*100) *0.01));
+                 hppc.setText(Double.toString(  Math.round( (unit_hp[race][i]+unit_shield[race][i])*1.0/unit_costs[race][i]*100) *0.01 ));
 
                 Double dps1,dps2;
                 dps1=  Math.round(((unit_dmg_g[race][i]*unit_atks_g[race][i] )/ unit_atkSp_g[race][i])/unit_costs[race][i]*100) *0.01 ;
@@ -755,20 +811,26 @@ public class MainActivity extends AppCompatActivity {// ss
                     bdps.setText(Double.toString(dps2));
 
 //--------------------------------------------upgrade control--------------------------------
+                if(race==0){
+                    upgrade1.setImageResource(R.drawable.ghost_cloak);
+                    //upgrade2.setImageResource(R.drawable.marine_stimpack);
+                    //upgrade3.setImageResource(R.drawable.);
+                    skill1.setImageResource(R.drawable.ghost_snipe);
+                    skill2.setImageResource(R.drawable.ghost_emp);
+                    skill3.setImageResource(R.drawable.ghost_cloak);
 
-                upgrade1.setImageResource(R.drawable.ghost_cloak);
-                //upgrade2.setImageResource(R.drawable.marine_stimpack);
-                //upgrade3.setImageResource(R.drawable.);
-                skill1.setImageResource(R.drawable.ghost_snipe);
-                skill2.setImageResource(R.drawable.ghost_emp);
-                skill3.setImageResource(R.drawable.ghost_cloak);
+                    upgrade1.setVisibility(View.VISIBLE);  //One of VISIBLE, INVISIBLE, or GONE.
+                    upgrade2.setVisibility(View.INVISIBLE);
+                    upgrade3.setVisibility(View.INVISIBLE);
+                    skill1.setVisibility(View.VISIBLE);
+                    skill2.setVisibility(View.VISIBLE);
+                    skill3.setVisibility(View.VISIBLE);
+                }else if(race==1){
 
-                upgrade1.setVisibility(View.VISIBLE);  //One of VISIBLE, INVISIBLE, or GONE.
-                upgrade2.setVisibility(View.INVISIBLE);
-                upgrade3.setVisibility(View.INVISIBLE);
-                skill1.setVisibility(View.VISIBLE);
-                skill2.setVisibility(View.VISIBLE);
-                skill3.setVisibility(View.VISIBLE);
+                }else if(race==2){
+
+                }
+
 
             }
         });
@@ -776,7 +838,7 @@ public class MainActivity extends AppCompatActivity {// ss
         unit_5=(ImageButton)findViewById(R.id.imageButton5);
         unit_5.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                int i=5;current=i;
+                int i=5; current=i;                 if(race==1)                     shield.setText("("+ Integer.toString(unit_shield[race][i])  +")");                 else                     shield.setText("");
                 cost_Value=Integer.toString(unit_costs[race][i]);
                 cost.setText(cost_Value);
                 armor_Value=Integer.toString(unit_armor[race][i]);
@@ -815,7 +877,7 @@ public class MainActivity extends AppCompatActivity {// ss
                 else
                     bouns_Value="N/A";
                 bouns.setText( bouns_Value);
-                hppc.setText(Double.toString(  Math.round(unit_hp[race][i]*1.0/unit_costs[race][i]*100) *0.01 ));
+                hppc.setText(Double.toString(  Math.round( (unit_hp[race][i]+unit_shield[race][i])*1.0/unit_costs[race][i]*100) *0.01 ));
 
                 Double dps1,dps2;
                 dps1=  Math.round(((unit_dmg_g[race][i]*unit_atks_g[race][i] )/ unit_atkSp_g[race][i])/unit_costs[race][i]*100) *0.01 ;
@@ -836,20 +898,27 @@ public class MainActivity extends AppCompatActivity {// ss
                     bdps.setText(Double.toString(dps2));
 
 //--------------------------------------------upgrade control--------------------------------
-                hellbatOFF=false;
-                upgrade1.setImageResource(R.drawable.hellbat_bluef);
-                //upgrade2.setImageResource(R.drawable.marine_stimpack);
-                //upgrade3.setImageResource(R.drawable.);
-                skill1.setImageResource(R.drawable.hellbat_hellion);
-                //skill2.setImageResource(R.drawable.ghost_emp);
-                //skill3.setImageResource(R.drawable.ghost_cloak);
+                if(race==0){
+                    hellbatOFF=false;
+                    upgrade1.setImageResource(R.drawable.hellbat_bluef);
+                    //upgrade2.setImageResource(R.drawable.marine_stimpack);
+                    //upgrade3.setImageResource(R.drawable.);
+                    skill1.setImageResource(R.drawable.hellbat_hellion);
+                    //skill2.setImageResource(R.drawable.ghost_emp);
+                    //skill3.setImageResource(R.drawable.ghost_cloak);
 
-                upgrade1.setVisibility(View.VISIBLE);  //One of VISIBLE, INVISIBLE, or GONE.
-                upgrade2.setVisibility(View.INVISIBLE);
-                upgrade3.setVisibility(View.INVISIBLE);
-                skill1.setVisibility(View.VISIBLE);
-                skill2.setVisibility(View.INVISIBLE);
-                skill3.setVisibility(View.INVISIBLE);
+                    upgrade1.setVisibility(View.VISIBLE);  //One of VISIBLE, INVISIBLE, or GONE.
+                    upgrade2.setVisibility(View.INVISIBLE);
+                    upgrade3.setVisibility(View.INVISIBLE);
+                    skill1.setVisibility(View.VISIBLE);
+                    skill2.setVisibility(View.INVISIBLE);
+                    skill3.setVisibility(View.INVISIBLE);
+                }else if(race==1){
+
+                }else if(race==2){
+
+                }
+
 
             }
         });
@@ -857,7 +926,7 @@ public class MainActivity extends AppCompatActivity {// ss
         unit_6=(ImageButton)findViewById(R.id.imageButton6);
         unit_6.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                int i=6;current=i;
+                int i=6; current=i;                 if(race==1)                     shield.setText("("+ Integer.toString(unit_shield[race][i])  +")");                 else                     shield.setText("");
                 cost_Value=Integer.toString(unit_costs[race][i]);
                 cost.setText(cost_Value);
                 armor_Value=Integer.toString(unit_armor[race][i]);
@@ -896,7 +965,7 @@ public class MainActivity extends AppCompatActivity {// ss
                 else
                     bouns_Value="N/A";
                 bouns.setText( bouns_Value);
-                hppc.setText(Double.toString(  Math.round(unit_hp[race][i]*1.0/unit_costs[race][i]*100) *0.01 ));
+                hppc.setText(Double.toString(  Math.round( (unit_hp[race][i]+unit_shield[race][i])*1.0/unit_costs[race][i]*100) *0.01 ));
 
                 Double dps1,dps2;
                 dps1=  Math.round(((unit_dmg_g[race][i]*unit_atks_g[race][i] )/ unit_atkSp_g[race][i])/unit_costs[race][i]*100) *0.01 ;
@@ -917,19 +986,26 @@ public class MainActivity extends AppCompatActivity {// ss
                     bdps.setText(Double.toString(dps2));
 
                 //--------------------------------------------upgrade control--------------------------------
-                //upgrade1.setImageResource(R.drawable.hellbat_bluef);
-                //upgrade2.setImageResource(R.drawable.marine_stimpack);
-                //upgrade3.setImageResource(R.drawable.);
-                skill1.setImageResource(R.drawable.medivac_heal);
-                skill2.setImageResource(R.drawable.medivac_afterburner);
-                //skill3.setImageResource(R.drawable.ghost_cloak);
+                if(race==0){
+                    //upgrade1.setImageResource(R.drawable.hellbat_bluef);
+                    //upgrade2.setImageResource(R.drawable.marine_stimpack);
+                    //upgrade3.setImageResource(R.drawable.);
+                    skill1.setImageResource(R.drawable.medivac_heal);
+                    skill2.setImageResource(R.drawable.medivac_afterburner);
+                    //skill3.setImageResource(R.drawable.ghost_cloak);
 
-                upgrade1.setVisibility(View.INVISIBLE);  //One of VISIBLE, INVISIBLE, or GONE.
-                upgrade2.setVisibility(View.INVISIBLE);
-                upgrade3.setVisibility(View.INVISIBLE);
-                skill1.setVisibility(View.VISIBLE);
-                skill2.setVisibility(View.VISIBLE);
-                skill3.setVisibility(View.INVISIBLE);
+                    upgrade1.setVisibility(View.INVISIBLE);  //One of VISIBLE, INVISIBLE, or GONE.
+                    upgrade2.setVisibility(View.INVISIBLE);
+                    upgrade3.setVisibility(View.INVISIBLE);
+                    skill1.setVisibility(View.VISIBLE);
+                    skill2.setVisibility(View.VISIBLE);
+                    skill3.setVisibility(View.INVISIBLE);
+                }else if(race==1){
+
+                }else if(race==2){
+
+                }
+
 
 
             }
@@ -938,7 +1014,7 @@ public class MainActivity extends AppCompatActivity {// ss
         unit_7=(ImageButton)findViewById(R.id.imageButton7);
         unit_7.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                int i=7;current=i;
+                int i=7; current=i;                 if(race==1)                     shield.setText("("+ Integer.toString(unit_shield[race][i])  +")");                 else                     shield.setText("");
                 cost_Value=Integer.toString(unit_costs[race][i]);
                 cost.setText(cost_Value);
                 armor_Value=Integer.toString(unit_armor[race][i]);
@@ -977,7 +1053,7 @@ public class MainActivity extends AppCompatActivity {// ss
                 else
                     bouns_Value="N/A";
                 bouns.setText( bouns_Value);
-                hppc.setText(Double.toString(  Math.round(unit_hp[race][i]*1.0/unit_costs[race][i]*100) *0.01 ));
+                hppc.setText(Double.toString(  Math.round( (unit_hp[race][i]+unit_shield[race][i])*1.0/unit_costs[race][i]*100) *0.01 ));
 
                 Double dps1,dps2;
                 dps1=  Math.round(((unit_dmg_g[race][i]*unit_atks_g[race][i] )/ unit_atkSp_g[race][i])/unit_costs[race][i]*100) *0.01 ;
@@ -998,26 +1074,33 @@ public class MainActivity extends AppCompatActivity {// ss
                     bdps.setText(Double.toString(dps2));
 
 //--------------------------------------------upgrade control--------------------------------
-                //upgrade1.setImageResource(R.drawable.hellbat_bluef);
-                //upgrade2.setImageResource(R.drawable.marine_stimpack);
-                //upgrade3.setImageResource(R.drawable.);
-                skill1.setImageResource(R.drawable.ghost_cloak);
-                //skill2.setImageResource(R.drawable.medivac_afterburner);
-                //skill3.setImageResource(R.drawable.ghost_cloak);
+                if(race==0){
+//upgrade1.setImageResource(R.drawable.hellbat_bluef);
+                    //upgrade2.setImageResource(R.drawable.marine_stimpack);
+                    //upgrade3.setImageResource(R.drawable.);
+                    skill1.setImageResource(R.drawable.ghost_cloak);
+                    //skill2.setImageResource(R.drawable.medivac_afterburner);
+                    //skill3.setImageResource(R.drawable.ghost_cloak);
 
-                upgrade1.setVisibility(View.INVISIBLE);  //One of VISIBLE, INVISIBLE, or GONE.
-                upgrade2.setVisibility(View.INVISIBLE);
-                upgrade3.setVisibility(View.INVISIBLE);
-                skill1.setVisibility(View.VISIBLE);
-                skill2.setVisibility(View.INVISIBLE);
-                skill3.setVisibility(View.INVISIBLE);
+                    upgrade1.setVisibility(View.INVISIBLE);  //One of VISIBLE, INVISIBLE, or GONE.
+                    upgrade2.setVisibility(View.INVISIBLE);
+                    upgrade3.setVisibility(View.INVISIBLE);
+                    skill1.setVisibility(View.VISIBLE);
+                    skill2.setVisibility(View.INVISIBLE);
+                    skill3.setVisibility(View.INVISIBLE);
+                }else if(race==1){
+
+                }else if(race==2){
+
+                }
+
             }
         });
 
         unit_8=(ImageButton)findViewById(R.id.imageButton8);
         unit_8.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                int i=8;current=i;
+                int i=8; current=i;                 if(race==1)                     shield.setText("("+ Integer.toString(unit_shield[race][i])  +")");                 else                     shield.setText("");
                 cost_Value=Integer.toString(unit_costs[race][i]);
                 cost.setText(cost_Value);
                 armor_Value=Integer.toString(unit_armor[race][i]);
@@ -1056,7 +1139,7 @@ public class MainActivity extends AppCompatActivity {// ss
                 else
                     bouns_Value="N/A";
                 bouns.setText( bouns_Value);
-                hppc.setText(Double.toString(  Math.round(unit_hp[race][i]*1.0/unit_costs[race][i]*100)*0.01 ));
+                 hppc.setText(Double.toString(  Math.round( (unit_hp[race][i]+unit_shield[race][i])*1.0/unit_costs[race][i]*100) *0.01 ));
 
                 Double dps1,dps2;
                 dps1=  Math.round(((unit_dmg_g[race][i]*unit_atks_g[race][i] )/ unit_atkSp_g[race][i])/unit_costs[race][i]*100) *0.01 ;
@@ -1077,21 +1160,27 @@ public class MainActivity extends AppCompatActivity {// ss
                     bdps.setText(Double.toString(dps2));
 
 //--------------------------------------------upgrade control--------------------------------
+                if(race==0){
+                    //upgrade1.setImageResource(R.drawable.hellbat_bluef);
+                    //upgrade2.setImageResource(R.drawable.marine_stimpack);
+                    //upgrade3.setImageResource(R.drawable.);
+                    skill1.setImageResource(R.drawable.viking_assault);
+                    //skill2.setImageResource(R.drawable.medivac_afterburner);
+                    //skill3.setImageResource(R.drawable.ghost_cloak);
+
+                    upgrade1.setVisibility(View.INVISIBLE);  //One of VISIBLE, INVISIBLE, or GONE.
+                    upgrade2.setVisibility(View.INVISIBLE);
+                    upgrade3.setVisibility(View.INVISIBLE);
+                    skill1.setVisibility(View.VISIBLE);
+                    skill2.setVisibility(View.INVISIBLE);
+                    skill3.setVisibility(View.INVISIBLE);
+                }else if(race==1){
+
+                }else if(race==2){
+
+                }
 
 
-                //upgrade1.setImageResource(R.drawable.hellbat_bluef);
-                //upgrade2.setImageResource(R.drawable.marine_stimpack);
-                //upgrade3.setImageResource(R.drawable.);
-                skill1.setImageResource(R.drawable.viking_assault);
-                //skill2.setImageResource(R.drawable.medivac_afterburner);
-                //skill3.setImageResource(R.drawable.ghost_cloak);
-
-                upgrade1.setVisibility(View.INVISIBLE);  //One of VISIBLE, INVISIBLE, or GONE.
-                upgrade2.setVisibility(View.INVISIBLE);
-                upgrade3.setVisibility(View.INVISIBLE);
-                skill1.setVisibility(View.VISIBLE);
-                skill2.setVisibility(View.INVISIBLE);
-                skill3.setVisibility(View.INVISIBLE);
 
             }
         });
@@ -1099,7 +1188,7 @@ public class MainActivity extends AppCompatActivity {// ss
         unit_9=(ImageButton)findViewById(R.id.imageButton9);
         unit_9.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                int i=9;current=i;
+                int i=9; current=i;                 if(race==1)                     shield.setText("("+ Integer.toString(unit_shield[race][i])  +")");                 else                     shield.setText("");
                 cost_Value=Integer.toString(unit_costs[race][i]);
                 cost.setText(cost_Value);
                 armor_Value=Integer.toString(unit_armor[race][i]);
@@ -1138,7 +1227,7 @@ public class MainActivity extends AppCompatActivity {// ss
                 else
                     bouns_Value="N/A";
                 bouns.setText( bouns_Value);
-                hppc.setText(Double.toString(  Math.round(unit_hp[race][i]*1.0/unit_costs[race][i]*100) *0.01 ));
+                hppc.setText(Double.toString(  Math.round( (unit_hp[race][i]+unit_shield[race][i])*1.0/unit_costs[race][i]*100) *0.01 ));
 
                 Double dps1,dps2;
                 dps1=  Math.round(((unit_dmg_g[race][i]*unit_atks_g[race][i] )/ unit_atkSp_g[race][i])/unit_costs[race][i]*100) *0.01 ;
@@ -1159,20 +1248,27 @@ public class MainActivity extends AppCompatActivity {// ss
                     bdps.setText(Double.toString(dps2));
 
                 //--------------------------------------------upgrade control--------------------------------
-                turret=false;
-                upgrade1.setImageResource(R.drawable.raven_reactor);
-                upgrade2.setImageResource(R.drawable.raven_shells);
-                //upgrade3.setImageResource(R.drawable.);
-                skill1.setImageResource(R.drawable.raven_turret);
-                skill2.setImageResource(R.drawable.raven_drone);
-                skill3.setImageResource(R.drawable.raven_missile);
+                if(race==0){
+                    turret=false;
+                    upgrade1.setImageResource(R.drawable.raven_reactor);
+                    upgrade2.setImageResource(R.drawable.raven_shells);
+                    //upgrade3.setImageResource(R.drawable.);
+                    skill1.setImageResource(R.drawable.raven_turret);
+                    skill2.setImageResource(R.drawable.raven_drone);
+                    skill3.setImageResource(R.drawable.raven_missile);
 
-                upgrade1.setVisibility(View.VISIBLE);  //One of VISIBLE, INVISIBLE, or GONE.
-                upgrade2.setVisibility(View.VISIBLE);
-                upgrade3.setVisibility(View.INVISIBLE);
-                skill1.setVisibility(View.VISIBLE);
-                skill2.setVisibility(View.VISIBLE);
-                skill3.setVisibility(View.VISIBLE);
+                    upgrade1.setVisibility(View.VISIBLE);  //One of VISIBLE, INVISIBLE, or GONE.
+                    upgrade2.setVisibility(View.VISIBLE);
+                    upgrade3.setVisibility(View.INVISIBLE);
+                    skill1.setVisibility(View.VISIBLE);
+                    skill2.setVisibility(View.VISIBLE);
+                    skill3.setVisibility(View.VISIBLE);
+                }else if(race==1){
+
+                }else if(race==2){
+
+                }
+
 
             }
         });
@@ -1180,7 +1276,7 @@ public class MainActivity extends AppCompatActivity {// ss
         unit_10=(ImageButton)findViewById(R.id.imageButton10);
         unit_10.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                int i=10;current=i;
+                int i=10; current=i;                 if(race==1)                     shield.setText("("+ Integer.toString(unit_shield[race][i])  +")");                 else                     shield.setText("");
                 cost_Value=Integer.toString(unit_costs[race][i]);
                 cost.setText(cost_Value);
                 armor_Value=Integer.toString(unit_armor[race][i]);
@@ -1219,7 +1315,7 @@ public class MainActivity extends AppCompatActivity {// ss
                 else
                     bouns_Value="N/A";
                 bouns.setText( bouns_Value);
-                hppc.setText(Double.toString(  Math.round(unit_hp[race][i]*1.0/unit_costs[race][i]*100)*0.01 ));
+                 hppc.setText(Double.toString(  Math.round( (unit_hp[race][i]+unit_shield[race][i])*1.0/unit_costs[race][i]*100) *0.01 ));
 
                 Double dps1,dps2;
                 dps1=  Math.round(((unit_dmg_g[race][i]*unit_atks_g[race][i] )/ unit_atkSp_g[race][i])/unit_costs[race][i]*100) *0.01 ;
@@ -1241,20 +1337,27 @@ public class MainActivity extends AppCompatActivity {// ss
 
 
                 //--------------------------------------------upgrade control--------------------------------
+                if(race==0){
+                    //upgrade1.setImageResource(R.drawable.raven_reactor);
+                    // upgrade2.setImageResource(R.drawable.raven_shells);
+                    //upgrade3.setImageResource(R.drawable.);
+                    skill1.setImageResource(R.drawable.tank_siege);
+                    //skill2.setImageResource(R.drawable.raven_drone);
+                    // skill3.setImageResource(R.drawable.raven_missile);
 
-                //upgrade1.setImageResource(R.drawable.raven_reactor);
-               // upgrade2.setImageResource(R.drawable.raven_shells);
-                //upgrade3.setImageResource(R.drawable.);
-                skill1.setImageResource(R.drawable.tank_siege);
-                //skill2.setImageResource(R.drawable.raven_drone);
-               // skill3.setImageResource(R.drawable.raven_missile);
+                    upgrade1.setVisibility(View.INVISIBLE);  //One of VISIBLE, INVISIBLE, or GONE.
+                    upgrade2.setVisibility(View.INVISIBLE);
+                    upgrade3.setVisibility(View.INVISIBLE);
+                    skill1.setVisibility(View.VISIBLE);
+                    skill2.setVisibility(View.INVISIBLE);
+                    skill3.setVisibility(View.INVISIBLE);
+                }else if(race==1){
 
-                upgrade1.setVisibility(View.INVISIBLE);  //One of VISIBLE, INVISIBLE, or GONE.
-                upgrade2.setVisibility(View.INVISIBLE);
-                upgrade3.setVisibility(View.INVISIBLE);
-                skill1.setVisibility(View.VISIBLE);
-                skill2.setVisibility(View.INVISIBLE);
-                skill3.setVisibility(View.INVISIBLE);
+                }else if(race==2){
+
+                }
+
+
 
             }
         });
@@ -1262,7 +1365,7 @@ public class MainActivity extends AppCompatActivity {// ss
         unit_11=(ImageButton)findViewById(R.id.imageButton11);
         unit_11.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                int i=11;current=i;
+                int i=11; current=i;                 if(race==1)                     shield.setText("("+ Integer.toString(unit_shield[race][i])  +")");                 else                     shield.setText("");
                 cost_Value=Integer.toString(unit_costs[race][i]);
                 cost.setText(cost_Value);
                 armor_Value=Integer.toString(unit_armor[race][i]);
@@ -1301,7 +1404,7 @@ public class MainActivity extends AppCompatActivity {// ss
                 else
                     bouns_Value="N/A";
                 bouns.setText( bouns_Value);
-                hppc.setText(Double.toString(  Math.round(unit_hp[race][i]*1.0/unit_costs[race][i]*100) *0.01 ));
+                hppc.setText(Double.toString(  Math.round( (unit_hp[race][i]+unit_shield[race][i])*1.0/unit_costs[race][i]*100) *0.01 ));
 
                 Double dps1,dps2;
                 dps1=  Math.round(((unit_dmg_g[race][i]*unit_atks_g[race][i] )/ unit_atkSp_g[race][i])/unit_costs[race][i]*100) *0.01 ;
@@ -1322,20 +1425,26 @@ public class MainActivity extends AppCompatActivity {// ss
                     bdps.setText(Double.toString(dps2));
 
 //--------------------------------------------upgrade control--------------------------------
+                if(race==0){
+                    //upgrade1.setImageResource(R.drawable.raven_reactor);
+                    // upgrade2.setImageResource(R.drawable.raven_shells);
+                    //upgrade3.setImageResource(R.drawable.);
+                    skill1.setImageResource(R.drawable.mine_active);
+                    skill2.setImageResource(R.drawable.mine_missile);
+                    // skill3.setImageResource(R.drawable.raven_missile);
 
-                //upgrade1.setImageResource(R.drawable.raven_reactor);
-                // upgrade2.setImageResource(R.drawable.raven_shells);
-                //upgrade3.setImageResource(R.drawable.);
-                skill1.setImageResource(R.drawable.mine_active);
-                skill2.setImageResource(R.drawable.mine_missile);
-                // skill3.setImageResource(R.drawable.raven_missile);
+                    upgrade1.setVisibility(View.INVISIBLE);  //One of VISIBLE, INVISIBLE, or GONE.
+                    upgrade2.setVisibility(View.INVISIBLE);
+                    upgrade3.setVisibility(View.INVISIBLE);
+                    skill1.setVisibility(View.VISIBLE);
+                    skill2.setVisibility(View.VISIBLE);
+                    skill3.setVisibility(View.INVISIBLE);
+                }else if(race==1){
 
-                upgrade1.setVisibility(View.INVISIBLE);  //One of VISIBLE, INVISIBLE, or GONE.
-                upgrade2.setVisibility(View.INVISIBLE);
-                upgrade3.setVisibility(View.INVISIBLE);
-                skill1.setVisibility(View.VISIBLE);
-                skill2.setVisibility(View.VISIBLE);
-                skill3.setVisibility(View.INVISIBLE);
+                }else if(race==2){
+
+                }
+
 
 
             }
@@ -1344,7 +1453,7 @@ public class MainActivity extends AppCompatActivity {// ss
         unit_12=(ImageButton)findViewById(R.id.imageButton12);
         unit_12.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                int i=12;current=i;
+                int i=12; current=i;                 if(race==1)                     shield.setText("("+ Integer.toString(unit_shield[race][i])  +")");                 else                     shield.setText("");
                 cost_Value=Integer.toString(unit_costs[race][i]);
                 cost.setText(cost_Value);
                 armor_Value=Integer.toString(unit_armor[race][i]);
@@ -1383,7 +1492,7 @@ public class MainActivity extends AppCompatActivity {// ss
                 else
                     bouns_Value="N/A";
                 bouns.setText( bouns_Value);
-                hppc.setText(Double.toString(  Math.round(unit_hp[race][i]*1.0/unit_costs[race][i]*100) *0.01 ));
+                hppc.setText(Double.toString(  Math.round( (unit_hp[race][i]+unit_shield[race][i])*1.0/unit_costs[race][i]*100) *0.01 ));
 
                 Double dps1,dps2;
                 dps1=  Math.round(((unit_dmg_g[race][i]*unit_atks_g[race][i] )/ unit_atkSp_g[race][i])/unit_costs[race][i]*100) *0.01 ;
@@ -1404,20 +1513,26 @@ public class MainActivity extends AppCompatActivity {// ss
                     bdps.setText(Double.toString(dps2));
 
 //--------------------------------------------upgrade control--------------------------------
+                if(race==0){
+                    //upgrade1.setImageResource(R.drawable.raven_reactor);
+                    // upgrade2.setImageResource(R.drawable.raven_shells);
+                    //upgrade3.setImageResource(R.drawable.);
+                    skill1.setImageResource(R.drawable.cyclone_lockon);
+                    // skill2.setImageResource(R.drawable.mine_missile);
+                    // skill3.setImageResource(R.drawable.raven_missile);
 
-                //upgrade1.setImageResource(R.drawable.raven_reactor);
-                // upgrade2.setImageResource(R.drawable.raven_shells);
-                //upgrade3.setImageResource(R.drawable.);
-                skill1.setImageResource(R.drawable.cyclone_lockon);
-               // skill2.setImageResource(R.drawable.mine_missile);
-                // skill3.setImageResource(R.drawable.raven_missile);
+                    upgrade1.setVisibility(View.INVISIBLE);  //One of VISIBLE, INVISIBLE, or GONE.
+                    upgrade2.setVisibility(View.INVISIBLE);
+                    upgrade3.setVisibility(View.INVISIBLE);
+                    skill1.setVisibility(View.VISIBLE);
+                    skill2.setVisibility(View.INVISIBLE);
+                    skill3.setVisibility(View.INVISIBLE);
 
-                upgrade1.setVisibility(View.INVISIBLE);  //One of VISIBLE, INVISIBLE, or GONE.
-                upgrade2.setVisibility(View.INVISIBLE);
-                upgrade3.setVisibility(View.INVISIBLE);
-                skill1.setVisibility(View.VISIBLE);
-                skill2.setVisibility(View.INVISIBLE);
-                skill3.setVisibility(View.INVISIBLE);
+                }else if(race==1){
+
+                }else if(race==2){
+
+                }
 
             }
         });
@@ -1425,7 +1540,7 @@ public class MainActivity extends AppCompatActivity {// ss
         unit_13=(ImageButton)findViewById(R.id.imageButton13);
         unit_13.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                int i=13;current=i;
+                int i=13; current=i;                 if(race==1)                     shield.setText("("+ Integer.toString(unit_shield[race][i])  +")");                 else                     shield.setText("");
                 cost_Value=Integer.toString(unit_costs[race][i]);
                 cost.setText(cost_Value);
                 armor_Value=Integer.toString(unit_armor[race][i]);
@@ -1464,7 +1579,7 @@ public class MainActivity extends AppCompatActivity {// ss
                 else
                     bouns_Value="N/A";
                 bouns.setText( bouns_Value);
-                hppc.setText(Double.toString(  Math.round(unit_hp[race][i]*1.0/unit_costs[race][i]*100) *0.01 ));
+                hppc.setText(Double.toString(  Math.round( (unit_hp[race][i]+unit_shield[race][i])*1.0/unit_costs[race][i]*100) *0.01 ));
 
                 Double dps1,dps2;
                 dps1=  Math.round(((unit_dmg_g[race][i]*unit_atks_g[race][i] )/ unit_atkSp_g[race][i])/unit_costs[race][i]*100) *0.01 ;
@@ -1485,24 +1600,30 @@ public class MainActivity extends AppCompatActivity {// ss
                     bdps.setText(Double.toString(dps2));
 
                 //--------------------------------------------upgrade control--------------------------------
+                if(race==0){
+                    lib_defON=false;
+
+                    upgrade1.setImageResource(R.drawable.lib_adv);
+                    // upgrade2.setImageResource(R.drawable.raven_shells);
+                    //upgrade3.setImageResource(R.drawable.);
+                    skill1.setImageResource(R.drawable.lib_defmode);
+                    //skill2.setImageResource(R.drawable.BC_warp);
+                    // skill3.setImageResource(R.drawable.raven_missile);
+
+                    upgrade1.setVisibility(View.VISIBLE);  //One of VISIBLE, INVISIBLE, or GONE.
+                    upgrade2.setVisibility(View.INVISIBLE);
+                    upgrade3.setVisibility(View.INVISIBLE);
+                    skill1.setVisibility(View.VISIBLE);
+                    skill2.setVisibility(View.INVISIBLE);
+                    skill3.setVisibility(View.INVISIBLE);
+                }else if(race==1){
+
+                }else if(race==2){
+
+                }
 
 
 
-                lib_defON=false;
-
-                upgrade1.setImageResource(R.drawable.lib_adv);
-                // upgrade2.setImageResource(R.drawable.raven_shells);
-                //upgrade3.setImageResource(R.drawable.);
-                skill1.setImageResource(R.drawable.lib_defmode);
-                //skill2.setImageResource(R.drawable.BC_warp);
-                // skill3.setImageResource(R.drawable.raven_missile);
-
-                upgrade1.setVisibility(View.VISIBLE);  //One of VISIBLE, INVISIBLE, or GONE.
-                upgrade2.setVisibility(View.INVISIBLE);
-                upgrade3.setVisibility(View.INVISIBLE);
-                skill1.setVisibility(View.VISIBLE);
-                skill2.setVisibility(View.INVISIBLE);
-                skill3.setVisibility(View.INVISIBLE);
 
             }
         });
@@ -1510,7 +1631,7 @@ public class MainActivity extends AppCompatActivity {// ss
         unit_14=(ImageButton)findViewById(R.id.imageButton14);
         unit_14.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                int i=14;current=i;
+                int i=14; current=i;                 if(race==1)                     shield.setText("("+ Integer.toString(unit_shield[race][i])  +")");                 else                     shield.setText("");
                 cost_Value=Integer.toString(unit_costs[race][i]);
                 cost.setText(cost_Value);
                 armor_Value=Integer.toString(unit_armor[race][i]);
@@ -1549,7 +1670,7 @@ public class MainActivity extends AppCompatActivity {// ss
                 else
                     bouns_Value="N/A";
                 bouns.setText( bouns_Value);
-                hppc.setText(Double.toString(  Math.round(unit_hp[race][i]*1.0/unit_costs[race][i]*100) *0.01));
+                 hppc.setText(Double.toString(  Math.round( (unit_hp[race][i]+unit_shield[race][i])*1.0/unit_costs[race][i]*100) *0.01 ));
 
                 Double dps1,dps2;
                 dps1=  Math.round(((unit_dmg_g[race][i]*unit_atks_g[race][i] )/ unit_atkSp_g[race][i])/unit_costs[race][i]*100) *0.01 ;
@@ -1570,29 +1691,35 @@ public class MainActivity extends AppCompatActivity {// ss
                     bdps.setText(Double.toString(dps2));
 
                 //--------------------------------------------upgrade control--------------------------------
+                if(race==0){
+                    //upgrade1.setImageResource(R.drawable.raven_reactor);
+                    // upgrade2.setImageResource(R.drawable.raven_shells);
+                    //upgrade3.setImageResource(R.drawable.);
+                    skill1.setImageResource(R.drawable.thor_hmode);
+                    // skill2.setImageResource(R.drawable.mine_missile);
+                    // skill3.setImageResource(R.drawable.raven_missile);
+
+                    upgrade1.setVisibility(View.INVISIBLE);  //One of VISIBLE, INVISIBLE, or GONE.
+                    upgrade2.setVisibility(View.INVISIBLE);
+                    upgrade3.setVisibility(View.INVISIBLE);
+                    skill1.setVisibility(View.VISIBLE);
+                    skill2.setVisibility(View.INVISIBLE);
+                    skill3.setVisibility(View.INVISIBLE);
+                }else if(race==1){
+
+                }else if(race==2){
+
+                }
 
 
 
-                //upgrade1.setImageResource(R.drawable.raven_reactor);
-                // upgrade2.setImageResource(R.drawable.raven_shells);
-                //upgrade3.setImageResource(R.drawable.);
-                skill1.setImageResource(R.drawable.thor_hmode);
-                // skill2.setImageResource(R.drawable.mine_missile);
-                // skill3.setImageResource(R.drawable.raven_missile);
-
-                upgrade1.setVisibility(View.INVISIBLE);  //One of VISIBLE, INVISIBLE, or GONE.
-                upgrade2.setVisibility(View.INVISIBLE);
-                upgrade3.setVisibility(View.INVISIBLE);
-                skill1.setVisibility(View.VISIBLE);
-                skill2.setVisibility(View.INVISIBLE);
-                skill3.setVisibility(View.INVISIBLE);
             }
         });
 
         unit_15=(ImageButton)findViewById(R.id.imageButton15);
         unit_15.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                int i=15;current=i;
+                int i=15; current=i;                 if(race==1)                     shield.setText("("+ Integer.toString(unit_shield[race][i])  +")");                 else                     shield.setText("");
                 cost_Value=Integer.toString(unit_costs[race][i]);
                 cost.setText(cost_Value);
                 armor_Value=Integer.toString(unit_armor[race][i]);
@@ -1632,7 +1759,7 @@ public class MainActivity extends AppCompatActivity {// ss
                     bouns_Value="N/A";
                 bouns.setText( bouns_Value);
 
-                hppc.setText(Double.toString(  Math.round(unit_hp[race][i]*1.0/unit_costs[race][i]*100) *0.01 ));
+                hppc.setText(Double.toString(  Math.round( (unit_hp[race][i]+unit_shield[race][i])*1.0/unit_costs[race][i]*100) *0.01 ));
 
                 Double dps1,dps2;
                 dps1=  Math.round(((unit_dmg_g[race][i]*unit_atks_g[race][i] )/ unit_atkSp_g[race][i])/unit_costs[race][i]*100) *0.01 ;
@@ -1653,19 +1780,26 @@ public class MainActivity extends AppCompatActivity {// ss
                     bdps.setText(Double.toString(dps2));
 
                 //--------------------------------------------upgrade control--------------------------------
-                upgrade1.setImageResource(R.drawable.bc_yamato);
-                // upgrade2.setImageResource(R.drawable.raven_shells);
-                //upgrade3.setImageResource(R.drawable.);
-                skill1.setImageResource(R.drawable.bc_yamato);
-                skill2.setImageResource(R.drawable.bc_warp);
-                // skill3.setImageResource(R.drawable.raven_missile);
+                if(race==0){
+                    upgrade1.setImageResource(R.drawable.bc_yamato);
+                    // upgrade2.setImageResource(R.drawable.raven_shells);
+                    //upgrade3.setImageResource(R.drawable.);
+                    skill1.setImageResource(R.drawable.bc_yamato);
+                    skill2.setImageResource(R.drawable.bc_warp);
+                    // skill3.setImageResource(R.drawable.raven_missile);
 
-                upgrade1.setVisibility(View.VISIBLE);  //One of VISIBLE, INVISIBLE, or GONE.
-                upgrade2.setVisibility(View.INVISIBLE);
-                upgrade3.setVisibility(View.INVISIBLE);
-                skill1.setVisibility(View.VISIBLE);
-                skill2.setVisibility(View.VISIBLE);
-                skill3.setVisibility(View.INVISIBLE);
+                    upgrade1.setVisibility(View.VISIBLE);  //One of VISIBLE, INVISIBLE, or GONE.
+                    upgrade2.setVisibility(View.INVISIBLE);
+                    upgrade3.setVisibility(View.INVISIBLE);
+                    skill1.setVisibility(View.VISIBLE);
+                    skill2.setVisibility(View.VISIBLE);
+                    skill3.setVisibility(View.INVISIBLE);
+
+                }else if(race==1){
+
+                }else if(race==2){
+
+                }
 
             }
         });
