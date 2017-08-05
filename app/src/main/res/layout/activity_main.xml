@@ -54,6 +54,7 @@
                 android:id="@+id/imageButton1"
                 android:layout_width="80dp"
                 android:layout_height="100dp"
+                android:background="#020f22"
                 android:elevation="0dp"
                 android:visibility="visible"
                 app:srcCompat="@drawable/marine" />
@@ -69,6 +70,7 @@
                 android:id="@+id/imageButton3"
                 android:layout_width="80dp"
                 android:layout_height="100dp"
+                android:background="#020f22"
                 app:srcCompat="@drawable/reaper" />
 
             <ImageButton
@@ -83,6 +85,7 @@
                 android:id="@+id/imageButton5"
                 android:layout_width="80dp"
                 android:layout_height="100dp"
+                android:background="#020f22"
                 app:srcCompat="@drawable/hellbat" />
 
         </TableRow>
@@ -99,14 +102,14 @@
                 app:srcCompat="@drawable/medivac" />
 
             <ImageButton
-                android:id="@+id/imageButton8"
+                android:id="@+id/imageButton7"
                 android:layout_width="80dp"
                 android:layout_height="100dp"
                 android:background="#020f22"
                 app:srcCompat="@drawable/banshee" />
 
             <ImageButton
-                android:id="@+id/imageButton7"
+                android:id="@+id/imageButton8"
                 android:layout_width="80dp"
                 android:layout_height="100dp"
                 android:background="#020f22"
@@ -123,6 +126,7 @@
                 android:id="@+id/imageButton10"
                 android:layout_width="80dp"
                 android:layout_height="100dp"
+                android:background="#020f22"
                 app:srcCompat="@drawable/tank" />
         </TableRow>
 
@@ -134,13 +138,29 @@
                 android:id="@+id/imageButton11"
                 android:layout_width="80dp"
                 android:layout_height="100dp"
+                android:background="#020f22"
                 app:srcCompat="@drawable/mine" />
 
             <ImageButton
                 android:id="@+id/imageButton12"
                 android:layout_width="80dp"
                 android:layout_height="100dp"
+                android:background="#020f22"
                 app:srcCompat="@drawable/cyclone" />
+
+            <ImageButton
+                android:id="@+id/imageButton13"
+                android:layout_width="80dp"
+                android:layout_height="100dp"
+                android:background="#020f22"
+                app:srcCompat="@drawable/liberator" />
+
+            <ImageButton
+                android:id="@+id/imageButton14"
+                android:layout_width="80dp"
+                android:layout_height="100dp"
+                android:background="#020f22"
+                app:srcCompat="@drawable/thor" />
 
             <ImageButton
                 android:id="@+id/imageButton15"
@@ -149,20 +169,6 @@
                 android:background="#020f22"
                 android:elevation="0dp"
                 app:srcCompat="@drawable/liberator" />
-
-            <ImageButton
-                android:id="@+id/imageButton13"
-                android:layout_width="80dp"
-                android:layout_height="100dp"
-                android:background="#020f22"
-                app:srcCompat="@drawable/thor" />
-
-            <ImageButton
-                android:id="@+id/imageButton14"
-                android:layout_width="80dp"
-                android:layout_height="100dp"
-                android:background="#020f22"
-                app:srcCompat="@drawable/battlecruiser" />
 
         </TableRow>
 
@@ -271,7 +277,7 @@
             android:fontFamily="sans-serif"
             android:textAlignment="center"
             android:textAllCaps="false"
-            android:textColor="@android:color/holo_orange_dark"
+            android:textColor="@android:color/holo_blue_light"
             android:textSize="24sp" />
 
         <TextView

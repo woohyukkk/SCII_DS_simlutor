@@ -29,30 +29,31 @@ public class MainActivity extends AppCompatActivity {// ss
     int race=0;  //terran=0 protoss=1 zerg=2
     int current=0; //Terran=1x Protoss=2x Zerg=3x
 
-//Terran order  1.marine 2.marauder 3.reaper 4.ghost 5.hellbat   6.medivic 7.viking 8.banshee 9.raven 10.tank 11.mine 12.cyclone 13.thor     14.BC        15.lib
+//Terran order  1.marine 2.marauder 3.reaper 4.ghost 5.hellbat   6.medivic 7.banshee 8.viking  9.raven 10.tank 11.mine 12.cyclone 13.lib 14.thor     15.BC
 //Protoss order 1.zealot 2.stalker  3.sentry 4.adept 5.ob/oracle 6.dt      7.ball   8.phoenix 9.ht    10.immo 11.void 12.coloss  13.tempest  14.carrier   15.core
-    int[][] unit_costs={{0,50, 90, 75,235, 85,110,190,190,260,310,125,175,375,525,200}
+    int[]   unit_shield={};
+    int[][] unit_costs={{0,50, 90, 75,235, 85,110,190,190,260,310,125,175,200,375,525}
                        ,{0,85,100,125, 95,125,175,200,150,275,255,250,325,475,525,175},
                         {0}};
-    int[][] unit_armor={{0,0,1,0,0,0,1,0,0,1,1,0,1,2,3,1},
+    int[][] unit_armor={{0,0,1,0,0,0,1,0,0,1,1,0,1,1,2,3},
                         {0,1,1,1,1,0,1,1,0,0,1,0,1,2,2,1},
                         {}};
-    int[][] unit_hp=   {{0, 45,125,60,100,135,150,125,140,140,175, 90,180,400,550,180},
+    int[][] unit_hp=   {{0, 45,125,60,100,135,150,140,125,140,175, 90,180,180,400,550},
                         {0,100, 80,40, 70, 40, 40,100,120, 40,200,150,200,300,250,130},{}};
-    int[][] unit_type=   {{0,00,10,00,30,07,11,01,01,01,11,01,11,16,16,11},{0,00,11,01,00,01,8,11,01,8,11,11,16,16,16,19},{}};  // 0 light 1 Armored 2 none 3 psi, 0 bio 1 mec 2 none 3 psi 4 massive 5 Bio-massive 6 Mec-massive 7 Bio-Mec 8 Bio-psi 9 mec-psi
-    int[][] unit_range_gnd={{0,5,6,5,6,2,0,6,6,0,7,0,6,7, 6,0},{0,1,6,5,4,0,1,0,0,0,6,6,6,10,8,5},{}};
-    int[][] unit_range_air={{0,5,0,0,6,0,0,9,0,0,0,0,0,10,6,5},{0,0,6,5,0,0,0,0,5,0,0,6,0,15,8,0},{}};
-    double[][] unit_move={{0,3.15,3.15,5.25,3.94,3.15,3.5,3.85,3.85,3.85,3.15,3.94,4.13,2.62,2.62,4.72},{0,3.15,4.13,3.15,3.5,2.62,3.94,3.15,5.95,2.62,3.15,3.5,3.15,2.62,2.62,2.62},{}};
-    int[][] unit_dmg_g={{0,6,5,4,10,18,0,0,12,0,15,0,3,30,8,0},                                 {0,8,  10, 6,10, 0,45, 0, 0, 0, 20, 6,12,40, 5, 8},{}};
-    int[][] unit_dmg_a={{0,6,0,0,10,0,0,10,0,0, 0, 0,0,6,6,5},                                  {0,0,  10, 6, 0, 0, 0, 0, 5, 0,  0, 6, 0,30, 5, 0},{}};
-    int[][] unit_atks_g={{0,1,2,2,1,1,0,0,2,0,1,0,1,2,1,0},                                     {0,2,   1, 1, 1, 0, 1, 0, 0, 0,  1,1, 2, 1, 2, 1},{}};
-    int[][] unit_atks_a={{0,1,0,0,1,0,0,2,0,0,0,0,0,4,1,2},                                     {0,0,   1, 1, 0, 0, 0, 0, 2, 0,  0,1, 0, 1, 2, 0},{}};
-    double[][] unit_atkSp_g={{0,0.61,1.07,0.79,1.07,1.43,0,0   ,0.89,0,0.74,0,0.1,0.91,0.16,0}, {0,0.86,1.03,0.71,1.61,0,1.21,   0, 0,1.04, 0,0.36,1.07,2.36,0.71,0.61},{}};
-    double[][] unit_atkSp_a={{0,0.61,0,0,      1.07,0   ,0,1.43,0,   0,0,0,0  ,2.14,0.16,1.29}, {0,0,   1.03,0.71,   0,0,   0,0.79, 0,   0,0 ,0.36,   0,2.36,0.71,   0},{}};
+    int[][] unit_type=   {{0,00,10,00,30,07,11,01,01,11,01,01,11,11,16,16},{0,00,11,01,00,01,8,11,01,8,11,11,16,16,16,19},{}};  // 0 light 1 Armored 2 none 3 psi, 0 bio 1 mec 2 none 3 psi 4 massive 5 Bio-massive 6 Mec-massive 7 Bio-Mec 8 Bio-psi 9 mec-psi
+    int[][] unit_range_gnd={{0,5,6,5,6,2,0,6,0,0,7,0,6,0,7, 6},{0,1,6,5,4,0,1,0,0,0,6,6,6,10,8,5},{}};
+    int[][] unit_range_air={{0,5,0,0,6,0,0,0,9,0,0,0,0,5,10,6},{0,0,6,5,0,0,0,0,5,0,0,6,0,15,8,0},{}};
+    double[][] unit_move={{0,3.15,3.15,5.25,3.94,3.15,3.5,3.85,3.85,3.85,3.15,3.94,4.13,4.72,2.62,2.62},{0,3.15,4.13,3.15,3.5,2.62,3.94,3.15,5.95,2.62,3.15,3.5,3.15,2.62,2.62,2.62},{}};
+    int[][] unit_dmg_g={{0,6,5,4,10,18, 0,12, 0,0,15,0,3,0,30,8},                                 {0,8,  10, 6,10, 0,45, 0, 0, 0, 20, 6,12,40, 5, 8},{}};
+    int[][] unit_dmg_a={{0,6,0,0,10, 0, 0, 0,10,0, 0, 0,0,5,6,6},                                  {0,0,  10, 6, 0, 0, 0, 0, 5, 0,  0, 6, 0,30, 5, 0},{}};
+    int[][] unit_atks_g={{0,1,2,2,1,1,0,2,0,0,1,0,1,0,2,1},                                     {0,2,   1, 1, 1, 0, 1, 0, 0, 0,  1,1, 2, 1, 2*8, 1},{}};
+    int[][] unit_atks_a={{0,1,0,0,1,0,0,0,2,0,0,0,0,2,4,1},                                     {0,0,   1, 1, 0, 0, 0, 0, 2, 0,  0,1, 0, 1, 2*8, 0},{}};
+    double[][] unit_atkSp_g={{0,0.61,1.07,0.79,1.07,1.43,0,0.89,0,0,0.74,0,0.1,0,0.91,0.16}, {0,0.86,   1.03,0.71,1.61,0,1.21,0,   0, 0,1.04,0.36,1.07,2.36,0.71,0.61},{}};
+    double[][] unit_atkSp_a={{0,0.61,0,0,      1.07,0   ,0,0   ,1.43,   0,0,0,0  ,1.29,2.14,0.16}, {0,   0,   1.03,0.71,   0,0,   0,0,0.79, 0,   0,0.36,   0,2.36,0.71,   0},{}};
     int[][] unit_bouns_type_g={{0,0,2 , 0, 1, 0,0,0,0,0,2,   0,2, 0,0,0},                       {0,0,   2,0,1,0,0,0, 0, 0,2,2, 0,0,0,0},{}};    //0 none 1 light 2 Armored 3 Bio 4 Mec 5 Psi 6 massive
     int[][] unit_bouns_dmg_g ={{0,0,5 , 0,10, 0,0,0,0,0,10,  0,2, 0,0,0},                       {0,0,   4,0,12,0,0,0,0,0,30,4, 0,0,0,0},{}};
-    int[][] unit_bouns_type_a={{-1,0,0 , 0, 1, 0,0,2,0,0,0,   0,0, 1,0,0},                      {0,0,   2,0,0,0,0,0,1, 0,0, 2,0, 6,0,0},{}};    //0 none 1 light 2 Armored 3 Bio 4 Mec 5 Psi 6 massive
-    int[][] unit_bouns_dmg_a ={{-1,0,0 , 0,10, 0,0,4,0,0,0,   0,0, 6,0,0},                      {0,0,   4,0,0,0,0,0,5, 0,0, 4,0,22,0,0},{}};
+    int[][] unit_bouns_type_a={{-1,0,0 , 0, 1, 0,0,0,2,0,0,   0,0,0, 1,0},                      {0,0,   2,0,0,0,0,0,1, 0,0, 2,0, 6,0,0},{}};    //0 none 1 light 2 Armored 3 Bio 4 Mec 5 Psi 6 massive
+    int[][] unit_bouns_dmg_a ={{-1,0,0 , 0,10, 0,0,0,4,0,0,   0,0,0, 6,0},                      {0,0,   4,0,0,0,0,0,5, 0,0, 4,0,22,0,0},{}};
 
 
     TextView cost;
@@ -147,28 +148,33 @@ public class MainActivity extends AppCompatActivity {// ss
         dpspc_g=(TextView) findViewById(R.id.textView_dpspc_g);
         dpspc_a=(TextView) findViewById(R.id.textView_dpspc_a);
         bdps=(TextView) findViewById(R.id.textView_bdps);
+
+
 // race buttons ctrl
         button_T=(Button)findViewById(R.id.Terren);
-        upgrade1.setOnClickListener(new View.OnClickListener(){
+        button_T.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 race=0;
-
+                Log.d("race"," = 0");
+                updateUI();
             }
         });
 
         button_P=(Button)findViewById(R.id.Protoss);
-        upgrade1.setOnClickListener(new View.OnClickListener(){
+        button_P.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 race=1;
-
+                Log.d("race"," = 1");
+                updateUI();
             }
         });
 
         button_Z=(Button)findViewById(R.id.Zerg);
-        upgrade1.setOnClickListener(new View.OnClickListener(){
+        button_Z.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 race=2;
-
+                Log.d("race"," = 2");
+                updateUI();
             }
         });
         
@@ -201,7 +207,7 @@ public class MainActivity extends AppCompatActivity {// ss
                         bdps.setText(Double.toString((8+6+5)/1.79));
                         //dpspc_g.setText(Double.toString(((8+6)/1.79)/90));
                     }
-                }else if(current==15){
+                }else if(current==13){
                     if(lib_defON==true)
                        range_g.setText("9");
 
@@ -283,7 +289,7 @@ public class MainActivity extends AppCompatActivity {// ss
                     dpspc_a.setText("0");
                     bdps.setText(Double.toString(14.0/1.79));
 
-                }else if(current == 7){// viking_assault
+                }else if(current == 8){// viking_assault
                     hp.setText("125");
 
                     type.setText("Armored-Mec");
@@ -354,7 +360,7 @@ public class MainActivity extends AppCompatActivity {// ss
                     bdps.setText(Double.toString((40+30)/2.13));
 
                     bouns.setText("Gnd-Arm+30");
-                }else if(current == 13){// thor HIP
+                }else if(current == 14){// thor HIP
 
                     hp.setText("400");
                     armor.setText("2");
@@ -378,7 +384,7 @@ public class MainActivity extends AppCompatActivity {// ss
                     bdps.setText(Double.toString((35+15)/2.14));
 
                     bouns.setText("Air-Arm+15");
-                }else if(current == 15){// lib_def mode
+                }else if(current == 13){// lib_def mode
                     lib_defON=true;
 
                     hp.setText("180");
@@ -432,7 +438,7 @@ public class MainActivity extends AppCompatActivity {// ss
 
 
 
-        //Terran units
+        // units
         /////////////////////////////////////COST
         unit_1=(ImageButton)findViewById(R.id.imageButton1);
         unit_1.setOnClickListener(new View.OnClickListener(){
@@ -995,7 +1001,7 @@ public class MainActivity extends AppCompatActivity {// ss
                 //upgrade1.setImageResource(R.drawable.hellbat_bluef);
                 //upgrade2.setImageResource(R.drawable.marine_stimpack);
                 //upgrade3.setImageResource(R.drawable.);
-                skill1.setImageResource(R.drawable.viking_assault);
+                skill1.setImageResource(R.drawable.ghost_cloak);
                 //skill2.setImageResource(R.drawable.medivac_afterburner);
                 //skill3.setImageResource(R.drawable.ghost_cloak);
 
@@ -1071,10 +1077,12 @@ public class MainActivity extends AppCompatActivity {// ss
                     bdps.setText(Double.toString(dps2));
 
 //--------------------------------------------upgrade control--------------------------------
+
+
                 //upgrade1.setImageResource(R.drawable.hellbat_bluef);
                 //upgrade2.setImageResource(R.drawable.marine_stimpack);
                 //upgrade3.setImageResource(R.drawable.);
-                skill1.setImageResource(R.drawable.ghost_cloak);
+                skill1.setImageResource(R.drawable.viking_assault);
                 //skill2.setImageResource(R.drawable.medivac_afterburner);
                 //skill3.setImageResource(R.drawable.ghost_cloak);
 
@@ -1478,21 +1486,23 @@ public class MainActivity extends AppCompatActivity {// ss
 
                 //--------------------------------------------upgrade control--------------------------------
 
-                //upgrade1.setImageResource(R.drawable.raven_reactor);
+
+
+                lib_defON=false;
+
+                upgrade1.setImageResource(R.drawable.lib_adv);
                 // upgrade2.setImageResource(R.drawable.raven_shells);
                 //upgrade3.setImageResource(R.drawable.);
-                skill1.setImageResource(R.drawable.thor_hmode);
-                // skill2.setImageResource(R.drawable.mine_missile);
+                skill1.setImageResource(R.drawable.lib_defmode);
+                //skill2.setImageResource(R.drawable.BC_warp);
                 // skill3.setImageResource(R.drawable.raven_missile);
 
-                upgrade1.setVisibility(View.INVISIBLE);  //One of VISIBLE, INVISIBLE, or GONE.
+                upgrade1.setVisibility(View.VISIBLE);  //One of VISIBLE, INVISIBLE, or GONE.
                 upgrade2.setVisibility(View.INVISIBLE);
                 upgrade3.setVisibility(View.INVISIBLE);
                 skill1.setVisibility(View.VISIBLE);
                 skill2.setVisibility(View.INVISIBLE);
                 skill3.setVisibility(View.INVISIBLE);
-
-
 
             }
         });
@@ -1561,21 +1571,21 @@ public class MainActivity extends AppCompatActivity {// ss
 
                 //--------------------------------------------upgrade control--------------------------------
 
-                upgrade1.setImageResource(R.drawable.bc_yamato);
+
+
+                //upgrade1.setImageResource(R.drawable.raven_reactor);
                 // upgrade2.setImageResource(R.drawable.raven_shells);
                 //upgrade3.setImageResource(R.drawable.);
-                skill1.setImageResource(R.drawable.bc_yamato);
-                 skill2.setImageResource(R.drawable.bc_warp);
+                skill1.setImageResource(R.drawable.thor_hmode);
+                // skill2.setImageResource(R.drawable.mine_missile);
                 // skill3.setImageResource(R.drawable.raven_missile);
 
-                upgrade1.setVisibility(View.VISIBLE);  //One of VISIBLE, INVISIBLE, or GONE.
+                upgrade1.setVisibility(View.INVISIBLE);  //One of VISIBLE, INVISIBLE, or GONE.
                 upgrade2.setVisibility(View.INVISIBLE);
                 upgrade3.setVisibility(View.INVISIBLE);
                 skill1.setVisibility(View.VISIBLE);
-                skill2.setVisibility(View.VISIBLE);
+                skill2.setVisibility(View.INVISIBLE);
                 skill3.setVisibility(View.INVISIBLE);
-
-
             }
         });
 
@@ -1643,20 +1653,18 @@ public class MainActivity extends AppCompatActivity {// ss
                     bdps.setText(Double.toString(dps2));
 
                 //--------------------------------------------upgrade control--------------------------------
-                lib_defON=false;
-
-                upgrade1.setImageResource(R.drawable.lib_adv);
+                upgrade1.setImageResource(R.drawable.bc_yamato);
                 // upgrade2.setImageResource(R.drawable.raven_shells);
                 //upgrade3.setImageResource(R.drawable.);
-                skill1.setImageResource(R.drawable.lib_defmode);
-                //skill2.setImageResource(R.drawable.BC_warp);
+                skill1.setImageResource(R.drawable.bc_yamato);
+                skill2.setImageResource(R.drawable.bc_warp);
                 // skill3.setImageResource(R.drawable.raven_missile);
 
                 upgrade1.setVisibility(View.VISIBLE);  //One of VISIBLE, INVISIBLE, or GONE.
                 upgrade2.setVisibility(View.INVISIBLE);
                 upgrade3.setVisibility(View.INVISIBLE);
                 skill1.setVisibility(View.VISIBLE);
-                skill2.setVisibility(View.INVISIBLE);
+                skill2.setVisibility(View.VISIBLE);
                 skill3.setVisibility(View.INVISIBLE);
 
             }
@@ -1667,6 +1675,49 @@ public class MainActivity extends AppCompatActivity {// ss
         //BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
        // navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
+    void updateUI(){
+        if(race==0){
+            unit_1.setImageResource(R.drawable.marine);
+            unit_2.setImageResource(R.drawable.marauder);
+            unit_3.setImageResource(R.drawable.reaper);
+            unit_4.setImageResource(R.drawable.ghost);
+            unit_5.setImageResource(R.drawable.hellbat);
+            unit_6.setImageResource(R.drawable.medivac);
+            unit_7.setImageResource(R.drawable.banshee);
+            unit_8.setImageResource(R.drawable.viking);
+            unit_9.setImageResource(R.drawable.raven);
+            unit_10.setImageResource(R.drawable.tank);
+            unit_11.setImageResource(R.drawable.mine);
+            unit_12.setImageResource(R.drawable.cyclone);
+            unit_13.setImageResource(R.drawable.liberator);
+            unit_14.setImageResource(R.drawable.thor);
+            unit_15.setImageResource(R.drawable.battlecruiser);
+        }else if(race==1){
+            unit_1.setImageResource(R.drawable.zealot);
+            unit_2.setImageResource(R.drawable.stalker);
+            unit_3.setImageResource(R.drawable.sentry);
+            unit_4.setImageResource(R.drawable.adept);
+            unit_5.setImageResource(R.drawable.ob);
+            unit_6.setImageResource(R.drawable.darktemplar);
+            unit_7.setImageResource(R.drawable.disruptor);
+            unit_8.setImageResource(R.drawable.phoenix);
+            unit_9.setImageResource(R.drawable.high_templer);
+            unit_10.setImageResource(R.drawable.immortal);
+            unit_11.setImageResource(R.drawable.voidray);
+            unit_12.setImageResource(R.drawable.colossus);
+            unit_13.setImageResource(R.drawable.tempest);
+            unit_14.setImageResource(R.drawable.carrier);
+            unit_15.setImageResource(R.drawable.core);
+
+        }else if(race==2){
+            ;
+        }
+
+    }
+
+
+
+
     String bounsTrans(int type, int dmg,int GorA){ //type: 0 none 1 light 2 Armored 3 Bio 4 Mec 5 Psi,
         String s="";
 
@@ -1699,7 +1750,7 @@ public class MainActivity extends AppCompatActivity {// ss
         return s;
     }
 
-    // 0 light 1 Armored 2 none 3 psi, 0 bio 1 mec 2 none 3 psi 4 massive 5 Bio-massive 6 Mec-massive
+    // 0 light 1 Armored 2 none 3 psi, 0 bio 1 mec 2 none 3 psi 4 massive 5 Bio-massive 6 Mec-massive 7 Bio-Mec 8 Bio-psi 9 mec-psi
     String typeTrans(int input){
         String s="";
         if(input/10==0)
@@ -1725,6 +1776,10 @@ public class MainActivity extends AppCompatActivity {// ss
             s=s+"Mec-Ma";
         else if(input%10==7)
             s=s+"Mec-Bio";
+        else if(input%10==8)
+            s=s+"Bio-Psi";
+        else if(input%10==9)
+            s=s+"Mec-Psi";
         return s;
     }
 }
