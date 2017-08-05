@@ -1,6 +1,7 @@
 package com.example.woo32.scii_ds_assistant;
 
 import android.os.Bundle;
+import android.support.annotation.IntegerRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
@@ -100,6 +101,7 @@ public class MainActivity extends AppCompatActivity {// ss
     boolean hellbatOFF=false;
     boolean turret=false;
     boolean lib_defON=false;
+    boolean toggleFlag=false;
 
     private TextView mTextMessage;
 
@@ -215,7 +217,47 @@ public class MainActivity extends AppCompatActivity {// ss
 
                     }
                 }else if(race==1){
+                    if(current==1){
+                        move.setText("4.13");                    //zealot charge
+                    }else if(current==4){
+                        atkSp_g.setText("1.11");            //adept
+                        double tempdps=(Math.round (     (unit_dmg_g[race][current]*unit_atks_g[race][current] )/ 1.1*100)  ) *0.01;;
+                        dps_g.setText(Double.toString(tempdps))  ;
+                        tempdps=  Math.round((( (unit_dmg_g[race][current]+unit_bouns_dmg_g[race][current])*unit_atks_g[race][current] )/ 1.1)*100) *0.01 ;
+                        bdps.setText(Double.toString(tempdps));
 
+
+                    }else if(current==8){//phoenix
+                        range_a.setText("7");
+                    }else if(current==12){//colocuss
+                        range_g.setText("9");
+                    }else if(current==5){//colocuss
+                        move.setText("3.94");
+                    }else if(current==15){
+                        int hp_=350,shield_=350,dmg_g_=6,dmg_a_=6,armor_=2,bonus=0,range=7,cost_=1000;
+                        double atk_sp_g=1.58,atk_sp_a=1.58,movement=2.62;
+                        cost.setText(Integer.toString(cost_));
+                        hp.setText(Integer.toString(hp_));
+                        armor.setText(Integer.toString(armor_));
+                        shield.setText("(" + Integer.toString(shield_)+")");
+                        type.setText("Arm-Mec-Ma");
+                        range_a.setText(Integer.toString(range));
+                        range_g.setText(Integer.toString(range));
+                        move.setText(Double.toString(movement));
+                        dmg_a.setText(Integer.toString(dmg_a_));
+                        dmg_g.setText(Integer.toString(dmg_g_));
+                        atkSp_g.setText(Double.toString(atk_sp_g));
+                        atkSp_a.setText(Double.toString(atk_sp_a));
+                        double tempdps=  Math.round((( (dmg_g_+0)*1.0 )/ atk_sp_g)*100) *0.01 ;
+                        dps_g.setText(Double.toString(3.8));
+                        dps_a.setText(Double.toString(3.8));
+                        bouns.setText("N/A");
+                        hppc.setText(Double.toString((hp_+shield_)/cost_));
+                        dpspc_g.setText(Double.toString(   tempdps/cost_ ));
+                        dpspc_a.setText(Double.toString(   tempdps/cost_ ));
+                        tempdps=  Math.round((( (dmg_g_+bonus)*1 )/ atk_sp_g)*100) *0.01 ;
+                        //bdps.setText(Double.toString(tempdps));
+                    }
                 }else if(race==2){
 
                 }
@@ -266,6 +308,37 @@ public class MainActivity extends AppCompatActivity {// ss
                         //dps_a.setText("40.35");
                     }
                 }else if(race==1){
+                    if(current==6 || current==9){
+                        int hp_=10,shield_=350,dmg_g_=25,dmg_a_=25,armor=0,bonus=10,range=3,cost_=275;
+                        double atk_sp_g=1.25,atk_sp_a=1.25,movement=3.94;
+                        cost.setText(Integer.toString(cost_));
+                        hp.setText(Integer.toString(hp_));
+                        shield.setText("(" + Integer.toString(shield_)+")");
+                        type.setText("Psi-Ma");
+                        range_a.setText(Integer.toString(range));
+                        range_g.setText(Integer.toString(range));
+                        move.setText(Double.toString(movement));
+                        dmg_a.setText(Integer.toString(dmg_a_));
+                        dmg_g.setText(Integer.toString(dmg_g_));
+                        atkSp_g.setText(Double.toString(atk_sp_g));
+                        atkSp_a.setText(Double.toString(atk_sp_a));
+                        double tempdps=  Math.round((( (dmg_g_+0)*1 )/ atk_sp_g)*100) *0.01 ;
+                        dps_g.setText(Double.toString(tempdps));
+                        dps_a.setText(Double.toString(tempdps));
+                        bouns.setText("Bio+10");
+                        hppc.setText(Double.toString((hp_+shield_)/cost_));
+                        dpspc_g.setText(Double.toString(tempdps/cost_));
+                        dpspc_a.setText(Double.toString(tempdps/cost_));
+                        tempdps=  Math.round((( (dmg_g_+bonus)*1 )/ atk_sp_g)*100) *0.01 ;
+                        bdps.setText(Double.toString(tempdps));
+
+
+
+
+
+
+
+                    }
 
                 }else if(race==2){
 
@@ -428,7 +501,13 @@ public class MainActivity extends AppCompatActivity {// ss
                         bouns.setText("N/A");
                     }
                 }else if(race==1){
-
+                    if(current==1){
+                        move.setText(Double.toString(4.13+4.96));
+                    }else if(current==11){//void ray
+                       bouns.setText("10");
+                        double tempdps=  Math.round((( (unit_dmg_g[race][current]+unit_bouns_dmg_g[race][current]+6)*unit_atks_g[race][current] )/ unit_atkSp_g[race][current])*100) *0.01 ;
+                       bdps.setText(Double.toString(tempdps));
+                    }
                 }else if(race==2){
 
                 }
@@ -565,7 +644,19 @@ public class MainActivity extends AppCompatActivity {// ss
                     skill3.setVisibility(View.INVISIBLE);
 
                 }else if(race==1){
+                    upgrade1.setImageResource(R.drawable.zealot_charge);
+                    //upgrade2.setImageResource(R.drawable.marine_stimpack);
+                    //upgrade3.setImageResource(R.drawable.);
+                    skill1.setImageResource(R.drawable.zealot_charge);
+                    //skill2.setImageResource(R.drawable.);
+                    //skill3.setImageResource(R.drawable.);
 
+                    upgrade1.setVisibility(View.VISIBLE);  //One of VISIBLE, INVISIBLE, or GONE.
+                    upgrade2.setVisibility(View.INVISIBLE);
+                    upgrade3.setVisibility(View.INVISIBLE);
+                    skill1.setVisibility(View.VISIBLE);
+                    skill2.setVisibility(View.INVISIBLE);
+                    skill3.setVisibility(View.INVISIBLE);
                 }else if(race==2){
 
                 }
@@ -650,7 +741,16 @@ public class MainActivity extends AppCompatActivity {// ss
                     skill2.setVisibility(View.INVISIBLE);
                     skill3.setVisibility(View.INVISIBLE);
                 }else if(race==1){
+                    //upgrade2.setImageResource(R.drawable.marine_stimpack);
+                    upgrade1.setImageResource(R.drawable.stalker_blink);
+                    skill1.setImageResource(R.drawable.stalker_blink);
 
+                    upgrade1.setVisibility(View.VISIBLE);  //One of VISIBLE, INVISIBLE, or GONE.
+                    upgrade2.setVisibility(View.INVISIBLE);
+                    upgrade3.setVisibility(View.INVISIBLE);
+                    skill1.setVisibility(View.VISIBLE);
+                    skill2.setVisibility(View.INVISIBLE);
+                    skill3.setVisibility(View.INVISIBLE);
                 }else if(race==2){
 
                 }
@@ -737,7 +837,19 @@ public class MainActivity extends AppCompatActivity {// ss
                     skill2.setVisibility(View.INVISIBLE);
                     skill3.setVisibility(View.INVISIBLE);
                 }else if(race==1){
+                    //upgrade1.setImageResource(R.drawable.marrine_shield);
+                    //upgrade2.setImageResource(R.drawable.marine_stimpack);
+                    //upgrade3.setImageResource(R.drawable.);
+                    skill1.setImageResource(R.drawable.sentry_shield);
+                    //skill2.setImageResource(R.drawable.);
+                    //skill3.setImageResource(R.drawable.);
 
+                    upgrade1.setVisibility(View.INVISIBLE);  //One of VISIBLE, INVISIBLE, or GONE.
+                    upgrade2.setVisibility(View.INVISIBLE);
+                    upgrade3.setVisibility(View.INVISIBLE);
+                    skill1.setVisibility(View.VISIBLE);
+                    skill2.setVisibility(View.INVISIBLE);
+                    skill3.setVisibility(View.INVISIBLE);
                 }else if(race==2){
 
                 }
@@ -826,84 +938,10 @@ public class MainActivity extends AppCompatActivity {// ss
                     skill2.setVisibility(View.VISIBLE);
                     skill3.setVisibility(View.VISIBLE);
                 }else if(race==1){
-
-                }else if(race==2){
-
-                }
-
-
-            }
-        });
-
-        unit_5=(ImageButton)findViewById(R.id.imageButton5);
-        unit_5.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-                int i=5; current=i;                 if(race==1)                     shield.setText("("+ Integer.toString(unit_shield[race][i])  +")");                 else                     shield.setText("");
-                cost_Value=Integer.toString(unit_costs[race][i]);
-                cost.setText(cost_Value);
-                armor_Value=Integer.toString(unit_armor[race][i]);
-                armor.setText(armor_Value);
-                hp_Value=Integer.toString(unit_hp[race][i]);
-                hp.setText(hp_Value);
-                type_Value=typeTrans(unit_type[race][i]);
-                type.setText(type_Value);
-                range_a_Value=Integer.toString(unit_range_air[race][i]);
-                range_a.setText( range_a_Value);
-                range_g_Value=Integer.toString(unit_range_gnd[race][i]);
-                range_g.setText( range_g_Value);
-                move_Value=Double.toString(unit_move[race][i]);
-                move.setText( move_Value);
-                dmg_g_Value=Integer.toString(unit_dmg_g[race][i]);
-                if(unit_atks_g[race][i]>=2)
-                    dmg_g_Value=dmg_g_Value+"x"+ Integer.toString(unit_atks_g[race][i]);
-                dmg_g.setText( dmg_g_Value);
-                dmg_a_Value=Integer.toString(unit_dmg_a[race][i]);
-                if(unit_atks_a[race][i]>=2)
-                    dmg_a_Value=dmg_a_Value+"x"+ Integer.toString(unit_atks_a[race][i]);
-                dmg_a.setText( dmg_a_Value);
-                atkSp_g_Value=Double.toString(unit_atkSp_g[race][i]);
-                atkSp_g.setText( atkSp_g_Value);
-                atkSp_a_Value=Double.toString(unit_atkSp_a[race][i]);
-                atkSp_a.setText( atkSp_a_Value);
-                dps_g_Value=Double.toString( (Math.round (     (unit_dmg_g[race][i]*unit_atks_g[race][i] )/ unit_atkSp_g[race][i]*100)  ) *0.01     );
-                dps_g.setText( dps_g_Value);
-                dps_a_Value=Double.toString( (Math.round (     (unit_dmg_a[race][i]*unit_atks_a[race][i] )/ unit_atkSp_a[race][i]*100)  ) *0.01     );
-                dps_a.setText( dps_a_Value);
-                if(unit_bouns_type_g[race][i]>0){
-                    bouns_Value=bounsTrans(unit_bouns_type_g[race][i],unit_bouns_dmg_g[race][i],0);
-                }else if((unit_bouns_type_a[race][i]>0)){
-                    bouns_Value=bounsTrans(unit_bouns_type_a[race][i],unit_bouns_dmg_a[race][i],1);
-                }
-                else
-                    bouns_Value="N/A";
-                bouns.setText( bouns_Value);
-                hppc.setText(Double.toString(  Math.round( (unit_hp[race][i]+unit_shield[race][i])*1.0/unit_costs[race][i]*100) *0.01 ));
-
-                Double dps1,dps2;
-                dps1=  Math.round(((unit_dmg_g[race][i]*unit_atks_g[race][i] )/ unit_atkSp_g[race][i])/unit_costs[race][i]*100) *0.01 ;
-                dps2=  Math.round(((unit_dmg_a[race][i]*unit_atks_a[race][i] )/ unit_atkSp_a[race][i])/unit_costs[race][i]*100) *0.01 ;
-                dpspc_g.setText(Double.toString(dps1));
-                dpspc_a.setText(Double.toString(dps2));
-
-                dps1=0.0;
-                dps2=0.0;
-                if(unit_bouns_type_g[race][i]>0)
-                    dps1=  Math.round((( (unit_dmg_g[race][i]+unit_bouns_dmg_g[race][i])*unit_atks_g[race][i] )/ unit_atkSp_g[race][i])*100) *0.01 ;
-                else if(unit_bouns_type_a[race][i]>0)
-                    dps2=  Math.round((( (unit_dmg_a[race][i]+unit_bouns_dmg_a[race][i])*unit_atks_a[race][i] )/ unit_atkSp_a[race][i])*100) *0.01 ;
-
-                if(dps1>dps2)
-                    bdps.setText(Double.toString(dps1));
-                else
-                    bdps.setText(Double.toString(dps2));
-
-//--------------------------------------------upgrade control--------------------------------
-                if(race==0){
-                    hellbatOFF=false;
-                    upgrade1.setImageResource(R.drawable.hellbat_bluef);
+                    upgrade1.setImageResource(R.drawable.adept_rg);
                     //upgrade2.setImageResource(R.drawable.marine_stimpack);
                     //upgrade3.setImageResource(R.drawable.);
-                    skill1.setImageResource(R.drawable.hellbat_hellion);
+                    skill1.setImageResource(R.drawable.adept_transfer);
                     //skill2.setImageResource(R.drawable.ghost_emp);
                     //skill3.setImageResource(R.drawable.ghost_cloak);
 
@@ -913,11 +951,160 @@ public class MainActivity extends AppCompatActivity {// ss
                     skill1.setVisibility(View.VISIBLE);
                     skill2.setVisibility(View.INVISIBLE);
                     skill3.setVisibility(View.INVISIBLE);
-                }else if(race==1){
-
                 }else if(race==2){
 
                 }
+
+
+            }
+        });
+
+        unit_5=(ImageButton)findViewById(R.id.imageButton5);
+
+        unit_5.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                if(toggleFlag==false || race!=1){
+                    unit_5.setImageResource(R.drawable.ob);
+                    toggleFlag=true;
+                    int i=5; current=i;                 if(race==1)                     shield.setText("("+ Integer.toString(unit_shield[race][i])  +")");                 else                     shield.setText("");
+                    cost_Value=Integer.toString(unit_costs[race][i]);
+                    cost.setText(cost_Value);
+                    armor_Value=Integer.toString(unit_armor[race][i]);
+                    armor.setText(armor_Value);
+                    hp_Value=Integer.toString(unit_hp[race][i]);
+                    hp.setText(hp_Value);
+                    type_Value=typeTrans(unit_type[race][i]);
+                    type.setText(type_Value);
+                    range_a_Value=Integer.toString(unit_range_air[race][i]);
+                    range_a.setText( range_a_Value);
+                    range_g_Value=Integer.toString(unit_range_gnd[race][i]);
+                    range_g.setText( range_g_Value);
+                    move_Value=Double.toString(unit_move[race][i]);
+                    move.setText( move_Value);
+                    dmg_g_Value=Integer.toString(unit_dmg_g[race][i]);
+                    if(unit_atks_g[race][i]>=2)
+                        dmg_g_Value=dmg_g_Value+"x"+ Integer.toString(unit_atks_g[race][i]);
+                    dmg_g.setText( dmg_g_Value);
+                    dmg_a_Value=Integer.toString(unit_dmg_a[race][i]);
+                    if(unit_atks_a[race][i]>=2)
+                        dmg_a_Value=dmg_a_Value+"x"+ Integer.toString(unit_atks_a[race][i]);
+                    dmg_a.setText( dmg_a_Value);
+                    atkSp_g_Value=Double.toString(unit_atkSp_g[race][i]);
+                    atkSp_g.setText( atkSp_g_Value);
+                    atkSp_a_Value=Double.toString(unit_atkSp_a[race][i]);
+                    atkSp_a.setText( atkSp_a_Value);
+                    dps_g_Value=Double.toString( (Math.round (     (unit_dmg_g[race][i]*unit_atks_g[race][i] )/ unit_atkSp_g[race][i]*100)  ) *0.01     );
+                    dps_g.setText( dps_g_Value);
+                    dps_a_Value=Double.toString( (Math.round (     (unit_dmg_a[race][i]*unit_atks_a[race][i] )/ unit_atkSp_a[race][i]*100)  ) *0.01     );
+                    dps_a.setText( dps_a_Value);
+                    if(unit_bouns_type_g[race][i]>0){
+                        bouns_Value=bounsTrans(unit_bouns_type_g[race][i],unit_bouns_dmg_g[race][i],0);
+                    }else if((unit_bouns_type_a[race][i]>0)){
+                        bouns_Value=bounsTrans(unit_bouns_type_a[race][i],unit_bouns_dmg_a[race][i],1);
+                    }
+                    else
+                        bouns_Value="N/A";
+                    bouns.setText( bouns_Value);
+                    hppc.setText(Double.toString(  Math.round( (unit_hp[race][i]+unit_shield[race][i])*1.0/unit_costs[race][i]*100) *0.01 ));
+
+                    Double dps1,dps2;
+                    dps1=  Math.round(((unit_dmg_g[race][i]*unit_atks_g[race][i] )/ unit_atkSp_g[race][i])/unit_costs[race][i]*100) *0.01 ;
+                    dps2=  Math.round(((unit_dmg_a[race][i]*unit_atks_a[race][i] )/ unit_atkSp_a[race][i])/unit_costs[race][i]*100) *0.01 ;
+                    dpspc_g.setText(Double.toString(dps1));
+                    dpspc_a.setText(Double.toString(dps2));
+
+                    dps1=0.0;
+                    dps2=0.0;
+                    if(unit_bouns_type_g[race][i]>0)
+                        dps1=  Math.round((( (unit_dmg_g[race][i]+unit_bouns_dmg_g[race][i])*unit_atks_g[race][i] )/ unit_atkSp_g[race][i])*100) *0.01 ;
+                    else if(unit_bouns_type_a[race][i]>0)
+                        dps2=  Math.round((( (unit_dmg_a[race][i]+unit_bouns_dmg_a[race][i])*unit_atks_a[race][i] )/ unit_atkSp_a[race][i])*100) *0.01 ;
+
+                    if(dps1>dps2)
+                        bdps.setText(Double.toString(dps1));
+                    else
+                        bdps.setText(Double.toString(dps2));
+
+//--------------------------------------------upgrade control--------------------------------
+                    if(race==0){
+                        hellbatOFF=false;
+                        upgrade1.setImageResource(R.drawable.hellbat_bluef);
+                        //upgrade2.setImageResource(R.drawable.marine_stimpack);
+                        //upgrade3.setImageResource(R.drawable.);
+                        skill1.setImageResource(R.drawable.hellbat_hellion);
+                        //skill2.setImageResource(R.drawable.ghost_emp);
+                        //skill3.setImageResource(R.drawable.ghost_cloak);
+
+                        upgrade1.setVisibility(View.VISIBLE);  //One of VISIBLE, INVISIBLE, or GONE.
+                        upgrade2.setVisibility(View.INVISIBLE);
+                        upgrade3.setVisibility(View.INVISIBLE);
+                        skill1.setVisibility(View.VISIBLE);
+                        skill2.setVisibility(View.INVISIBLE);
+                        skill3.setVisibility(View.INVISIBLE);
+                    }else if(race==1){
+                        upgrade1.setImageResource(R.drawable.ob_booster);
+                        //upgrade2.setImageResource(R.drawable.marine_stimpack);
+                        //upgrade3.setImageResource(R.drawable.);
+                        skill1.setImageResource(R.drawable.ob_cloak);
+                        skill2.setImageResource(R.drawable.ob_dectector);
+                        //skill3.setImageResource(R.drawable.ghost_cloak);
+
+                        upgrade1.setVisibility(View.VISIBLE);  //One of VISIBLE, INVISIBLE, or GONE.
+                        upgrade2.setVisibility(View.INVISIBLE);
+                        upgrade3.setVisibility(View.INVISIBLE);
+                        skill1.setVisibility(View.VISIBLE);
+                        skill2.setVisibility(View.VISIBLE);
+                        skill3.setVisibility(View.INVISIBLE);
+                    }else if(race==2){
+
+                    }
+                }else{ //orcle
+                    toggleFlag=false;
+                    unit_5.setImageResource(R.drawable.oracle);
+                    int hp_=60,shield_=100,dmg_g_=15,dmg_a_=0,armor_=0,bonus=10,range=4,cost_=150;
+                    double atk_sp_g=0.61,atk_sp_a=0,movement=5.6;
+                    cost.setText(Integer.toString(cost_));
+                    hp.setText(Integer.toString(hp_));
+                    armor.setText(Integer.toBinaryString(armor_));
+                    shield.setText("(" + Integer.toString(shield_)+")");
+                    type.setText("Light-Mec-Psi");
+                    range_a.setText(Integer.toString(range));
+                    range_g.setText(Integer.toString(range));
+                    move.setText(Double.toString(movement));
+                    dmg_a.setText(Integer.toString(dmg_a_));
+                    dmg_g.setText(Integer.toString(dmg_g_));
+                    atkSp_g.setText(Double.toString(atk_sp_g));
+                    atkSp_a.setText(Double.toString(atk_sp_a));
+                    double tempdps=  Math.round((( (dmg_g_+0)*1.0 )/ atk_sp_g)*100) *0.01 ;
+                    dps_g.setText(Double.toString(tempdps));
+                    dps_a.setText(Double.toString(tempdps));
+                    bouns.setText("Gnd-Lig+10");
+                    hppc.setText(Double.toString((hp_+shield_*1.0)/cost_));
+                    dpspc_g.setText(Double.toString(   tempdps/cost_ ));
+                    dpspc_a.setText(Double.toString(   tempdps/cost_ ));
+                    tempdps=  Math.round((( (dmg_g_+bonus)*1 )/ atk_sp_g)*100) *0.01 ;
+                    bdps.setText(Double.toString(tempdps));
+
+//--------------------upgrade control
+                   // upgrade1.setImageResource(R.drawable.hellbat_bluef);
+                    //upgrade2.setImageResource(R.drawable.marine_stimpack);
+                    //upgrade3.setImageResource(R.drawable.);
+                    skill1.setImageResource(R.drawable.oracle_revelation);
+                    skill2.setImageResource(R.drawable.oracle_ward);
+                    skill3.setImageResource(R.drawable.oracle_beam);
+
+                    upgrade1.setVisibility(View.INVISIBLE);  //One of VISIBLE, INVISIBLE, or GONE.
+                    upgrade2.setVisibility(View.INVISIBLE);
+                    upgrade3.setVisibility(View.INVISIBLE);
+                    skill1.setVisibility(View.VISIBLE);
+                    skill2.setVisibility(View.VISIBLE);
+                    skill3.setVisibility(View.VISIBLE);
+
+
+
+
+                }
+
 
 
             }
@@ -1001,7 +1188,19 @@ public class MainActivity extends AppCompatActivity {// ss
                     skill2.setVisibility(View.VISIBLE);
                     skill3.setVisibility(View.INVISIBLE);
                 }else if(race==1){
+                    upgrade1.setImageResource(R.drawable.stalker_blink);
+                    upgrade2.setImageResource(R.drawable.archon);
+                    //upgrade3.setImageResource(R.drawable.);
+                   // skill1.setImageResource(R.drawable.medivac_heal);
+                   // skill2.setImageResource(R.drawable.medivac_afterburner);
+                    //skill3.setImageResource(R.drawable.ghost_cloak);
 
+                    upgrade1.setVisibility(View.VISIBLE);  //One of VISIBLE, INVISIBLE, or GONE.
+                    upgrade2.setVisibility(View.VISIBLE);
+                    upgrade3.setVisibility(View.INVISIBLE);
+                    skill1.setVisibility(View.INVISIBLE);
+                    skill2.setVisibility(View.INVISIBLE);
+                    skill3.setVisibility(View.INVISIBLE);
                 }else if(race==2){
 
                 }
@@ -1075,7 +1274,7 @@ public class MainActivity extends AppCompatActivity {// ss
 
 //--------------------------------------------upgrade control--------------------------------
                 if(race==0){
-//upgrade1.setImageResource(R.drawable.hellbat_bluef);
+                    //upgrade1.setImageResource(R.drawable.hellbat_bluef);
                     //upgrade2.setImageResource(R.drawable.marine_stimpack);
                     //upgrade3.setImageResource(R.drawable.);
                     skill1.setImageResource(R.drawable.ghost_cloak);
@@ -1089,7 +1288,19 @@ public class MainActivity extends AppCompatActivity {// ss
                     skill2.setVisibility(View.INVISIBLE);
                     skill3.setVisibility(View.INVISIBLE);
                 }else if(race==1){
+                    //upgrade1.setImageResource(R.drawable.hellbat_bluef);
+                    //upgrade2.setImageResource(R.drawable.marine_stimpack);
+                    //upgrade3.setImageResource(R.drawable.);
+                    skill1.setImageResource(R.drawable.disruptor_nova);
+                    //skill2.setImageResource(R.drawable.medivac_afterburner);
+                    //skill3.setImageResource(R.drawable.ghost_cloak);
 
+                    upgrade1.setVisibility(View.INVISIBLE);  //One of VISIBLE, INVISIBLE, or GONE.
+                    upgrade2.setVisibility(View.INVISIBLE);
+                    upgrade3.setVisibility(View.INVISIBLE);
+                    skill1.setVisibility(View.VISIBLE);
+                    skill2.setVisibility(View.INVISIBLE);
+                    skill3.setVisibility(View.INVISIBLE);
                 }else if(race==2){
 
                 }
@@ -1175,7 +1386,19 @@ public class MainActivity extends AppCompatActivity {// ss
                     skill2.setVisibility(View.INVISIBLE);
                     skill3.setVisibility(View.INVISIBLE);
                 }else if(race==1){
+                    upgrade1.setImageResource(R.drawable.phoenix_pulse);
+                    //upgrade2.setImageResource(R.drawable.marine_stimpack);
+                    //upgrade3.setImageResource(R.drawable.);
+                    skill1.setImageResource(R.drawable.phoenix_grav);
+                    //skill2.setImageResource(R.drawable.medivac_afterburner);
+                    //skill3.setImageResource(R.drawable.ghost_cloak);
 
+                    upgrade1.setVisibility(View.VISIBLE);  //One of VISIBLE, INVISIBLE, or GONE.
+                    upgrade2.setVisibility(View.INVISIBLE);
+                    upgrade3.setVisibility(View.INVISIBLE);
+                    skill1.setVisibility(View.VISIBLE);
+                    skill2.setVisibility(View.INVISIBLE);
+                    skill3.setVisibility(View.INVISIBLE);
                 }else if(race==2){
 
                 }
@@ -1265,6 +1488,19 @@ public class MainActivity extends AppCompatActivity {// ss
                     skill3.setVisibility(View.VISIBLE);
                 }else if(race==1){
 
+                    upgrade1.setImageResource(R.drawable.high_templer_storm);
+                    upgrade2.setImageResource(R.drawable.archon);
+                    //upgrade3.setImageResource(R.drawable.);
+                    skill1.setImageResource(R.drawable.high_templer_feedback);
+                    skill2.setImageResource(R.drawable.high_templer_storm);
+                    //skill3.setImageResource(R.drawable.raven_missile);
+
+                    upgrade1.setVisibility(View.VISIBLE);  //One of VISIBLE, INVISIBLE, or GONE.
+                    upgrade2.setVisibility(View.VISIBLE);
+                    upgrade3.setVisibility(View.INVISIBLE);
+                    skill1.setVisibility(View.VISIBLE);
+                    skill2.setVisibility(View.VISIBLE);
+                    skill3.setVisibility(View.INVISIBLE);
                 }else if(race==2){
 
                 }
@@ -1352,7 +1588,19 @@ public class MainActivity extends AppCompatActivity {// ss
                     skill2.setVisibility(View.INVISIBLE);
                     skill3.setVisibility(View.INVISIBLE);
                 }else if(race==1){
+                    //upgrade1.setImageResource(R.drawable.raven_reactor);
+                    // upgrade2.setImageResource(R.drawable.raven_shells);
+                    //upgrade3.setImageResource(R.drawable.);
+                    skill1.setImageResource(R.drawable.immortal_barrier);
+                    //skill2.setImageResource(R.drawable.raven_drone);
+                    // skill3.setImageResource(R.drawable.raven_missile);
 
+                    upgrade1.setVisibility(View.INVISIBLE);  //One of VISIBLE, INVISIBLE, or GONE.
+                    upgrade2.setVisibility(View.INVISIBLE);
+                    upgrade3.setVisibility(View.INVISIBLE);
+                    skill1.setVisibility(View.VISIBLE);
+                    skill2.setVisibility(View.INVISIBLE);
+                    skill3.setVisibility(View.INVISIBLE);
                 }else if(race==2){
 
                 }
@@ -1440,7 +1688,19 @@ public class MainActivity extends AppCompatActivity {// ss
                     skill2.setVisibility(View.VISIBLE);
                     skill3.setVisibility(View.INVISIBLE);
                 }else if(race==1){
+                    //upgrade1.setImageResource(R.drawable.raven_reactor);
+                    // upgrade2.setImageResource(R.drawable.raven_shells);
+                    //upgrade3.setImageResource(R.drawable.);
+                    skill1.setImageResource(R.drawable.voidray_charge);
+                    //skill2.setImageResource(R.drawable.mine_missile);
+                    // skill3.setImageResource(R.drawable.raven_missile);
 
+                    upgrade1.setVisibility(View.INVISIBLE);  //One of VISIBLE, INVISIBLE, or GONE.
+                    upgrade2.setVisibility(View.INVISIBLE);
+                    upgrade3.setVisibility(View.INVISIBLE);
+                    skill1.setVisibility(View.VISIBLE);
+                    skill2.setVisibility(View.INVISIBLE);
+                    skill3.setVisibility(View.INVISIBLE);
                 }else if(race==2){
 
                 }
@@ -1529,7 +1789,19 @@ public class MainActivity extends AppCompatActivity {// ss
                     skill3.setVisibility(View.INVISIBLE);
 
                 }else if(race==1){
+                    upgrade1.setImageResource(R.drawable.colossus_lance);
+                    // upgrade2.setImageResource(R.drawable.raven_shells);
+                    //upgrade3.setImageResource(R.drawable.);
+                    //skill1.setImageResource(R.drawable.cyclone_lockon);
+                    // skill2.setImageResource(R.drawable.mine_missile);
+                    // skill3.setImageResource(R.drawable.raven_missile);
 
+                    upgrade1.setVisibility(View.VISIBLE);  //One of VISIBLE, INVISIBLE, or GONE.
+                    upgrade2.setVisibility(View.INVISIBLE);
+                    upgrade3.setVisibility(View.INVISIBLE);
+                    skill1.setVisibility(View.INVISIBLE);
+                    skill2.setVisibility(View.INVISIBLE);
+                    skill3.setVisibility(View.INVISIBLE);
                 }else if(race==2){
 
                 }
@@ -1617,7 +1889,12 @@ public class MainActivity extends AppCompatActivity {// ss
                     skill2.setVisibility(View.INVISIBLE);
                     skill3.setVisibility(View.INVISIBLE);
                 }else if(race==1){
-
+                    upgrade1.setVisibility(View.INVISIBLE);  //One of VISIBLE, INVISIBLE, or GONE.
+                    upgrade2.setVisibility(View.INVISIBLE);
+                    upgrade3.setVisibility(View.INVISIBLE);
+                    skill1.setVisibility(View.INVISIBLE);
+                    skill2.setVisibility(View.INVISIBLE);
+                    skill3.setVisibility(View.INVISIBLE);
                 }else if(race==2){
 
                 }
@@ -1706,7 +1983,19 @@ public class MainActivity extends AppCompatActivity {// ss
                     skill2.setVisibility(View.INVISIBLE);
                     skill3.setVisibility(View.INVISIBLE);
                 }else if(race==1){
+                    upgrade1.setImageResource(R.drawable.carrier_catapult);
+                    // upgrade2.setImageResource(R.drawable.raven_shells);
+                    //upgrade3.setImageResource(R.drawable.);
+                    //skill1.setImageResource(R.drawable.thor_hmode);
+                    // skill2.setImageResource(R.drawable.mine_missile);
+                    // skill3.setImageResource(R.drawable.raven_missile);
 
+                    upgrade1.setVisibility(View.VISIBLE);  //One of VISIBLE, INVISIBLE, or GONE.
+                    upgrade2.setVisibility(View.INVISIBLE);
+                    upgrade3.setVisibility(View.INVISIBLE);
+                    skill1.setVisibility(View.INVISIBLE);
+                    skill2.setVisibility(View.INVISIBLE);
+                    skill3.setVisibility(View.INVISIBLE);
                 }else if(race==2){
 
                 }
@@ -1796,7 +2085,19 @@ public class MainActivity extends AppCompatActivity {// ss
                     skill3.setVisibility(View.INVISIBLE);
 
                 }else if(race==1){
+                    upgrade1.setImageResource(R.drawable.mothership);
+                    // upgrade2.setImageResource(R.drawable.raven_shells);
+                    //upgrade3.setImageResource(R.drawable.);
+                    skill1.setImageResource(R.drawable.core_timewarp);
+                    //skill2.setImageResource(R.drawable.bc_warp);
+                    // skill3.setImageResource(R.drawable.raven_missile);
 
+                    upgrade1.setVisibility(View.VISIBLE);  //One of VISIBLE, INVISIBLE, or GONE.
+                    upgrade2.setVisibility(View.INVISIBLE);
+                    upgrade3.setVisibility(View.INVISIBLE);
+                    skill1.setVisibility(View.VISIBLE);
+                    skill2.setVisibility(View.INVISIBLE);
+                    skill3.setVisibility(View.INVISIBLE);
                 }else if(race==2){
 
                 }
