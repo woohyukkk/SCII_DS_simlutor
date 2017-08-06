@@ -49,15 +49,15 @@ public class MainActivity extends AppCompatActivity {// ss
     int[][] unit_range_gnd={{0,5,6,5,6,2,0,6,0,0,7,0,6,0,7, 6},{0,1,6,5,4,0,1,0,0,0,6,6,6,10,8,5},{0,1,1,4,5,0,5,3,0,0,0,9,6,0,1,10}};
     int[][] unit_range_air={{0,5,0,0,6,0,0,0,9,0,0,0,0,5,10,6},{0,0,6,5,0,0,0,0,5,0,0,6,0,15,8,0},{0,0,0,0,8,0,5,3,6,0,0,0,0,0,1, 0}};
     double[][] unit_move={{0,3.15,3.15,5.25,3.94,3.15,3.5,3.85,3.85,3.85,3.15,3.94,4.13,4.72,2.62,2.62},{0,3.15,4.13,3.15,3.5,2.62,3.94,3.15,5.95,2.62,3.15,3.5,3.15,2.62,2.62,2.62},{0,4.13,3.5,3.15,1.31,2.62,3.15,5.6,4.72,3.15,4.13,4.13,3.85,4.13,4.13,1.97}};
-    int[][] unit_dmg_g={{0,6,5,4,10,18, 0,12, 0,0,15,0,3,0,30,8},                                                 {0,8,  10, 6,10, 0,45, 0, 0, 0, 20, 6,12,40, 5, 8},  {0,  5,0,16, 4,0,12,9, 0,0,0,20,16,0,35,20 }};
+    int[][] unit_dmg_g={{0,6,5,4,10,18, 0,12, 0,0,15,0,3,0,30,8},                                                 {0,8,  10, 6,10, 0,45, 0, 0, 0, 20, 6,12,40, 5, 8},  {0,  5,20,16, 4,0,12,9, 0,0,0,20,16,0,35,20 }};
     int[][] unit_dmg_a={{0,6,0,0,10, 0, 0, 0,10,0, 0, 0,0,5,6,6},                                                 {0,0,  10, 6, 0, 0, 0, 0, 5, 0,  0, 6, 0,30, 5, 0},  {0,  0,0, 0, 9,0,12,9,14,0,0, 0, 0,0, 0,0 }};
-    int[][] unit_atks_g={{0,1,2,2,1,1,0,2,0,0,1,0,1,0,2,1},                                                       {0,2,   1, 1, 1, 0, 1, 0, 0, 0,  1,1, 2, 1, 2*8, 1}, {0,  1,0, 1, 2,0,1, 1, 1,0,0, 1, 1,0, 1,1 }};
+    int[][] unit_atks_g={{0,1,2,2,1,1,0,2,0,0,1,0,1,0,2,1},                                                       {0,2,   1, 1, 1, 0, 1, 0, 0, 0,  1,1, 2, 1, 2*8, 1}, {0,  1,1, 1, 2,0,1, 1, 1,0,0, 1, 1,0, 1,1 }};
     int[][] unit_atks_a={{0,1,0,0,1,0,0,0,2,0,0,0,0,2,4,1},                                                       {0,0,   1, 1, 0, 0, 0, 0, 2, 0,  0,1, 0, 1, 2*8, 0}, {0,  0,0, 0, 1,0,1, 1, 1,0,0, 0, 1,0, 0,0 }};
-    double[][] unit_atkSp_g={{0,0.61,1.07,0.79,1.07,1.43,0,0.89,0,0,0.74,0,0.1,0,0.91,0.16}, {0,0.86,   1.03,0.71,1.61,0,1.21,0,   0, 0,1.04,0.36,1.07,2.36,0.71,0.61},{0,0.5,0,1.43,0.71,0,0.54,1.09,   0,0,0,1.43,1.14,0,0.61,0.79}};
+    double[][] unit_atkSp_g={{0,0.61,1.07,0.79,1.07,1.43,0,0.89,0,0,0.74,0,0.1,0,0.91,0.16}, {0,0.86,   1.03,0.71,1.61,0,1.21,0,   0, 0,1.04,0.36,1.07,2.36,0.71,0.61},{0,0.5,0.59,1.43,0.71,0,0.54,1.09,   0,0,0,1.43,1.14,0,0.61,0.79}};
     double[][] unit_atkSp_a={{0,0.61,0,0,      1.07,0   ,0,0   ,1.43,   0,0,0,0  ,1.29,2.14,0.16}, {0,   0,   1.03,0.71,   0,0,0,0,0.79, 0,   0,0.36,   0,2.36,0.71,0},{0,  0,0,   0,0.71,0,0.54,1.09,1.36,0,0,   0,   0,0,0,0}};
-    int[][] unit_bouns_type_g={{0,0,2 , 0, 1, 0,0,0,0,0,2,   0,2, 0,0,0},                       {0,0,   2,0,1,0,0,0, 0, 0,2,2, 0,0,0,0},                               {0,  0,0,0,0,0,0,0,0,0,0, 2,0,0,0,0}};    //0 none 1 light 2 Armored 3 Bio 4 Mec 5 Psi 6 massive
-    int[][] unit_bouns_dmg_g ={{0,0,5 , 0,10, 0,0,0,0,0,10,  0,2, 0,0,0},                       {0,0,   4,0,12,0,0,0,0,0,30,4, 0,0,0,0},                               {0,  0,0,0,0,0,0,0,6,0,0, 0,0,0,0,0}};
-    int[][] unit_bouns_type_a={{-1,0,0 , 0, 1, 0,0,0,2,0,0,   0,0,0, 1,0},                      {0,0,   2,0,0,0,0,0,1, 0,0, 2,0, 6,0,0},                               {0,  0,0,0,0,0,0,0,0,0,0,10,0,0,0,0}};    //0 none 1 light 2 Armored 3 Bio 4 Mec 5 Psi 6 massive
+    int[][] unit_bouns_type_g={{0,0,2 , 0, 1, 0,0,0,0,0,2,   0,2, 0,0,0},                       {0,0,   2,0,1,0,0,0, 0, 0,2,2, 0,0,0,0},                               {0,  0,1,0,0,0,0,0,0,0,0, 2,0,0,0,0}};    //0 none 1 light 2 Armored 3 Bio 4 Mec 5 Psi 6 massive
+    int[][] unit_bouns_dmg_g ={{0,0,5 , 0,10, 0,0,0,0,0,10,  0,2, 0,0,0},                       {0,0,   4,0,12,0,0,0,0,0,30,4, 0,0,0,0},                               {0,  0,15,0,0,0,0,0,0,0,0, 10,0,0,0,0}};
+    int[][] unit_bouns_type_a={{-1,0,0 , 0, 1, 0,0,0,2,0,0,   0,0,0, 1,0},                      {0,0,   2,0,0,0,0,0,1, 0,0, 2,0, 6,0,0},                               {0,  0,0,0,0,0,0,0,6,0,0,0,0,0,0,0}};    //0 none 1 light 2 Armored 3 Bio 4 Mec 5 Psi 6 massive
     int[][] unit_bouns_dmg_a ={{-1,0,0 , 0,10, 0,0,0,4,0,0,   0,0,0, 6,0},                      {0,0,   4,0,0,0,0,0,5, 0,0, 4,0,22,0,0},                               {0,  0,0,0,0,0,0,0,6,0,0, 0,0,0,0,0}};
 
 
@@ -262,7 +262,19 @@ public class MainActivity extends AppCompatActivity {// ss
                         //bdps.setText(Double.toString(tempdps));
                     }
                 }else if(race==2){
-
+                    if (current==1){
+                        int dmg_g_=6;
+                        double atk_sp_g=0.35;
+                        atkSp_g.setText(Double.toString(atk_sp_g));
+                        double tempdps=  Math.round((( (dmg_g_+0)*1.0 )/ atk_sp_g)*100) *0.01 ;
+                        dps_g.setText(Double.toString(tempdps));
+                    }else if(current==6){
+                        move.setText("3.94");
+                        range_g.setText("6");
+                        range_a.setText("6");
+                    }else if(current==14){
+                        armor.setText("4");
+                    }
                 }
 
 
@@ -344,7 +356,9 @@ public class MainActivity extends AppCompatActivity {// ss
                     }
 
                 }else if(race==2){
-
+                    if (current==1){
+                       move.setText("6.58");
+                    }
                 }
 
 
@@ -512,7 +526,87 @@ public class MainActivity extends AppCompatActivity {// ss
                        bdps.setText(Double.toString(tempdps));
                     }
                 }else if(race==2){
-
+                    if(current==15){//brood lord swam
+                        int hp_=30,shield_=0,dmg_g_=4,dmg_a_=0,atk_g_=2,atk_a_=0,armor_=0,bonus=0,range=1,cost_=0;
+                        double atk_sp_g=0.46,atk_sp_a=0,movement=5.37;
+                        cost.setText(Integer.toString(cost_));
+                        hp.setText(Integer.toString(hp_));
+                       // shield.setText("(" + Integer.toString(shield_)+")");
+                        type.setText("Light-Bio");
+                        armor.setText(Integer.toString(armor_));
+                        range_a.setText(Integer.toString(range));
+                        range_g.setText(Integer.toString(range));
+                        move.setText(Double.toString(movement));
+                        dmg_a.setText(Integer.toString(dmg_a_));
+                        dmg_g.setText(Integer.toString(dmg_g_));
+                        atkSp_g.setText(Integer.toString(atk_g_));
+                        atkSp_g.setText(Integer.toString(atk_a_));
+                        atkSp_g.setText(Double.toString(atk_sp_g));
+                        atkSp_a.setText(Double.toString(atk_sp_a));
+                        double tempdps=  Math.round((( (dmg_g_+0)*1 )/ atk_sp_g)*100) *0.01 ;
+                        dps_g.setText(Double.toString(tempdps));
+                        dps_a.setText(Double.toString(tempdps));
+                        bouns.setText("N/A");
+                        hppc.setText(Double.toString(0));
+                        dpspc_g.setText(Double.toString(0));
+                        dpspc_a.setText(Double.toString(0));
+                        tempdps=  Math.round((( (dmg_g_+bonus)*1 )/ atk_sp_g)*100) *0.01 ;
+                        //bdps.setText(Double.toString(tempdps));
+                    }else if(current==10){//host spawn
+                        int hp_=50,shield_=0,dmg_g_=10,dmg_a_=0,atk_g_=2,atk_a_=0,armor_=0,bonus=0,range=3,cost_=0;
+                        double atk_sp_g=0.43,atk_sp_a=0,movement=2.62;
+                        cost.setText(Integer.toString(cost_));
+                        hp.setText(Integer.toString(hp_));
+                        // shield.setText("(" + Integer.toString(shield_)+")");
+                        type.setText("Light-Bio");
+                        armor.setText(Integer.toString(armor_));
+                        range_a.setText(Integer.toString(range));
+                        range_g.setText(Integer.toString(range));
+                        move.setText(Double.toString(movement));
+                        dmg_a.setText(Integer.toString(dmg_a_));
+                        dmg_g.setText(Integer.toString(dmg_g_));
+                        atkSp_g.setText(Integer.toString(atk_g_));
+                        atkSp_g.setText(Integer.toString(atk_a_));
+                        atkSp_g.setText(Double.toString(atk_sp_g));
+                        atkSp_a.setText(Double.toString(atk_sp_a));
+                        double tempdps=  Math.round((( (dmg_g_+0)*1 )/ atk_sp_g)*100) *0.01 ;
+                        dps_g.setText(Double.toString(tempdps));
+                        dps_a.setText(Double.toString(tempdps));
+                        bouns.setText("N/A");
+                        hppc.setText(Double.toString(0));
+                        dpspc_g.setText(Double.toString(0));
+                        dpspc_a.setText(Double.toString(0));
+                        tempdps=  Math.round((( (dmg_g_+bonus)*1 )/ atk_sp_g)*100) *0.01 ;
+                        //bdps.setText(Double.toString(tempdps));
+                    }else if(current==9){//infestor terran
+                        int hp_=50,shield_=0,dmg_g_=8,dmg_a_=8,atk_g_=2,atk_a_=0,armor_=0,bonus=0,range=5,cost_=0;
+                        double atk_sp_g=0.61,atk_sp_a=0.61,movement=1.31;
+                        cost.setText(Integer.toString(cost_));
+                        hp.setText(Integer.toString(hp_));
+                        // shield.setText("(" + Integer.toString(shield_)+")");
+                        type.setText("Light-Bio");
+                        armor.setText(Integer.toString(armor_));
+                        range_a.setText(Integer.toString(range));
+                        range_g.setText(Integer.toString(range));
+                        move.setText(Double.toString(movement));
+                        dmg_a.setText(Integer.toString(dmg_a_));
+                        dmg_g.setText(Integer.toString(dmg_g_));
+                        atkSp_g.setText(Integer.toString(atk_g_));
+                        atkSp_g.setText(Integer.toString(atk_a_));
+                        atkSp_g.setText(Double.toString(atk_sp_g));
+                        atkSp_a.setText(Double.toString(atk_sp_a));
+                        double tempdps=  Math.round((( (dmg_g_+0)*1 )/ atk_sp_g)*100) *0.01 ;
+                        dps_g.setText(Double.toString(tempdps));
+                        dps_a.setText(Double.toString(tempdps));
+                        bouns.setText("N/A");
+                        hppc.setText(Double.toString(0));
+                        dpspc_g.setText(Double.toString(0));
+                        dpspc_a.setText(Double.toString(0));
+                        tempdps=  Math.round((( (dmg_g_+bonus)*1 )/ atk_sp_g)*100) *0.01 ;
+                        //bdps.setText(Double.toString(tempdps));
+                    }else if(current==2){//bane explode
+                      //  dmg_g.setText("");
+                    }
                 }
 
             }
@@ -661,7 +755,19 @@ public class MainActivity extends AppCompatActivity {// ss
                     skill2.setVisibility(View.INVISIBLE);
                     skill3.setVisibility(View.INVISIBLE);
                 }else if(race==2){
+                    upgrade1.setImageResource(R.drawable.zergling_atk);
+                    upgrade2.setImageResource(R.drawable.zergling_speed);
+                    //upgrade3.setImageResource(R.drawable.);
+                    //skill1.setImageResource(R.drawable.zealot_charge);
+                    //skill2.setImageResource(R.drawable.);
+                    //skill3.setImageResource(R.drawable.);
 
+                    upgrade1.setVisibility(View.VISIBLE);  //One of VISIBLE, INVISIBLE, or GONE.
+                    upgrade2.setVisibility(View.VISIBLE);
+                    upgrade3.setVisibility(View.INVISIBLE);
+                    skill1.setVisibility(View.INVISIBLE);
+                    skill2.setVisibility(View.INVISIBLE);
+                    skill3.setVisibility(View.INVISIBLE);
                 }
 
             }
@@ -755,7 +861,16 @@ public class MainActivity extends AppCompatActivity {// ss
                     skill2.setVisibility(View.INVISIBLE);
                     skill3.setVisibility(View.INVISIBLE);
                 }else if(race==2){
+                    //upgrade2.setImageResource(R.drawable.marine_stimpack);
+                   // upgrade1.setImageResource(R.drawable.stalker_blink);
+                    skill1.setImageResource(R.drawable.baneling_explode);
 
+                    upgrade1.setVisibility(View.INVISIBLE);  //One of VISIBLE, INVISIBLE, or GONE.
+                    upgrade2.setVisibility(View.INVISIBLE);
+                    upgrade3.setVisibility(View.INVISIBLE);
+                    skill1.setVisibility(View.VISIBLE);
+                    skill2.setVisibility(View.INVISIBLE);
+                    skill3.setVisibility(View.INVISIBLE);
                 }
 
 
@@ -854,7 +969,19 @@ public class MainActivity extends AppCompatActivity {// ss
                     skill2.setVisibility(View.INVISIBLE);
                     skill3.setVisibility(View.INVISIBLE);
                 }else if(race==2){
+                    upgrade1.setImageResource(R.drawable.roach_tunnelling);
+                   // upgrade2.setImageResource(R.drawable.marine_stimpack);
+                    //upgrade3.setImageResource(R.drawable.);
+                    skill1.setImageResource(R.drawable.roach_regene);
+                    //skill2.setImageResource(R.drawable.);
+                    //skill3.setImageResource(R.drawable.);
 
+                    upgrade1.setVisibility(View.VISIBLE);  //One of VISIBLE, INVISIBLE, or GONE.
+                    upgrade2.setVisibility(View.INVISIBLE);
+                    upgrade3.setVisibility(View.INVISIBLE);
+                    skill1.setVisibility(View.VISIBLE);
+                    skill2.setVisibility(View.INVISIBLE);
+                    skill3.setVisibility(View.INVISIBLE);
                 }
 
             }
@@ -955,7 +1082,19 @@ public class MainActivity extends AppCompatActivity {// ss
                     skill2.setVisibility(View.INVISIBLE);
                     skill3.setVisibility(View.INVISIBLE);
                 }else if(race==2){
+                    //upgrade1.setImageResource(R.drawable.adept_rg);
+                    //upgrade2.setImageResource(R.drawable.marine_stimpack);
+                    //upgrade3.setImageResource(R.drawable.);
+                    skill1.setImageResource(R.drawable.queens_heal);
+                    //skill2.setImageResource(R.drawable.ghost_emp);
+                    //skill3.setImageResource(R.drawable.ghost_cloak);
 
+                    upgrade1.setVisibility(View.INVISIBLE);  //One of VISIBLE, INVISIBLE, or GONE.
+                    upgrade2.setVisibility(View.INVISIBLE);
+                    upgrade3.setVisibility(View.INVISIBLE);
+                    skill1.setVisibility(View.VISIBLE);
+                    skill2.setVisibility(View.INVISIBLE);
+                    skill3.setVisibility(View.INVISIBLE);
                 }
 
 
@@ -1060,7 +1199,19 @@ public class MainActivity extends AppCompatActivity {// ss
                         skill2.setVisibility(View.VISIBLE);
                         skill3.setVisibility(View.INVISIBLE);
                     }else if(race==2){
+                        upgrade1.setImageResource(R.drawable.overseer_spd);
+                        //upgrade2.setImageResource(R.drawable.marine_stimpack);
+                        //upgrade3.setImageResource(R.drawable.);
+                        skill1.setImageResource(R.drawable.ob_dectector);
+                        //skill2.setImageResource(R.drawable.ob_dectector);
+                        //skill3.setImageResource(R.drawable.ghost_cloak);
 
+                        upgrade1.setVisibility(View.VISIBLE);  //One of VISIBLE, INVISIBLE, or GONE.
+                        upgrade2.setVisibility(View.INVISIBLE);
+                        upgrade3.setVisibility(View.INVISIBLE);
+                        skill1.setVisibility(View.VISIBLE);
+                        skill2.setVisibility(View.INVISIBLE);
+                        skill3.setVisibility(View.INVISIBLE);
                     }
                 }else{ //orcle
                     toggleFlag=false;
@@ -1206,7 +1357,19 @@ public class MainActivity extends AppCompatActivity {// ss
                     skill2.setVisibility(View.INVISIBLE);
                     skill3.setVisibility(View.INVISIBLE);
                 }else if(race==2){
+                    upgrade1.setImageResource(R.drawable.hydralisk_musclular);
+                    //upgrade2.setImageResource(R.drawable.archon);
+                    //upgrade3.setImageResource(R.drawable.);
+                    // skill1.setImageResource(R.drawable.medivac_heal);
+                    // skill2.setImageResource(R.drawable.medivac_afterburner);
+                    //skill3.setImageResource(R.drawable.ghost_cloak);
 
+                    upgrade1.setVisibility(View.VISIBLE);  //One of VISIBLE, INVISIBLE, or GONE.
+                    upgrade2.setVisibility(View.INVISIBLE);
+                    upgrade3.setVisibility(View.INVISIBLE);
+                    skill1.setVisibility(View.INVISIBLE);
+                    skill2.setVisibility(View.INVISIBLE);
+                    skill3.setVisibility(View.INVISIBLE);
                 }
 
 
@@ -1306,7 +1469,19 @@ public class MainActivity extends AppCompatActivity {// ss
                     skill2.setVisibility(View.INVISIBLE);
                     skill3.setVisibility(View.INVISIBLE);
                 }else if(race==2){
+                    //upgrade1.setImageResource(R.drawable.hellbat_bluef);
+                    //upgrade2.setImageResource(R.drawable.marine_stimpack);
+                    //upgrade3.setImageResource(R.drawable.);
+                    skill1.setImageResource(R.drawable.mutalisk_regen);
+                    //skill2.setImageResource(R.drawable.medivac_afterburner);
+                    //skill3.setImageResource(R.drawable.ghost_cloak);
 
+                    upgrade1.setVisibility(View.INVISIBLE);  //One of VISIBLE, INVISIBLE, or GONE.
+                    upgrade2.setVisibility(View.INVISIBLE);
+                    upgrade3.setVisibility(View.INVISIBLE);
+                    skill1.setVisibility(View.VISIBLE);
+                    skill2.setVisibility(View.INVISIBLE);
+                    skill3.setVisibility(View.INVISIBLE);
                 }
 
             }
@@ -1404,7 +1579,19 @@ public class MainActivity extends AppCompatActivity {// ss
                     skill2.setVisibility(View.INVISIBLE);
                     skill3.setVisibility(View.INVISIBLE);
                 }else if(race==2){
+                    //upgrade1.setImageResource(R.drawable.hellbat_bluef);
+                    //upgrade2.setImageResource(R.drawable.marine_stimpack);
+                    //upgrade3.setImageResource(R.drawable.);
+                    skill1.setImageResource(R.drawable.corruptor_spray);
+                    //skill2.setImageResource(R.drawable.medivac_afterburner);
+                    //skill3.setImageResource(R.drawable.ghost_cloak);
 
+                    upgrade1.setVisibility(View.INVISIBLE);  //One of VISIBLE, INVISIBLE, or GONE.
+                    upgrade2.setVisibility(View.INVISIBLE);
+                    upgrade3.setVisibility(View.INVISIBLE);
+                    skill1.setVisibility(View.VISIBLE);
+                    skill2.setVisibility(View.INVISIBLE);
+                    skill3.setVisibility(View.INVISIBLE);
                 }
 
 
@@ -1506,7 +1693,19 @@ public class MainActivity extends AppCompatActivity {// ss
                     skill2.setVisibility(View.VISIBLE);
                     skill3.setVisibility(View.INVISIBLE);
                 }else if(race==2){
+                    upgrade1.setImageResource(R.drawable.infestor_en);
+                    upgrade2.setImageResource(R.drawable.infestor_neural);
+                    //upgrade3.setImageResource(R.drawable.);
+                    skill2.setImageResource(R.drawable.infestor_fungal);
+                    skill1.setImageResource(R.drawable.infestor_terran);
+                    skill3.setImageResource(R.drawable.infestor_neural);
 
+                    upgrade1.setVisibility(View.VISIBLE);  //One of VISIBLE, INVISIBLE, or GONE.
+                    upgrade2.setVisibility(View.VISIBLE);
+                    upgrade3.setVisibility(View.INVISIBLE);
+                    skill1.setVisibility(View.VISIBLE);
+                    skill2.setVisibility(View.VISIBLE);
+                    skill3.setVisibility(View.VISIBLE);
                 }
 
 
@@ -1606,7 +1805,19 @@ public class MainActivity extends AppCompatActivity {// ss
                     skill2.setVisibility(View.INVISIBLE);
                     skill3.setVisibility(View.INVISIBLE);
                 }else if(race==2){
+                    //upgrade1.setImageResource(R.drawable.raven_reactor);
+                    // upgrade2.setImageResource(R.drawable.raven_shells);
+                    //upgrade3.setImageResource(R.drawable.);
+                    skill1.setImageResource(R.drawable.host_spawn);
+                    //skill2.setImageResource(R.drawable.raven_drone);
+                    // skill3.setImageResource(R.drawable.raven_missile);
 
+                    upgrade1.setVisibility(View.INVISIBLE);  //One of VISIBLE, INVISIBLE, or GONE.
+                    upgrade2.setVisibility(View.INVISIBLE);
+                    upgrade3.setVisibility(View.INVISIBLE);
+                    skill1.setVisibility(View.VISIBLE);
+                    skill2.setVisibility(View.INVISIBLE);
+                    skill3.setVisibility(View.INVISIBLE);
                 }
 
 
@@ -1706,7 +1917,19 @@ public class MainActivity extends AppCompatActivity {// ss
                     skill2.setVisibility(View.INVISIBLE);
                     skill3.setVisibility(View.INVISIBLE);
                 }else if(race==2){
+                    //upgrade1.setImageResource(R.drawable.raven_reactor);
+                    // upgrade2.setImageResource(R.drawable.raven_shells);
+                    //upgrade3.setImageResource(R.drawable.);
+                   // skill1.setImageResource(R.drawable.);
+                    //skill2.setImageResource(R.drawable.raven_drone);
+                    // skill3.setImageResource(R.drawable.raven_missile);
 
+                    upgrade1.setVisibility(View.INVISIBLE);  //One of VISIBLE, INVISIBLE, or GONE.
+                    upgrade2.setVisibility(View.INVISIBLE);
+                    upgrade3.setVisibility(View.INVISIBLE);
+                    skill1.setVisibility(View.INVISIBLE);
+                    skill2.setVisibility(View.INVISIBLE);
+                    skill3.setVisibility(View.INVISIBLE);
                 }
 
 
@@ -1807,7 +2030,19 @@ public class MainActivity extends AppCompatActivity {// ss
                     skill2.setVisibility(View.INVISIBLE);
                     skill3.setVisibility(View.INVISIBLE);
                 }else if(race==2){
+                    //upgrade1.setImageResource(R.drawable.raven_reactor);
+                    // upgrade2.setImageResource(R.drawable.raven_shells);
+                    //upgrade3.setImageResource(R.drawable.);
+                    skill1.setImageResource(R.drawable.ravager_bile);
+                    //skill2.setImageResource(R.drawable.raven_drone);
+                    // skill3.setImageResource(R.drawable.raven_missile);
 
+                    upgrade1.setVisibility(View.INVISIBLE);  //One of VISIBLE, INVISIBLE, or GONE.
+                    upgrade2.setVisibility(View.INVISIBLE);
+                    upgrade3.setVisibility(View.INVISIBLE);
+                    skill1.setVisibility(View.VISIBLE);
+                    skill2.setVisibility(View.INVISIBLE);
+                    skill3.setVisibility(View.INVISIBLE);
                 }
 
             }
@@ -1900,7 +2135,20 @@ public class MainActivity extends AppCompatActivity {// ss
                     skill2.setVisibility(View.INVISIBLE);
                     skill3.setVisibility(View.INVISIBLE);
                 }else if(race==2){
+                    //upgrade1.setImageResource(R.drawable.raven_reactor);
+                    // upgrade2.setImageResource(R.drawable.raven_shells);
+                    //upgrade3.setImageResource(R.drawable.);
+                    skill1.setImageResource(R.drawable.viper_abduct);
 
+                    skill2.setImageResource(R.drawable.viper_cloud);
+                    skill3.setImageResource(R.drawable.viper_bomb);
+
+                    upgrade1.setVisibility(View.INVISIBLE);  //One of VISIBLE, INVISIBLE, or GONE.
+                    upgrade2.setVisibility(View.INVISIBLE);
+                    upgrade3.setVisibility(View.INVISIBLE);
+                    skill1.setVisibility(View.VISIBLE);
+                    skill2.setVisibility(View.VISIBLE);
+                    skill3.setVisibility(View.VISIBLE);
                 }
 
 
@@ -2001,7 +2249,19 @@ public class MainActivity extends AppCompatActivity {// ss
                     skill2.setVisibility(View.INVISIBLE);
                     skill3.setVisibility(View.INVISIBLE);
                 }else if(race==2){
+                    upgrade1.setImageResource(R.drawable.ultralisk_armor);
+                    // upgrade2.setImageResource(R.drawable.raven_shells);
+                    //upgrade3.setImageResource(R.drawable.);
+                    skill1.setImageResource(R.drawable.ultralisk_frenzied);
+                    //skill2.setImageResource(R.drawable.raven_drone);
+                    // skill3.setImageResource(R.drawable.raven_missile);
 
+                    upgrade1.setVisibility(View.VISIBLE);  //One of VISIBLE, INVISIBLE, or GONE.
+                    upgrade2.setVisibility(View.INVISIBLE);
+                    upgrade3.setVisibility(View.INVISIBLE);
+                    skill1.setVisibility(View.VISIBLE);
+                    skill2.setVisibility(View.INVISIBLE);
+                    skill3.setVisibility(View.INVISIBLE);
                 }
 
 
@@ -2103,7 +2363,19 @@ public class MainActivity extends AppCompatActivity {// ss
                     skill2.setVisibility(View.INVISIBLE);
                     skill3.setVisibility(View.INVISIBLE);
                 }else if(race==2){
+                    //upgrade1.setImageResource(R.drawable.raven_reactor);
+                    // upgrade2.setImageResource(R.drawable.raven_shells);
+                    //upgrade3.setImageResource(R.drawable.);
+                    skill1.setImageResource(R.drawable.broodlord_swarm);
+                    //skill2.setImageResource(R.drawable.raven_drone);
+                    // skill3.setImageResource(R.drawable.raven_missile);
 
+                    upgrade1.setVisibility(View.INVISIBLE);  //One of VISIBLE, INVISIBLE, or GONE.
+                    upgrade2.setVisibility(View.INVISIBLE);
+                    upgrade3.setVisibility(View.INVISIBLE);
+                    skill1.setVisibility(View.VISIBLE);
+                    skill2.setVisibility(View.INVISIBLE);
+                    skill3.setVisibility(View.INVISIBLE);
                 }
 
             }
