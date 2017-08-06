@@ -1,5 +1,6 @@
 package com.example.woo32.scii_ds_assistant;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.IntegerRes;
 import android.support.annotation.NonNull;
@@ -10,6 +11,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Button;
 
@@ -30,31 +32,33 @@ public class MainActivity extends AppCompatActivity {// ss
     int race=0;  //terran=0 protoss=1 zerg=2
     int current=0; //Terran=1x Protoss=2x Zerg=3x
 
-//Terran order  1.marine 2.marauder 3.reaper 4.ghost 5.hellbat   6.medivic 7.banshee 8.viking  9.raven 10.tank 11.mine 12.cyclone 13.lib 14.thor     15.BC
-//Protoss order 1.zealot 2.stalker  3.sentry 4.adept 5.ob/oracle 6.dt      7.ball   8.phoenix 9.ht    10.immo 11.void 12.coloss  13.tempest  14.carrier   15.core
+//Terran order  1.marine 2.marauder 3.reaper 4.ghost 5.hellbat   6.medivic 7.banshee 8.viking  9.raven 10.tank 11.mine    12.cyclone 13.lib      14.thor     15.BC
+//Protoss order 1.zealot 2.stalker  3.sentry 4.adept 5.ob/oracle 6.dt      7.ball    8.phoenix 9.ht    10.immo 11.void    12.coloss  13.tempest  14.carrier   15.core
+//Zerg          1.zerglin2.baneling 3.roach  4.queen 5.overseer  6.hydrlisk7.mutalisk8.corrup  9.infes 10.host 11.lurker  12.ravager 13.viper    14.ultrlisk  15brood lord
     int[][]   unit_shield={{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},{0,50,80,40,70,20,80,100,60,40,100,100,150,150,150,60},{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}};
     int[][] unit_costs={{0,50, 90, 75,235, 85,110,190,190,260,310,125,175,200,375,525}
                        ,{0,85,100,125, 95,125,175,200,150,275,255,250,325,475,525,175},
-                        {0}};
+                        {0,20,50,85,175,115,105,80,180,250,250,300,150,200,350,400}};
     int[][] unit_armor={{0,0,1,0,0,0,1,0,0,1,1,0,1,1,2,3},
                         {0,1,1,1,1,0,1,1,0,0,1,0,1,2,2,1},
-                        {}};
+                        {0,0,0,1,1,1,0,0,2,0,1,1,1,1,2,1}};
     int[][] unit_hp=   {{0, 45,125,60,100,135,150,140,125,140,175, 90,180,180,400,550},
-                        {0,100, 80,40, 70, 40, 40,100,120, 40,200,150,200,300,250,130},{}};
-    int[][] unit_type=   {{0,00,10,00,30,07,11,01,01,11,01,01,11,11,16,16},{0,00,11,01,00,01,8,11,01,8,11,11,16,16,16,19},{}};  // 0 light 1 Armored 2 none 3 psi, 0 bio 1 mec 2 none 3 psi 4 massive 5 Bio-massive 6 Mec-massive 7 Bio-Mec 8 Bio-psi 9 mec-psi
-    int[][] unit_range_gnd={{0,5,6,5,6,2,0,6,0,0,7,0,6,0,7, 6},{0,1,6,5,4,0,1,0,0,0,6,6,6,10,8,5},{}};
-    int[][] unit_range_air={{0,5,0,0,6,0,0,0,9,0,0,0,0,5,10,6},{0,0,6,5,0,0,0,0,5,0,0,6,0,15,8,0},{}};
-    double[][] unit_move={{0,3.15,3.15,5.25,3.94,3.15,3.5,3.85,3.85,3.85,3.15,3.94,4.13,4.72,2.62,2.62},{0,3.15,4.13,3.15,3.5,2.62,3.94,3.15,5.95,2.62,3.15,3.5,3.15,2.62,2.62,2.62},{}};
-    int[][] unit_dmg_g={{0,6,5,4,10,18, 0,12, 0,0,15,0,3,0,30,8},                                 {0,8,  10, 6,10, 0,45, 0, 0, 0, 20, 6,12,40, 5, 8},{}};
-    int[][] unit_dmg_a={{0,6,0,0,10, 0, 0, 0,10,0, 0, 0,0,5,6,6},                                  {0,0,  10, 6, 0, 0, 0, 0, 5, 0,  0, 6, 0,30, 5, 0},{}};
-    int[][] unit_atks_g={{0,1,2,2,1,1,0,2,0,0,1,0,1,0,2,1},                                     {0,2,   1, 1, 1, 0, 1, 0, 0, 0,  1,1, 2, 1, 2*8, 1},{}};
-    int[][] unit_atks_a={{0,1,0,0,1,0,0,0,2,0,0,0,0,2,4,1},                                     {0,0,   1, 1, 0, 0, 0, 0, 2, 0,  0,1, 0, 1, 2*8, 0},{}};
-    double[][] unit_atkSp_g={{0,0.61,1.07,0.79,1.07,1.43,0,0.89,0,0,0.74,0,0.1,0,0.91,0.16}, {0,0.86,   1.03,0.71,1.61,0,1.21,0,   0, 0,1.04,0.36,1.07,2.36,0.71,0.61},{}};
-    double[][] unit_atkSp_a={{0,0.61,0,0,      1.07,0   ,0,0   ,1.43,   0,0,0,0  ,1.29,2.14,0.16}, {0,   0,   1.03,0.71,   0,0,   0,0,0.79, 0,   0,0.36,   0,2.36,0.71,   0},{}};
-    int[][] unit_bouns_type_g={{0,0,2 , 0, 1, 0,0,0,0,0,2,   0,2, 0,0,0},                       {0,0,   2,0,1,0,0,0, 0, 0,2,2, 0,0,0,0},{}};    //0 none 1 light 2 Armored 3 Bio 4 Mec 5 Psi 6 massive
-    int[][] unit_bouns_dmg_g ={{0,0,5 , 0,10, 0,0,0,0,0,10,  0,2, 0,0,0},                       {0,0,   4,0,12,0,0,0,0,0,30,4, 0,0,0,0},{}};
-    int[][] unit_bouns_type_a={{-1,0,0 , 0, 1, 0,0,0,2,0,0,   0,0,0, 1,0},                      {0,0,   2,0,0,0,0,0,1, 0,0, 2,0, 6,0,0},{}};    //0 none 1 light 2 Armored 3 Bio 4 Mec 5 Psi 6 massive
-    int[][] unit_bouns_dmg_a ={{-1,0,0 , 0,10, 0,0,0,4,0,0,   0,0,0, 6,0},                      {0,0,   4,0,0,0,0,0,5, 0,0, 4,0,22,0,0},{}};
+                        {0,100, 80,40, 70, 40, 40,100,120, 40,200,150,200,300,250,130},
+                        {0, 35,30,145,175,200, 90,120,200, 90,160,200,120,150,500,225}};
+    int[][] unit_type=   {{0,00,10,00,30,07,11,01,01,11,01,01,11,11,16,16},{0,00,11,01,00,01,8,11,01,8,11,11,16,16,16,19},{0,00,42,10,28,10,00,00,10,18,10,10,42,18,15,15}};  // 0 light 1 Armored 2 none 3 psi 4 bio , 0 bio 1 mec 2 none 3 psi 4 massive 5 Bio-massive 6 Mec-massive 7 Bio-Mec 8 Bio-psi 9 mec-psi
+    int[][] unit_range_gnd={{0,5,6,5,6,2,0,6,0,0,7,0,6,0,7, 6},{0,1,6,5,4,0,1,0,0,0,6,6,6,10,8,5},{0,1,1,4,5,0,5,3,0,0,0,9,6,0,1,10}};
+    int[][] unit_range_air={{0,5,0,0,6,0,0,0,9,0,0,0,0,5,10,6},{0,0,6,5,0,0,0,0,5,0,0,6,0,15,8,0},{0,0,0,0,8,0,5,3,6,0,0,0,0,0,1, 0}};
+    double[][] unit_move={{0,3.15,3.15,5.25,3.94,3.15,3.5,3.85,3.85,3.85,3.15,3.94,4.13,4.72,2.62,2.62},{0,3.15,4.13,3.15,3.5,2.62,3.94,3.15,5.95,2.62,3.15,3.5,3.15,2.62,2.62,2.62},{0,4.13,3.5,3.15,1.31,2.62,3.15,5.6,4.72,3.15,4.13,4.13,3.85,4.13,4.13,1.97}};
+    int[][] unit_dmg_g={{0,6,5,4,10,18, 0,12, 0,0,15,0,3,0,30,8},                                                 {0,8,  10, 6,10, 0,45, 0, 0, 0, 20, 6,12,40, 5, 8},  {0,  5,0,16, 4,0,12,9, 0,0,0,20,16,0,35,20 }};
+    int[][] unit_dmg_a={{0,6,0,0,10, 0, 0, 0,10,0, 0, 0,0,5,6,6},                                                 {0,0,  10, 6, 0, 0, 0, 0, 5, 0,  0, 6, 0,30, 5, 0},  {0,  0,0, 0, 9,0,12,9,14,0,0, 0, 0,0, 0,0 }};
+    int[][] unit_atks_g={{0,1,2,2,1,1,0,2,0,0,1,0,1,0,2,1},                                                       {0,2,   1, 1, 1, 0, 1, 0, 0, 0,  1,1, 2, 1, 2*8, 1}, {0,  1,0, 1, 2,0,1, 1, 1,0,0, 1, 1,0, 1,1 }};
+    int[][] unit_atks_a={{0,1,0,0,1,0,0,0,2,0,0,0,0,2,4,1},                                                       {0,0,   1, 1, 0, 0, 0, 0, 2, 0,  0,1, 0, 1, 2*8, 0}, {0,  0,0, 0, 1,0,1, 1, 1,0,0, 0, 1,0, 0,0 }};
+    double[][] unit_atkSp_g={{0,0.61,1.07,0.79,1.07,1.43,0,0.89,0,0,0.74,0,0.1,0,0.91,0.16}, {0,0.86,   1.03,0.71,1.61,0,1.21,0,   0, 0,1.04,0.36,1.07,2.36,0.71,0.61},{0,0.5,0,1.43,0.71,0,0.54,1.09,   0,0,0,1.43,1.14,0,0.61,0.79}};
+    double[][] unit_atkSp_a={{0,0.61,0,0,      1.07,0   ,0,0   ,1.43,   0,0,0,0  ,1.29,2.14,0.16}, {0,   0,   1.03,0.71,   0,0,0,0,0.79, 0,   0,0.36,   0,2.36,0.71,0},{0,  0,0,   0,0.71,0,0.54,1.09,1.36,0,0,   0,   0,0,0,0}};
+    int[][] unit_bouns_type_g={{0,0,2 , 0, 1, 0,0,0,0,0,2,   0,2, 0,0,0},                       {0,0,   2,0,1,0,0,0, 0, 0,2,2, 0,0,0,0},                               {0,  0,0,0,0,0,0,0,0,0,0, 2,0,0,0,0}};    //0 none 1 light 2 Armored 3 Bio 4 Mec 5 Psi 6 massive
+    int[][] unit_bouns_dmg_g ={{0,0,5 , 0,10, 0,0,0,0,0,10,  0,2, 0,0,0},                       {0,0,   4,0,12,0,0,0,0,0,30,4, 0,0,0,0},                               {0,  0,0,0,0,0,0,0,6,0,0, 0,0,0,0,0}};
+    int[][] unit_bouns_type_a={{-1,0,0 , 0, 1, 0,0,0,2,0,0,   0,0,0, 1,0},                      {0,0,   2,0,0,0,0,0,1, 0,0, 2,0, 6,0,0},                               {0,  0,0,0,0,0,0,0,0,0,0,10,0,0,0,0}};    //0 none 1 light 2 Armored 3 Bio 4 Mec 5 Psi 6 massive
+    int[][] unit_bouns_dmg_a ={{-1,0,0 , 0,10, 0,0,0,4,0,0,   0,0,0, 6,0},                      {0,0,   4,0,0,0,0,0,5, 0,0, 4,0,22,0,0},                               {0,  0,0,0,0,0,0,0,6,0,0, 0,0,0,0,0}};
 
 
     TextView cost;
@@ -68,7 +72,6 @@ public class MainActivity extends AppCompatActivity {// ss
     TextView atkSp_g,atkSp_a;
     TextView dps_g,dps_a;
     TextView bouns;
-    TextView shieldHp;
     TextView hppc,dpspc_g,dpspc_a,bdps,shield;
 
 
@@ -104,6 +107,7 @@ public class MainActivity extends AppCompatActivity {// ss
     boolean toggleFlag=false;
 
     private TextView mTextMessage;
+    LinearLayout mainBackground;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -145,7 +149,6 @@ public class MainActivity extends AppCompatActivity {// ss
         dps_g=(TextView) findViewById(R.id.textView_dps_g);
         dps_a=(TextView) findViewById(R.id.textView_dps_a);
         bouns=(TextView) findViewById(R.id.textView_bouns);
-       // shieldHp=(TextView) findViewById(R.id.textView_hpBouns);
         hppc=(TextView) findViewById(R.id.textView_hppc);
         dpspc_g=(TextView) findViewById(R.id.textView_dpspc_g);
         dpspc_a=(TextView) findViewById(R.id.textView_dpspc_a);
@@ -180,12 +183,12 @@ public class MainActivity extends AppCompatActivity {// ss
                 updateUI();
             }
         });
-        
 
 
-        
-        
-        
+
+
+
+
         
         
         
@@ -234,7 +237,7 @@ public class MainActivity extends AppCompatActivity {// ss
                     }else if(current==5){//colocuss
                         move.setText("3.94");
                     }else if(current==15){ //mothership
-                        int hp_=350,shield_=350,dmg_g_=6,dmg_a_=6,armor_=2,bonus=0,range=7,cost_=1000;
+                        int hp_=350,shield_=350,dmg_g_=6,dmg_a_=6,armor_=2,bonus=0,range=7,cost_=900;
                         double atk_sp_g=1.58,atk_sp_a=1.58,movement=2.62;
                         cost.setText(Integer.toString(cost_));
                         hp.setText(Integer.toString(hp_));
@@ -2111,8 +2114,17 @@ public class MainActivity extends AppCompatActivity {// ss
         //BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
        // navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
+
     void updateUI(){
+        mainBackground = (LinearLayout)findViewById(R.id.container1);
+        upgrade1.setVisibility(View.INVISIBLE);  //One of VISIBLE, INVISIBLE, or GONE.
+        upgrade2.setVisibility(View.INVISIBLE);
+        upgrade3.setVisibility(View.INVISIBLE);
+        skill1.setVisibility(View.INVISIBLE);
+        skill2.setVisibility(View.INVISIBLE);
+        skill3.setVisibility(View.INVISIBLE);
         if(race==0){
+            mainBackground.setBackgroundColor(Color.parseColor("#020f22"));
             unit_1.setImageResource(R.drawable.marine);
             unit_2.setImageResource(R.drawable.marauder);
             unit_3.setImageResource(R.drawable.reaper);
@@ -2129,6 +2141,8 @@ public class MainActivity extends AppCompatActivity {// ss
             unit_14.setImageResource(R.drawable.thor);
             unit_15.setImageResource(R.drawable.battlecruiser);
         }else if(race==1){
+
+            mainBackground.setBackgroundColor(Color.parseColor("#020f22"));
             unit_1.setImageResource(R.drawable.zealot);
             unit_2.setImageResource(R.drawable.stalker);
             unit_3.setImageResource(R.drawable.sentry);
@@ -2146,7 +2160,22 @@ public class MainActivity extends AppCompatActivity {// ss
             unit_15.setImageResource(R.drawable.core);
 
         }else if(race==2){
-            ;
+           // mainBackground.setBackgroundColor(Color.parseColor("#FF020A1B"));
+            unit_1.setImageResource(R.drawable.zergling);
+            unit_2.setImageResource(R.drawable.baneling);
+            unit_3.setImageResource(R.drawable.roach);
+            unit_4.setImageResource(R.drawable.queens);
+            unit_5.setImageResource(R.drawable.overseer);
+            unit_6.setImageResource(R.drawable.hydralisk);
+            unit_7.setImageResource(R.drawable.mutalisk);
+            unit_8.setImageResource(R.drawable.corruptor);
+            unit_9.setImageResource(R.drawable.infestor);
+            unit_10.setImageResource(R.drawable.host);
+            unit_11.setImageResource(R.drawable.lurker);
+            unit_12.setImageResource(R.drawable.ravager);
+            unit_13.setImageResource(R.drawable.viper);
+            unit_14.setImageResource(R.drawable.ultralisk);
+            unit_15.setImageResource(R.drawable.broodlord);
         }
 
     }
@@ -2195,6 +2224,8 @@ public class MainActivity extends AppCompatActivity {// ss
             s=s+"Armored";
         else if(input/10==3)
             s=s+"Psi";
+        else if(input/10==4)
+            s=s+"Bio";
 
         s=s+"-";
 
