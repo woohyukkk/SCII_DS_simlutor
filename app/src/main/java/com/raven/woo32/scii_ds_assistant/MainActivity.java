@@ -1,10 +1,8 @@
-package com.example.woo32.scii_ds_assistant;
+package com.raven.woo32.scii_ds_assistant;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.IntegerRes;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -535,15 +533,15 @@ public class MainActivity extends AppCompatActivity {// ss
                         type.setText("Light-Bio");
                         armor.setText(Integer.toString(armor_));
                         range_a.setText(Integer.toString(range));
-                        range_g.setText(Integer.toString(range));
+                        range_g.setText("Melee");
                         move.setText(Double.toString(movement));
                         dmg_a.setText(Integer.toString(dmg_a_));
-                        dmg_g.setText(Integer.toString(dmg_g_));
+                        dmg_g.setText(Integer.toString(dmg_g_)+"x2");
                         atkSp_g.setText(Integer.toString(atk_g_));
                         atkSp_g.setText(Integer.toString(atk_a_));
                         atkSp_g.setText(Double.toString(atk_sp_g));
                         atkSp_a.setText(Double.toString(atk_sp_a));
-                        double tempdps=  Math.round((( (dmg_g_+0)*1 )/ atk_sp_g)*100) *0.01 ;
+                        double tempdps=  Math.round((( (dmg_g_+0)*2 )/ atk_sp_g)*100) *0.01 ;
                         dps_g.setText(Double.toString(tempdps));
                         dps_a.setText(Double.toString(tempdps));
                         bouns.setText("N/A");
@@ -670,7 +668,8 @@ public class MainActivity extends AppCompatActivity {// ss
                 range_a_Value=Integer.toString(unit_range_air[race][i]);
                 range_a.setText( range_a_Value);
                 range_g_Value=Integer.toString(unit_range_gnd[race][i]);
-                range_g.setText( range_g_Value);
+              
+                    if(unit_range_gnd[race][i]==1)                     range_g.setText( "Melee");                 else                     range_g.setText( range_g_Value);
                 move_Value=Double.toString(unit_move[race][i]);
                 move.setText( move_Value);
 
@@ -788,7 +787,7 @@ public class MainActivity extends AppCompatActivity {// ss
                 range_a_Value=Integer.toString(unit_range_air[race][i]);
                 range_a.setText( range_a_Value);
                 range_g_Value=Integer.toString(unit_range_gnd[race][i]);
-                range_g.setText( range_g_Value);
+                if(unit_range_gnd[race][i]==1)                     range_g.setText( "Melee");                 else                     range_g.setText( range_g_Value);
                 move_Value=Double.toString(unit_move[race][i]);
                 move.setText( move_Value);
                 dmg_g_Value=Integer.toString(unit_dmg_g[race][i]);
@@ -892,7 +891,7 @@ public class MainActivity extends AppCompatActivity {// ss
                 range_a_Value=Integer.toString(unit_range_air[race][i]);
                 range_a.setText( range_a_Value);
                 range_g_Value=Integer.toString(unit_range_gnd[race][i]);
-                range_g.setText( range_g_Value);
+                if(unit_range_gnd[race][i]==1)                     range_g.setText( "Melee");                 else                     range_g.setText( range_g_Value);
                 move_Value=Double.toString(unit_move[race][i]);
                 move.setText( move_Value);
                 dmg_g_Value=Integer.toString(unit_dmg_g[race][i]);
@@ -1002,7 +1001,7 @@ public class MainActivity extends AppCompatActivity {// ss
                 range_a_Value=Integer.toString(unit_range_air[race][i]);
                 range_a.setText( range_a_Value);
                 range_g_Value=Integer.toString(unit_range_gnd[race][i]);
-                range_g.setText( range_g_Value);
+                if(unit_range_gnd[race][i]==1)                     range_g.setText( "Melee");                 else                     range_g.setText( range_g_Value);
                 move_Value=Double.toString(unit_move[race][i]);
                 move.setText( move_Value);
                 dmg_g_Value=Integer.toString(unit_dmg_g[race][i]);
@@ -1121,7 +1120,7 @@ public class MainActivity extends AppCompatActivity {// ss
                     range_a_Value=Integer.toString(unit_range_air[race][i]);
                     range_a.setText( range_a_Value);
                     range_g_Value=Integer.toString(unit_range_gnd[race][i]);
-                    range_g.setText( range_g_Value);
+                    if(unit_range_gnd[race][i]==1)                     range_g.setText( "Melee");                 else                     range_g.setText( range_g_Value);
                     move_Value=Double.toString(unit_move[race][i]);
                     move.setText( move_Value);
                     dmg_g_Value=Integer.toString(unit_dmg_g[race][i]);
@@ -1280,7 +1279,7 @@ public class MainActivity extends AppCompatActivity {// ss
                 range_a_Value=Integer.toString(unit_range_air[race][i]);
                 range_a.setText( range_a_Value);
                 range_g_Value=Integer.toString(unit_range_gnd[race][i]);
-                range_g.setText( range_g_Value);
+                if(unit_range_gnd[race][i]==1)                     range_g.setText( "Melee");                 else                     range_g.setText( range_g_Value);
                 move_Value=Double.toString(unit_move[race][i]);
                 move.setText( move_Value);
                 dmg_g_Value=Integer.toString(unit_dmg_g[race][i]);
@@ -1392,7 +1391,7 @@ public class MainActivity extends AppCompatActivity {// ss
                 range_a_Value=Integer.toString(unit_range_air[race][i]);
                 range_a.setText( range_a_Value);
                 range_g_Value=Integer.toString(unit_range_gnd[race][i]);
-                range_g.setText( range_g_Value);
+                if(unit_range_gnd[race][i]==1)                     range_g.setText( "Melee");                 else                     range_g.setText( range_g_Value);
                 move_Value=Double.toString(unit_move[race][i]);
                 move.setText( move_Value);
                 dmg_g_Value=Integer.toString(unit_dmg_g[race][i]);
@@ -1502,7 +1501,7 @@ public class MainActivity extends AppCompatActivity {// ss
                 range_a_Value=Integer.toString(unit_range_air[race][i]);
                 range_a.setText( range_a_Value);
                 range_g_Value=Integer.toString(unit_range_gnd[race][i]);
-                range_g.setText( range_g_Value);
+                if(unit_range_gnd[race][i]==1)                     range_g.setText( "Melee");                 else                     range_g.setText( range_g_Value);
                 move_Value=Double.toString(unit_move[race][i]);
                 move.setText( move_Value);
                 dmg_g_Value=Integer.toString(unit_dmg_g[race][i]);
@@ -1614,7 +1613,7 @@ public class MainActivity extends AppCompatActivity {// ss
                 range_a_Value=Integer.toString(unit_range_air[race][i]);
                 range_a.setText( range_a_Value);
                 range_g_Value=Integer.toString(unit_range_gnd[race][i]);
-                range_g.setText( range_g_Value);
+                if(unit_range_gnd[race][i]==1)                     range_g.setText( "Melee");                 else                     range_g.setText( range_g_Value);
                 move_Value=Double.toString(unit_move[race][i]);
                 move.setText( move_Value);
                 dmg_g_Value=Integer.toString(unit_dmg_g[race][i]);
@@ -1727,7 +1726,7 @@ public class MainActivity extends AppCompatActivity {// ss
                 range_a_Value=Integer.toString(unit_range_air[race][i]);
                 range_a.setText( range_a_Value);
                 range_g_Value=Integer.toString(unit_range_gnd[race][i]);
-                range_g.setText( range_g_Value);
+                if(unit_range_gnd[race][i]==1)                     range_g.setText( "Melee");                 else                     range_g.setText( range_g_Value);
                 move_Value=Double.toString(unit_move[race][i]);
                 move.setText( move_Value);
                 dmg_g_Value=Integer.toString(unit_dmg_g[race][i]);
@@ -1840,7 +1839,7 @@ public class MainActivity extends AppCompatActivity {// ss
                 range_a_Value=Integer.toString(unit_range_air[race][i]);
                 range_a.setText( range_a_Value);
                 range_g_Value=Integer.toString(unit_range_gnd[race][i]);
-                range_g.setText( range_g_Value);
+                if(unit_range_gnd[race][i]==1)                     range_g.setText( "Melee");                 else                     range_g.setText( range_g_Value);
                 move_Value=Double.toString(unit_move[race][i]);
                 move.setText( move_Value);
                 dmg_g_Value=Integer.toString(unit_dmg_g[race][i]);
@@ -1952,7 +1951,7 @@ public class MainActivity extends AppCompatActivity {// ss
                 range_a_Value=Integer.toString(unit_range_air[race][i]);
                 range_a.setText( range_a_Value);
                 range_g_Value=Integer.toString(unit_range_gnd[race][i]);
-                range_g.setText( range_g_Value);
+                if(unit_range_gnd[race][i]==1)                     range_g.setText( "Melee");                 else                     range_g.setText( range_g_Value);
                 move_Value=Double.toString(unit_move[race][i]);
                 move.setText( move_Value);
                 dmg_g_Value=Integer.toString(unit_dmg_g[race][i]);
@@ -2063,7 +2062,7 @@ public class MainActivity extends AppCompatActivity {// ss
                 range_a_Value=Integer.toString(unit_range_air[race][i]);
                 range_a.setText( range_a_Value);
                 range_g_Value=Integer.toString(unit_range_gnd[race][i]);
-                range_g.setText( range_g_Value);
+                if(unit_range_gnd[race][i]==1)                     range_g.setText( "Melee");                 else                     range_g.setText( range_g_Value);
                 move_Value=Double.toString(unit_move[race][i]);
                 move.setText( move_Value);
                 dmg_g_Value=Integer.toString(unit_dmg_g[race][i]);
@@ -2172,7 +2171,7 @@ public class MainActivity extends AppCompatActivity {// ss
                 range_a_Value=Integer.toString(unit_range_air[race][i]);
                 range_a.setText( range_a_Value);
                 range_g_Value=Integer.toString(unit_range_gnd[race][i]);
-                range_g.setText( range_g_Value);
+                if(unit_range_gnd[race][i]==1)                     range_g.setText( "Melee");                 else                     range_g.setText( range_g_Value);
                 move_Value=Double.toString(unit_move[race][i]);
                 move.setText( move_Value);
                 dmg_g_Value=Integer.toString(unit_dmg_g[race][i]);
@@ -2284,7 +2283,7 @@ public class MainActivity extends AppCompatActivity {// ss
                 range_a_Value=Integer.toString(unit_range_air[race][i]);
                 range_a.setText( range_a_Value);
                 range_g_Value=Integer.toString(unit_range_gnd[race][i]);
-                range_g.setText( range_g_Value);
+                if(unit_range_gnd[race][i]==1)                     range_g.setText( "Melee");                 else                     range_g.setText( range_g_Value);
                 move_Value=Double.toString(unit_move[race][i]);
                 move.setText( move_Value);
                 dmg_g_Value=Integer.toString(unit_dmg_g[race][i]);

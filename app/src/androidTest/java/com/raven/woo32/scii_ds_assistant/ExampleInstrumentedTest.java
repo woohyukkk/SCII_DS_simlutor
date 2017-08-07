@@ -1,4 +1,4 @@
-package com.example.woo32.scii_ds_assistant;
+package com.raven.woo32.scii_ds_assistant;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

@@ -1,4 +1,4 @@
-package com.example.woo32.scii_ds_assistant;
+package com.raven.woo32.scii_ds_assistant;
 
 import org.junit.Test;
 
