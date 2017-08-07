@@ -406,7 +406,7 @@
 
         <TextView
             android:id="@+id/textView_atkSp_g"
-            android:layout_width="wrap_content"
+            android:layout_width="53dp"
             android:layout_height="match_parent"
             android:fontFamily="sans-serif"
             android:text="0.61"
@@ -492,7 +492,7 @@
 
         <TextView
             android:id="@+id/textView_atkSp_a"
-            android:layout_width="wrap_content"
+            android:layout_width="53dp"
             android:layout_height="match_parent"
             android:fontFamily="sans-serif"
             android:text="0.61"
@@ -527,7 +527,7 @@
             android:id="@+id/textView_range_air"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="0.17"
+            android:layout_weight="0.08"
             android:text="5"
             android:textAlignment="center"
             android:textColor="@android:color/background_light"
