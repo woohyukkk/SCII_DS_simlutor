@@ -7,8 +7,8 @@ android {
         applicationId "com.raven.woo32.scii_ds_assistant"
         minSdkVersion 19
         targetSdkVersion 26
-        versionCode 4
-        versionName "1.03"
+        versionCode 6
+        versionName "1.05"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
