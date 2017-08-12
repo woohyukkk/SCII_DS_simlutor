@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {// ss
     int[][] unit_bouns_type_a={{-1,0,0 , 0, 1, 0,0,0,2,0,0,   0,0,0, 1,0},                      {0,0,   2,0,0,0,0,0,1, 0,0, 2,0, 6,0,0},                               {0,  0,0,0,0,0,0,0,6,0,0,0,0,0,0,0}};    //0 none 1 light 2 Armored 3 Bio 4 Mec 5 Psi 6 massive
     int[][] unit_bouns_dmg_a ={{-1,0,0 , 0,10, 0,0,0,4,0,0,   0,0,0, 6,0},                      {0,0,   4,0,0,0,0,0,5, 0,0, 4,0,22,0,0},                               {0,  0,0,0,0,0,0,0,6,0,0, 0,0,0,0,0}};
 
-    int[] sound;
+    int sound_terran,sound_protoss,sound_zerg;
 
     TextView cost;
     TextView armor;
@@ -144,8 +144,10 @@ public class MainActivity extends AppCompatActivity {// ss
 
         setContentView(R.layout.activity_main);
 //------------------Sound
-        soundPool = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
-        sound[0]=soundPool.load(this,R.raw.BUTTON,1);
+        soundPool = new SoundPool(3, AudioManager.STREAM_MUSIC, 0);
+        sound_terran=soundPool.load(this,R.raw.touch_terran,5);
+        sound_protoss=soundPool.load(this,R.raw.touch_protoss,5);
+        sound_zerg=soundPool.load(this,R.raw.touch_zerg,5);
 
 
 
@@ -182,6 +184,7 @@ public class MainActivity extends AppCompatActivity {// ss
         button_T.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 race=0;
+                soundPool.play(sound_terran, 0.7F, 0.7F, 0, 0, 1.0F);
                 Log.d("race"," = 0");
                 updateUI();
             }
@@ -191,6 +194,7 @@ public class MainActivity extends AppCompatActivity {// ss
         button_P.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 race=1;
+                soundPool.play(sound_protoss, 1.0F, 1.0F, 0, 0, 1.0F);
                 Log.d("race"," = 1");
                 updateUI();
             }
@@ -200,6 +204,7 @@ public class MainActivity extends AppCompatActivity {// ss
         button_Z.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 race=2;
+                soundPool.play(sound_zerg, 0.3F, 0.3F, 0, 0, 1.0F);
                 Log.d("race"," = 2");
                 updateUI();
             }
@@ -2534,7 +2539,7 @@ public class MainActivity extends AppCompatActivity {// ss
     }
 
     void updateUI(){
-        soundPool.play(sound[0], 1.0F, 1.0F, 0, 0, 1.0F);
+
         mainBackground = (LinearLayout)findViewById(R.id.container1);
         upgrade1.setVisibility(View.INVISIBLE);  //One of VISIBLE, INVISIBLE, or GONE.
         upgrade2.setVisibility(View.INVISIBLE);
@@ -2543,6 +2548,7 @@ public class MainActivity extends AppCompatActivity {// ss
         skill2.setVisibility(View.INVISIBLE);
         skill3.setVisibility(View.INVISIBLE);
         if(race==0){
+            soundPool.play(sound_terran, 1.0F, 1.0F, 0, 0, 1.0F);
             mainBackground.setBackgroundColor(Color.parseColor("#020f22"));
             unit_1.setImageResource(R.drawable.marine);
             unit_2.setImageResource(R.drawable.marauder);
@@ -2560,7 +2566,7 @@ public class MainActivity extends AppCompatActivity {// ss
             unit_14.setImageResource(R.drawable.thor);
             unit_15.setImageResource(R.drawable.battlecruiser);
         }else if(race==1){
-
+            soundPool.play(sound_protoss, 1.0F, 1.0F, 0, 0, 1.0F);
 
             mainBackground.setBackgroundColor(Color.parseColor("#020f22"));
             unit_1.setImageResource(R.drawable.zealot);
@@ -2584,6 +2590,7 @@ public class MainActivity extends AppCompatActivity {// ss
             unit_15.setImageResource(R.drawable.core);
 
         }else if(race==2){
+            soundPool.play(sound_zerg, 0.2F, 0.2F, 0, 0, 1.0F);
             // mainBackground.setBackgroundColor(Color.parseColor("#FF020A1B"));
             unit_1.setImageResource(R.drawable.zergling);
             unit_2.setImageResource(R.drawable.baneling);
