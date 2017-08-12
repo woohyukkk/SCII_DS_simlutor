@@ -12,10 +12,13 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Button;
+import android.media.SoundPool;
+import android.media.AudioManager;
 //import com.google.android.gms.ads.AdRequest;
 //import com.google.android.gms.ads.AdView;
 
 public class MainActivity extends AppCompatActivity {// ss
+    private SoundPool soundPool;
     //private AdView mAdView;
     String cost_Value;
     String armor_Value;
@@ -61,7 +64,7 @@ public class MainActivity extends AppCompatActivity {// ss
     int[][] unit_bouns_type_a={{-1,0,0 , 0, 1, 0,0,0,2,0,0,   0,0,0, 1,0},                      {0,0,   2,0,0,0,0,0,1, 0,0, 2,0, 6,0,0},                               {0,  0,0,0,0,0,0,0,6,0,0,0,0,0,0,0}};    //0 none 1 light 2 Armored 3 Bio 4 Mec 5 Psi 6 massive
     int[][] unit_bouns_dmg_a ={{-1,0,0 , 0,10, 0,0,0,4,0,0,   0,0,0, 6,0},                      {0,0,   4,0,0,0,0,0,5, 0,0, 4,0,22,0,0},                               {0,  0,0,0,0,0,0,0,6,0,0, 0,0,0,0,0}};
 
-
+    int[] sound;
 
     TextView cost;
     TextView armor;
@@ -140,7 +143,13 @@ public class MainActivity extends AppCompatActivity {// ss
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
+//------------------Sound
+        soundPool = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
+        sound[0]=soundPool.load(this,R.raw.BUTTON,1);
 
+
+
+        //--------------------------AD
         //mAdView = (AdView) findViewById(R.id.adView);
         //AdRequest adRequest = new AdRequest.Builder().build();
         //AdRequest adRequest = new AdRequest.Builder().addTestDevice("22EDCC21E31ABCDF011984A55C5A56E6").build();// test ad
@@ -390,7 +399,36 @@ public class MainActivity extends AppCompatActivity {// ss
             public void onClick(View v){
                 if(race==0){
                     hellbatOFF=true;
-                    if(current==5) {  //hellbat-motor mode
+                    if(current==1 || current == 2) {//marine/maruder -stimpack  150% speed
+                        double tempSp_g = unit_atkSp_g[race][current];
+                        double tempSp_a = unit_atkSp_a[race][current];
+                        double tempDps_g, tempDps_a, tempbdps_g = 0.0, tempbdps_a = 0.0;
+                        tempSp_g = tempSp_g * 2 / 3;
+                        tempSp_a = tempSp_a * 2 / 3;
+                        tempDps_g = unit_dmg_g[race][current] * unit_atks_g[race][current] / tempSp_g;
+                        tempDps_a = unit_dmg_a[race][current] * unit_atks_a[race][current] / tempSp_a;
+
+                        atkSp_g.setText(Double.toString((Math.round(tempSp_g * 100)) * 0.01));
+                        atkSp_a.setText(Double.toString((Math.round(tempSp_a * 100)) * 0.01));
+                        dps_g.setText(Double.toString((Math.round(tempDps_g * 100)) * 0.01));
+                        dps_a.setText(Double.toString((Math.round(tempDps_a * 100)) * 0.01));
+
+                        dpspc_g.setText(Double.toString(Math.round(tempDps_g / unit_costs[race][current] * 100) * 0.01));
+                        dpspc_a.setText(Double.toString(Math.round(tempDps_a / unit_costs[race][current] * 100) * 0.01));
+
+
+                        if (unit_bouns_type_g[race][current] > 0)
+                            tempbdps_g = Math.round((((unit_dmg_g[race][current] + unit_bouns_dmg_g[race][current]) * unit_atks_g[race][current]) / tempSp_g) * 100) * 0.01;
+                        else if (unit_bouns_type_a[race][current] > 0)
+                            tempbdps_a = Math.round((((unit_dmg_a[race][current] + unit_bouns_dmg_a[race][current]) * unit_atks_a[race][current]) / tempSp_a) * 100) * 0.01;
+
+                        if (tempbdps_g > tempbdps_a)
+                            bdps.setText(Double.toString(tempbdps_g));
+                        else
+                            bdps.setText(Double.toString(tempbdps_a));
+
+                        move.setText("4.73");
+                    }else if(current==5) {  //hellbat-motor mode
                         hp.setText("90");
                         type.setText("Light-Mec");
                         range_a.setText("0");
@@ -747,14 +785,14 @@ public class MainActivity extends AppCompatActivity {// ss
                     upgrade1.setImageResource(R.drawable.marrine_shield);
                     upgrade2.setImageResource(R.drawable.marine_stimpack);
                     //upgrade3.setImageResource(R.drawable.);
-                    //skill1.setImageResource(R.drawable.);
+                    skill1.setImageResource(R.drawable.marine_stimpack);
                     //skill2.setImageResource(R.drawable.);
                     //skill3.setImageResource(R.drawable.);
 
                     upgrade1.setVisibility(View.VISIBLE);  //One of VISIBLE, INVISIBLE, or GONE.
                     upgrade2.setVisibility(View.VISIBLE);
                     upgrade3.setVisibility(View.INVISIBLE);
-                    skill1.setVisibility(View.INVISIBLE);
+                    skill1.setVisibility(View.VISIBLE);
                     skill2.setVisibility(View.INVISIBLE);
                     skill3.setVisibility(View.INVISIBLE);
 
@@ -867,10 +905,11 @@ public class MainActivity extends AppCompatActivity {// ss
                 if(race==0){
                     upgrade2.setImageResource(R.drawable.marine_stimpack);
                     upgrade1.setImageResource(R.drawable.marauder_shells);
+                    skill1.setImageResource(R.drawable.marine_stimpack);
                     upgrade1.setVisibility(View.VISIBLE);  //One of VISIBLE, INVISIBLE, or GONE.
                     upgrade2.setVisibility(View.VISIBLE);
                     upgrade3.setVisibility(View.INVISIBLE);
-                    skill1.setVisibility(View.INVISIBLE);
+                    skill1.setVisibility(View.VISIBLE);
                     skill2.setVisibility(View.INVISIBLE);
                     skill3.setVisibility(View.INVISIBLE);
                 }else if(race==1){
@@ -2495,7 +2534,7 @@ public class MainActivity extends AppCompatActivity {// ss
     }
 
     void updateUI(){
-
+        soundPool.play(sound[0], 1.0F, 1.0F, 0, 0, 1.0F);
         mainBackground = (LinearLayout)findViewById(R.id.container1);
         upgrade1.setVisibility(View.INVISIBLE);  //One of VISIBLE, INVISIBLE, or GONE.
         upgrade2.setVisibility(View.INVISIBLE);
