@@ -65,7 +65,8 @@ public class MainActivity extends AppCompatActivity {// ss
     int[][] unit_bouns_dmg_a ={{-1,0,0 , 0,10, 0,0,0,4,0,0,   0,0,0, 6,0},                      {0,0,   4,0,0,0,0,0,5, 0,0, 4,0,22,0,0},                               {0,  0,0,0,0,0,0,0,6,0,0, 0,0,0,0,0}};
 
     int sound_terran,sound_protoss,sound_zerg;
-
+    int[][] sound_unit=new int[3][16];
+    int count=0;
     TextView cost;
     TextView armor;
     TextView hp;
@@ -111,7 +112,7 @@ public class MainActivity extends AppCompatActivity {// ss
     boolean lib_defON=false;
     boolean toggleFlag=false;
     boolean ob_oracle=true;
-
+    boolean currentChange=false;
     private TextView mTextMessage;
     LinearLayout mainBackground;
 
@@ -144,11 +145,11 @@ public class MainActivity extends AppCompatActivity {// ss
 
         setContentView(R.layout.activity_main);
 //------------------Sound
-        soundPool = new SoundPool(3, AudioManager.STREAM_MUSIC, 0);
+        soundPool = new SoundPool(100, AudioManager.STREAM_MUSIC, 0);
         sound_terran=soundPool.load(this,R.raw.touch_terran,5);
         sound_protoss=soundPool.load(this,R.raw.touch_protoss,5);
         sound_zerg=soundPool.load(this,R.raw.touch_zerg,5);
-
+        sound_unit[0][1]=soundPool.load(this,R.raw.t_marine,5);
 
 
         //--------------------------AD
@@ -404,6 +405,7 @@ public class MainActivity extends AppCompatActivity {// ss
             public void onClick(View v){
                 if(race==0){
                     hellbatOFF=true;
+                    count++;
                     if(current==1 || current == 2) {//marine/maruder -stimpack  150% speed
                         double tempSp_g = unit_atkSp_g[race][current];
                         double tempSp_a = unit_atkSp_a[race][current];
@@ -705,9 +707,10 @@ public class MainActivity extends AppCompatActivity {// ss
         unit_1=(ImageButton)findViewById(R.id.imageButton1);
         unit_1.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-
-                toggleFlag=false;int i=1;
-                current=i; updateUI();
+                 toggleFlag=false;int i=1;
+               
+                    
+                 if(current!=i){                     currentChange=true;                     current=i;                 }else                     currentChange=false;; updateUI();
                 if(race==0)
                     unit_1.setImageResource(R.drawable.marine_select);
                 else if(race==1)
@@ -785,6 +788,15 @@ public class MainActivity extends AppCompatActivity {// ss
                 else
                     bdps.setText(Double.toString(dps2));
 
+                if(currentChange==true){// play ready sound
+                    count=0;
+                }else
+                    count++;
+                if(count==2){
+                    count=0;
+                    soundPool.play(sound_unit[race][current], 1.0F, 1.0F, 0, 0, 1.0F);
+                }
+
                 //--------------------------------------------upgrade control--------------------------------
                 if(race==0){
                     upgrade1.setImageResource(R.drawable.marrine_shield);
@@ -837,7 +849,7 @@ public class MainActivity extends AppCompatActivity {// ss
         unit_2=(ImageButton)findViewById(R.id.imageButton2);
         unit_2.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                toggleFlag=false;int i=2; current=i; updateUI();                if(race==1)                     shield.setText("("+ Integer.toString(unit_shield[race][i])  +")");                 else                     shield.setText("");
+                toggleFlag=false;int i=2;  if(current!=i){                     currentChange=true;                     current=i;                 }else                     currentChange=false;; updateUI();                if(race==1)                     shield.setText("("+ Integer.toString(unit_shield[race][i])  +")");                 else                     shield.setText("");
                 if(race==0)
                     unit_2.setImageResource(R.drawable.marauder_select);
                 else if(race==1)
@@ -948,7 +960,7 @@ public class MainActivity extends AppCompatActivity {// ss
         unit_3=(ImageButton)findViewById(R.id.imageButton3);
         unit_3.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                toggleFlag=false;int i=3; current=i; updateUI();               if(race==1)                     shield.setText("("+ Integer.toString(unit_shield[race][i])  +")");                 else                     shield.setText("");
+                toggleFlag=false;int i=3;  if(current!=i){                     currentChange=true;                     current=i;                 }else                     currentChange=false;; updateUI();               if(race==1)                     shield.setText("("+ Integer.toString(unit_shield[race][i])  +")");                 else                     shield.setText("");
                 if(race==0)
                     unit_3.setImageResource(R.drawable.reaper_select);
                 else if(race==1)
@@ -1064,7 +1076,7 @@ public class MainActivity extends AppCompatActivity {// ss
         unit_4=(ImageButton)findViewById(R.id.imageButton4);
         unit_4.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                toggleFlag=false;int i=4; current=i; updateUI();                if(race==1)                     shield.setText("("+ Integer.toString(unit_shield[race][i])  +")");                 else                     shield.setText("");
+                toggleFlag=false;int i=4;  if(current!=i){                     currentChange=true;                     current=i;                 }else                     currentChange=false;; updateUI();                if(race==1)                     shield.setText("("+ Integer.toString(unit_shield[race][i])  +")");                 else                     shield.setText("");
                 if(race==0)
                     unit_4.setImageResource(R.drawable.ghost_select);
                 else if(race==1)
@@ -1191,7 +1203,7 @@ public class MainActivity extends AppCompatActivity {// ss
                     if(race==1)
                         unit_5.setImageResource(R.drawable.ob);
                     toggleFlag=true;
-                    int i=5; current=i; updateUI();                if(race==1)                     shield.setText("("+ Integer.toString(unit_shield[race][i])  +")");                 else                     shield.setText("");
+                    int i=5;  if(current!=i){                     currentChange=true;                     current=i;                 }else                     currentChange=false;; updateUI();                if(race==1)                     shield.setText("("+ Integer.toString(unit_shield[race][i])  +")");                 else                     shield.setText("");
                     if(race==0)
                         unit_5.setImageResource(R.drawable.hellbat_select);
                     else if(race==1)
@@ -1359,7 +1371,7 @@ public class MainActivity extends AppCompatActivity {// ss
         unit_6=(ImageButton)findViewById(R.id.imageButton6);
         unit_6.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                toggleFlag=false;int i=6; current=i; updateUI();                if(race==1)                     shield.setText("("+ Integer.toString(unit_shield[race][i])  +")");                 else                     shield.setText("");
+                toggleFlag=false;int i=6;  if(current!=i){                     currentChange=true;                     current=i;                 }else                     currentChange=false;; updateUI();                if(race==1)                     shield.setText("("+ Integer.toString(unit_shield[race][i])  +")");                 else                     shield.setText("");
                 if(race==0)
                     unit_6.setImageResource(R.drawable.medivac_select);
                 else if(race==1)
@@ -1477,7 +1489,7 @@ public class MainActivity extends AppCompatActivity {// ss
         unit_7=(ImageButton)findViewById(R.id.imageButton7);
         unit_7.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                toggleFlag=false;int i=7; current=i; updateUI();                if(race==1)                     shield.setText("("+ Integer.toString(unit_shield[race][i])  +")");                 else                     shield.setText("");
+                toggleFlag=false;int i=7;  if(current!=i){                     currentChange=true;                     current=i;                 }else                     currentChange=false;; updateUI();                if(race==1)                     shield.setText("("+ Integer.toString(unit_shield[race][i])  +")");                 else                     shield.setText("");
                 if(race==0)
                     unit_7.setImageResource(R.drawable.banshee_select);
                 else if(race==1)
@@ -1593,7 +1605,7 @@ public class MainActivity extends AppCompatActivity {// ss
         unit_8=(ImageButton)findViewById(R.id.imageButton8);
         unit_8.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                toggleFlag=false;int i=8; current=i; updateUI();                if(race==1)                     shield.setText("("+ Integer.toString(unit_shield[race][i])  +")");                 else                     shield.setText("");
+                toggleFlag=false;int i=8;  if(current!=i){                     currentChange=true;                     current=i;                 }else                     currentChange=false;; updateUI();                if(race==1)                     shield.setText("("+ Integer.toString(unit_shield[race][i])  +")");                 else                     shield.setText("");
                 if(race==0)
                     unit_8.setImageResource(R.drawable.viking_select);
                 else if(race==1)
@@ -1711,7 +1723,7 @@ public class MainActivity extends AppCompatActivity {// ss
         unit_9=(ImageButton)findViewById(R.id.imageButton9);
         unit_9.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                toggleFlag=false;int i=9; current=i; updateUI();                if(race==1)                     shield.setText("("+ Integer.toString(unit_shield[race][i])  +")");                 else                     shield.setText("");
+                toggleFlag=false;int i=9;  if(current!=i){                     currentChange=true;                     current=i;                 }else                     currentChange=false;; updateUI();                if(race==1)                     shield.setText("("+ Integer.toString(unit_shield[race][i])  +")");                 else                     shield.setText("");
                 if(race==0)
                     unit_9.setImageResource(R.drawable.raven_select);
                 else if(race==1)
@@ -1830,7 +1842,7 @@ public class MainActivity extends AppCompatActivity {// ss
         unit_10=(ImageButton)findViewById(R.id.imageButton10);
         unit_10.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                toggleFlag=false;int i=10; current=i; updateUI();                if(race==1)                     shield.setText("("+ Integer.toString(unit_shield[race][i])  +")");                 else                     shield.setText("");
+                toggleFlag=false;int i=10;  if(current!=i){                     currentChange=true;                     current=i;                 }else                     currentChange=false;; updateUI();                if(race==1)                     shield.setText("("+ Integer.toString(unit_shield[race][i])  +")");                 else                     shield.setText("");
                 if(race==0)
                     unit_10.setImageResource(R.drawable.tank_select);
                 else if(race==1)
@@ -1949,7 +1961,7 @@ public class MainActivity extends AppCompatActivity {// ss
         unit_11=(ImageButton)findViewById(R.id.imageButton11);
         unit_11.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                toggleFlag=false;int i=11; current=i; updateUI();                if(race==1)                     shield.setText("("+ Integer.toString(unit_shield[race][i])  +")");                 else                     shield.setText("");
+                toggleFlag=false;int i=11;  if(current!=i){                     currentChange=true;                     current=i;                 }else                     currentChange=false;; updateUI();                if(race==1)                     shield.setText("("+ Integer.toString(unit_shield[race][i])  +")");                 else                     shield.setText("");
                 if(race==0)
                     unit_11.setImageResource(R.drawable.mine_select);
                 else if(race==1)
@@ -2067,7 +2079,7 @@ public class MainActivity extends AppCompatActivity {// ss
         unit_12=(ImageButton)findViewById(R.id.imageButton12);
         unit_12.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                toggleFlag=false;int i=12; current=i; updateUI();                if(race==1)                     shield.setText("("+ Integer.toString(unit_shield[race][i])  +")");                 else                     shield.setText("");
+                toggleFlag=false;int i=12;  if(current!=i){                     currentChange=true;                     current=i;                 }else                     currentChange=false;; updateUI();                if(race==1)                     shield.setText("("+ Integer.toString(unit_shield[race][i])  +")");                 else                     shield.setText("");
                 if(race==0)
                     unit_12.setImageResource(R.drawable.cyclone_select);
                 else if(race==1)
@@ -2184,7 +2196,7 @@ public class MainActivity extends AppCompatActivity {// ss
         unit_13=(ImageButton)findViewById(R.id.imageButton13);
         unit_13.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                toggleFlag=false;int i=13; current=i; updateUI();                if(race==1)                     shield.setText("("+ Integer.toString(unit_shield[race][i])  +")");                 else                     shield.setText("");
+                toggleFlag=false;int i=13;  if(current!=i){                     currentChange=true;                     current=i;                 }else                     currentChange=false;; updateUI();                if(race==1)                     shield.setText("("+ Integer.toString(unit_shield[race][i])  +")");                 else                     shield.setText("");
                 if(race==0)
                     unit_13.setImageResource(R.drawable.liberator_select);
                 else if(race==1)
@@ -2299,7 +2311,7 @@ public class MainActivity extends AppCompatActivity {// ss
         unit_14=(ImageButton)findViewById(R.id.imageButton14);
         unit_14.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                toggleFlag=false;int i=14; current=i; updateUI();                if(race==1)                     shield.setText("("+ Integer.toString(unit_shield[race][i])  +")");                 else                     shield.setText("");
+                toggleFlag=false;int i=14;  if(current!=i){                     currentChange=true;                     current=i;                 }else                     currentChange=false;; updateUI();                if(race==1)                     shield.setText("("+ Integer.toString(unit_shield[race][i])  +")");                 else                     shield.setText("");
                 if(race==0)
                     unit_14.setImageResource(R.drawable.thor_select);
                 else if(race==1)
@@ -2417,7 +2429,7 @@ public class MainActivity extends AppCompatActivity {// ss
         unit_15=(ImageButton)findViewById(R.id.imageButton15);
         unit_15.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                toggleFlag=false;int i=15; current=i; updateUI();                if(race==1)                     shield.setText("("+ Integer.toString(unit_shield[race][i])  +")");                 else                     shield.setText("");
+                toggleFlag=false;int i=15;  if(current!=i){                     currentChange=true;                     current=i;                 }else                     currentChange=false;; updateUI();                if(race==1)                     shield.setText("("+ Integer.toString(unit_shield[race][i])  +")");                 else                     shield.setText("");
                 if(race==0)
                     unit_15.setImageResource(R.drawable.battlecruiser_select);
                 else if(race==1)
