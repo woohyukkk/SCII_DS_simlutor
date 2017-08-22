@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/SCII_DS_assistant.iml" filepath="$PROJECT_DIR$/SCII_DS_assistant.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SCII_DS_simlutor.iml" filepath="$PROJECT_DIR$/SCII_DS_simlutor.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
